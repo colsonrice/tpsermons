@@ -65,6 +65,13 @@ they match the church's own transcript in coverage:
 The message-only captions are **within 1.7%** of the official transcript, and
 available the day the video posts rather than eight days later, at no cost.
 
+**Title matching.** The message-only YouTube title is byte-identical to the
+podcast episode title (verified: both `Presence Over Position | The Urgent
+Kingdom | Mark 9:30-50`). Matching is therefore exact string equality after
+whitespace collapse and casefolding — not fuzzy. The Full Gathering cut is the
+same string with ` | Full Gathering` appended, so it loses the exact match
+automatically; the explicit reject rule below is belt-and-braces.
+
 **Video selection matters.** Each sermon is posted twice. The Full Gathering
 cut adds ~3,000 words of worship and announcements, which would pollute the
 guide. Selection rule: take the title with three pipe-separated segments
@@ -72,6 +79,22 @@ guide. Selection rule: take the title with three pipe-separated segments
 `Full Gathering`. This also excludes `Taking Ground Podcast` episodes and the
 short single-sentence clips the channel posts, neither of which carry the
 three-segment structure.
+
+**Retrieval mechanism.** `youtube-transcript-api`, pinned. Fetching the signed
+`/api/timedtext` URL directly returns 200 with a zero-byte body (measured); the
+library's InnerTube path is what actually works. Captions arrive as ~1,000
+discrete cues that need only trivial normalization — measured on a full sermon:
+zero rolling duplicates, no embedded newlines, and just 8 bracketed markers
+(`[music]` x6, `[applause]`, `[laughter]`). Cleaning is therefore: join cues
+with a space, strip bracketed markers, collapse whitespace. Nothing more.
+
+**Availability policy.** Discovery is podcast-driven, so a run can find an
+episode before its video or captions are ready. In that case the run **falls
+straight through to Whisper — it does not defer.** Deferring would risk missing
+the Monday delivery the whole project exists for, and the fallback is not a
+quality regression: `gpt-4o-mini-transcribe` is at least as accurate as YouTube
+ASR. YouTube is primary because it is *free*, not because it is better. So an
+unavailable caption track costs ~$0.15 and nothing else.
 
 **Residual risk: CI IP blocking.** Caption retrieval was verified from a
 residential IP. YouTube rate-limits and sometimes blocks datacenter ranges,
@@ -94,8 +117,8 @@ Measured from PDF `CreationDate`:
 | Aug 1  | Aug 9  | 8 days |
 
 **Consequence:** a next-morning job will never find an official transcript for
-the sermon that just aired. Fresh guides must be built from our own
-transcription. The cascade still earns its place for manual re-runs of older
+the sermon that just aired, so **YouTube captions are the normal source** for
+fresh guides. The PDF branch still earns its place for manual re-runs of older
 sermons and for the quality benchmark.
 
 ### Audio sizing
@@ -106,8 +129,10 @@ OpenAI's 25 MB upload cap. **No chunking logic is required.**
 
 ## Decisions
 
-1. **Guide covers the most recent sermon**, transcribed by us. Accepted
-   tradeoff: ASR text can garble proper nouns and scripture citations.
+1. **Guide covers the most recent sermon**, built from YouTube's ASR captions
+   on the normal path (Decision 3). Accepted tradeoff: ASR text can garble
+   proper nouns and scripture citations, which is why the parsed passage is
+   supplied to the model as an anchor.
 2. **No regeneration.** A published guide is final, even after the official
    transcript later appears. Chosen for pipeline simplicity.
 3. **Three-step source cascade**, best text first:
@@ -115,6 +140,8 @@ OpenAI's 25 MB upload cap. **No chunking logic is required.**
    2. YouTube message-only captions (free, same-day). **The normal path.**
    3. Podcast MP3 + Whisper (~$0.15) if YouTube is unavailable or blocked.
    Every step is free except the last, which fires only on failure.
+   ("Whisper" names the branch; the models are `gpt-4o-mini-transcribe` with a
+   `whisper-1` retry, per Schedule and models.)
 4. **Public repo, guides only.** Transcripts are runner-local build artifacts,
    gitignored, never uploaded. Every guide links back to TPCC's message page.
 5. **No TPCC material in the prompt.** The guide format is captured as our own
@@ -139,12 +166,14 @@ OpenAI's 25 MB upload cap. **No chunking logic is required.**
   it costs nothing and picks the episode up at the next 09:00 ET run — same day
   for a morning publish, next morning otherwise. In the common case the guide
   is ready Monday.
-- Feed is polled once per run. No other polling.
+- The podcast feed is polled once per run. The YouTube channel feed, TPCC
+  message page and series page are each fetched at most once per episode.
 - Transcription: `gpt-4o-mini-transcribe`; the single retry re-issues against
   `whisper-1` rather than repeating the primary, so a model-specific fault is
   not retried into the same wall. ~$0.003/min.
 - Generation: `gpt-4o`. Both pinned as constants, overridable by env var.
-- The ~$0.20/sermon estimate assumes these two models at a 45-minute median.
+- Expected cost is **~$0.05/sermon** (generation only); ~$0.20 only in a week
+  where YouTube is unavailable and Whisper runs. See Cost.
 
 ## Architecture
 
@@ -184,7 +213,11 @@ run, and Whisper whenever YouTube fails.
 |---|---|---|
 | `feed.py` | Captivate RSS -> `Episode` records | Pure parse; takes XML text |
 | `tpcc.py` | Message page -> transcript URL, canonical link, speaker | Pure parse; takes HTML text |
-| `youtube.py` | Channel RSS -> message-only video match; caption retrieval | Parse is pure; fetch is a thin wrapper |
+| `youtube.py` | Channel RSS -> message-only video match; caption retrieval via `youtube-transcript-api` + cue normalization | Parse and normalize are pure; fetch is a thin wrapper |
+| `discover.py` | Stage 1: poll feed, diff against state, resolve cross-links | Owns the YouTube video resolution; `source` consumes the result |
+| `source.py` | Stage 2: walk the Decision 3 cascade | Returns text + which source produced it |
+| `state.py` | Load/save `state.json`; `seed`, `--episode`, `--force` semantics | Single writer |
+| `cli.py` | Entry point wiring the four stages | Thin |
 | `transcribe.py` | ffmpeg re-encode + transcription call | Takes a path, returns text |
 | `generate.py` | Prompt assembly, model call, validation | Takes transcript, returns `Guide` |
 | `render.py` | `Guide` -> markdown + site HTML | No network |
@@ -273,11 +306,13 @@ workflow passes through to the CLI flag.
 ## Failure handling
 
 - No new episode -> exit 0, no commit.
-- Cross-link unresolved (no YouTube title match, or no TPCC slug match) ->
-  log a warning and omit that link from the header. Never fails the run.
-  (`tpcc` is exempt: it is always reconstructable from the slug, so it is the
-  one link that is never omitted.) Speaker resolution failure is likewise
-  non-fatal — the header simply omits it.
+- A failed YouTube lookup has **two** consequences, which must not be
+  conflated. (a) *Text source:* the caption branch is unavailable, so `source`
+  falls through to Whisper per the availability policy. (b) *Header link:* the
+  `youtube` link is omitted. Neither fails the run.
+- Other cross-links unresolved -> log a warning and omit from the header.
+  (`tpcc` is exempt: always reconstructable from the slug, so it is the one
+  link never omitted.) Speaker resolution failure is likewise non-fatal.
 - Transcription or generation failure -> retry once, then fail loudly and
   open an issue. Never commit a partially built guide. The workflow therefore
   needs `permissions: contents: write, issues: write`.
@@ -288,7 +323,8 @@ workflow passes through to the CLI flag.
 
 Offline unit tests against saved fixtures for feed parsing, slug matching, PDF
 text extraction, YouTube video selection (message-only vs Full Gathering vs
-clip vs podcast episode), and **shape validation** — the last being the most
+clip vs podcast episode), **caption normalization** (cue joining and marker
+stripping, against a saved cue fixture), and **shape validation** — the last being the most
 intricately specified component here, with the deliberate `...` and
 `[inaudible]` carve-outs warranting explicit regression coverage.
 
