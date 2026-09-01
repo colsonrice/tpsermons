@@ -37,7 +37,7 @@ All of the following was verified empirically against live sources on
 
 | Source | Verdict |
 |---|---|
-| TPCC Group Message Guide (PDF) | **Discontinued.** Present Jan/Feb 2026 and earlier; absent Aug 2026. Valuable as format exemplars. |
+| TPCC Group Message Guide (PDF) | **Discontinued.** Present Jan/Feb 2026 and earlier; absent Aug 2026. Motivates the project; not used at runtime (Decision 5). |
 | TPCC message transcript (PDF) | **Best text source.** Exists for every message. ~8-day lag. |
 | Podcast MP3 (Captivate) | **Only same-week source.** Reliable, no bot-blocking. |
 | YouTube auto-captions | **Rejected.** See below. |
@@ -70,9 +70,10 @@ Measured from PDF `CreationDate`:
 | Aug 8  | Aug 17 | 9 days |
 | Aug 1  | Aug 9  | 8 days |
 
-**Consequence:** a Monday job will never find an official transcript for the
-sermon that just aired. Fresh guides must be built from our own transcription.
-The cascade still pays off for archive backfill, where transcripts always exist.
+**Consequence:** a next-morning job will never find an official transcript for
+the sermon that just aired. Fresh guides must be built from our own
+transcription. The cascade still earns its place for manual re-runs of older
+sermons and for the quality benchmark.
 
 ### Audio sizing
 
@@ -87,7 +88,8 @@ OpenAI's 25 MB upload cap. **No chunking logic is required.**
 2. **No regeneration.** A published guide is final, even after the official
    transcript later appears. Chosen for pipeline simplicity.
 3. **Source cascade retained** — official transcript is used when present.
-   In practice this means Whisper for new sermons, official text for backfill.
+   For scheduled runs this means Whisper in practice; the PDF branch serves
+   manual re-runs and the quality benchmark (see "source" below).
 4. **Public repo, guides only.** Transcripts are runner-local build artifacts,
    gitignored, never uploaded. Every guide links back to TPCC's message page.
 5. **No TPCC material in the prompt.** The guide format is captured as our own
@@ -102,8 +104,15 @@ OpenAI's 25 MB upload cap. **No chunking logic is required.**
 
 ## Schedule and models
 
-- Trigger: GitHub Actions `schedule`, `cron: '0 13 * * 1'` — Mondays 13:00 UTC
-  (09:00 ET during EDT). Also `workflow_dispatch` for manual runs.
+- Trigger: GitHub Actions `schedule`, `cron: '0 13 * * *'` — **daily** at
+  13:00 UTC (09:00 ET during EDT). Also `workflow_dispatch`, which accepts an
+  optional `--episode <guid>` for manual re-runs.
+- **Why daily, not Monday-only.** Measured across the last 60 episodes, the
+  feed publishes Sun 48 / Mon 8 / Tue 3 / Wed 1, at hours ranging 05:00-22:17
+  ET. A Monday-morning cron would silently skip the ~20% of weeks that publish
+  late, with no error to notice. A daily run is a no-op when nothing is new, so
+  it costs nothing and delivers the guide the morning after the episode lands —
+  which is Monday in the common case.
 - Feed is polled once per run. No other polling.
 - Transcription: `gpt-4o-mini-transcribe` (fallback `whisper-1`), ~$0.003/min.
 - Generation: `gpt-4o`. Both pinned as constants, overridable by env var.
@@ -115,7 +124,7 @@ OpenAI's 25 MB upload cap. **No chunking logic is required.**
 Captivate RSS ──> discover ──> source ──> generate ──> publish
                      |            |           |            |
               new episode?    transcript   model +     markdown +
-              else exit 0      cascade    exemplars   Pages site
+              else exit 0      cascade   format spec   Pages site
 ```
 
 **discover** — poll the Captivate feed; compare GUIDs against committed
@@ -127,6 +136,12 @@ page (slug match against the series page).
 present (`pdftotext`); otherwise ffmpeg-downsample the MP3 and transcribe in a
 single API call.
 
+*The PDF branch ships in v1* even though the ~8-day lag means scheduled runs
+will essentially always fall through to Whisper. It is ~20 lines, it is what
+the manual quality benchmark runs on, and it makes `--episode <guid>` re-runs
+of older sermons both free and higher-fidelity. It is not justified by
+backfill, which is out of scope.
+
 **generate** — assemble prompt, call model, validate output shape.
 
 **publish** — write markdown, render site, commit.
@@ -136,7 +151,8 @@ single API call.
 | Module | Responsibility | Key boundary |
 |---|---|---|
 | `feed.py` | Captivate RSS -> `Episode` records | Pure parse; takes XML text |
-| `tpcc.py` | Message page -> transcript URL, guide URL, canonical link | Pure parse; takes HTML text |
+| `tpcc.py` | Message page -> transcript URL, canonical link, speaker | Pure parse; takes HTML text |
+| `youtube.py` | Channel RSS -> video-link lookup by title match | Pure parse; takes XML text |
 | `transcribe.py` | ffmpeg re-encode + transcription call | Takes a path, returns text |
 | `generate.py` | Prompt assembly, model call, validation | Takes transcript, returns `Guide` |
 | `render.py` | `Guide` -> markdown + site HTML | No network |
@@ -158,19 +174,29 @@ anchor it against ASR citation errors. Verse text is never fetched (Decision 6).
 `Guide` — the boundary type between `generate.py` and `render.py`. The model
 returns JSON conforming to this shape, and validation is exact:
 
-| Field | Type | Constraint |
-|---|---|---|
-| `title`, `series`, `speaker`, `date`, `passage` | str | required, non-empty |
-| `links` | obj | `tpcc` required; `youtube`, `podcast` optional |
-| `recap` | str | required, 60-150 words |
-| `discuss` | list | **exactly 3** blocks |
-| `discuss[].heading` | str | required, non-empty |
-| `discuss[].questions` | list[str] | **2-3** questions per block |
-| `take_action` | str | required, 40-120 words |
-| `reflections` | list[str] | **exactly 3** |
+**Metadata is injected by code, never authored by the model.** The model
+returns only `recap`, `discuss`, `take_action` and `reflections`; `generate.py`
+merges in the header fields and links already resolved by `discover`. This
+keeps URLs deterministic and makes hallucinated links structurally impossible.
 
-Validation failure means: any missing required field, any count outside these
-bounds, or any field containing placeholder text (`TODO`, `TBD`, `[`, `...`).
+| Field | Source | Type | Constraint |
+|---|---|---|---|
+| `title`, `series`, `date`, `passage` | code | str | required, non-empty |
+| `speaker` | code | str \| None | **optional** — best-effort regex over the TPCC message-page description (`In this message, ... <Name> preaches/teaches`). Omitted from the header if unresolved; never fails the run. |
+| `links` | code | obj | `tpcc` always present; `youtube`, `podcast` optional |
+| `recap` | model | str | required, 60-150 words |
+| `discuss` | model | list | **exactly 3** blocks |
+| `discuss[].heading` | model | str | required, non-empty |
+| `discuss[].questions` | model | list[str] | **2-3** questions per block |
+| `take_action` | model | str | required, 40-120 words |
+| `reflections` | model | list[str] | **exactly 3** |
+
+Validation failure means: any missing model-authored field, any count outside
+these bounds, or any prose field containing a placeholder token. Placeholder
+detection matches whole tokens only (`TODO`, `TBD`, `FIXME`, `XXX`, `Lorem`)
+and bracketed stubs (`[insert ...]`). Bare `...` and `[` are **not** rejected —
+ellipses occur in legitimate quotation and ASR emits bracketed markers such as
+`[inaudible]`.
 
 ## Guide format
 
@@ -202,10 +228,13 @@ exactly one guide. The repo ships with `state.json` already seeded.
 
 - No new episode -> exit 0, no commit.
 - Cross-link unresolved (no YouTube title match, or no TPCC slug match) ->
-  log a warning and omit that link from the header. Never fails the run. The
-  TPCC link is reconstructed from the slug if the series-page match fails.
+  log a warning and omit that link from the header. Never fails the run.
+  (`tpcc` is exempt: it is always reconstructable from the slug, so it is the
+  one link that is never omitted.) Speaker resolution failure is likewise
+  non-fatal — the header simply omits it.
 - Transcription or generation failure -> retry once, then fail loudly and
-  open an issue. Never commit a partially built guide.
+  open an issue. Never commit a partially built guide. The workflow therefore
+  needs `permissions: contents: write, issues: write`.
 - Model output failing shape validation -> retry once, then fail.
 - All writes gated on `state.json` so a re-run is safe.
 
@@ -223,7 +252,9 @@ quality before launch. Reference PDFs stay local and uncommitted.
 ## Cost
 
 ~$0.15 transcription + ~$0.05 generation = **~$0.20 per sermon (~$10/year)**.
-Archive backfill is near-free, since official transcripts already exist.
+Daily runs that find no new episode cost nothing — they exit before any API
+call. Manual re-runs of older sermons are near-free, since those use the
+official transcript rather than transcription.
 
 ## Legal posture
 
