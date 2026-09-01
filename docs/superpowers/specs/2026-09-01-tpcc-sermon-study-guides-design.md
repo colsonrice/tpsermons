@@ -26,6 +26,7 @@ new sermon and produces a small-group discussion guide in TPCC's own format.
 - Republishing TPCC sermon transcripts or audio.
 - Personal/daily-devotional guides, sermon recaps, or notes formats.
 - Regenerating a guide once published (see "Transcript lag" below).
+- Archive backfill. Explicitly deferred; see "Backfill and first run".
 
 ## Research findings
 
@@ -89,6 +90,24 @@ OpenAI's 25 MB upload cap. **No chunking logic is required.**
    In practice this means Whisper for new sermons, official text for backfill.
 4. **Public repo, guides only.** Transcripts are runner-local build artifacts,
    gitignored, never uploaded. Every guide links back to TPCC's message page.
+5. **No TPCC material in the prompt.** The guide format is captured as our own
+   prose description of section shape, question count and register, checked in
+   at `prompts/guide_format.md`. No TPCC PDFs are committed or sent to the
+   model. This resolves a contradiction in an earlier draft, which called for
+   archived TPCC guides as prompt exemplars while also forbidding their
+   storage; it also removes a dependency on PDFs that are being retired.
+6. **Reference only, no verse text.** Guides carry the scripture reference
+   (e.g. `Mark 9:30-50`), never the verse text. Modern translations are
+   separately licensed and the site is public. Leaders use their own Bible.
+
+## Schedule and models
+
+- Trigger: GitHub Actions `schedule`, `cron: '0 13 * * 1'` — Mondays 13:00 UTC
+  (09:00 ET during EDT). Also `workflow_dispatch` for manual runs.
+- Feed is polled once per run. No other polling.
+- Transcription: `gpt-4o-mini-transcribe` (fallback `whisper-1`), ~$0.003/min.
+- Generation: `gpt-4o`. Both pinned as constants, overridable by env var.
+- The ~$0.20/sermon estimate assumes these two models at a 45-minute median.
 
 ## Architecture
 
@@ -130,11 +149,28 @@ offline against saved fixtures.
 `Episode`: guid, title, pub_date, mp3_url, duration, series, passage, slug.
 
 The passage is parsed from the podcast title, which reliably encodes it —
-e.g. `Presence Over Position | The Urgent Kingdom | Mark 9:30-50`. This is
-used both to pull scripture text into the guide and to anchor the model
-against ASR citation errors.
+e.g. `Presence Over Position | The Urgent Kingdom | Mark 9:30-50`. It is
+carried into the guide header as a reference and supplied to the model to
+anchor it against ASR citation errors. Verse text is never fetched (Decision 6).
 
 `state.json`: processed GUIDs. Provides idempotency.
+
+`Guide` — the boundary type between `generate.py` and `render.py`. The model
+returns JSON conforming to this shape, and validation is exact:
+
+| Field | Type | Constraint |
+|---|---|---|
+| `title`, `series`, `speaker`, `date`, `passage` | str | required, non-empty |
+| `links` | obj | `tpcc` required; `youtube`, `podcast` optional |
+| `recap` | str | required, 60-150 words |
+| `discuss` | list | **exactly 3** blocks |
+| `discuss[].heading` | str | required, non-empty |
+| `discuss[].questions` | list[str] | **2-3** questions per block |
+| `take_action` | str | required, 40-120 words |
+| `reflections` | list[str] | **exactly 3** |
+
+Validation failure means: any missing required field, any count outside these
+bounds, or any field containing placeholder text (`TODO`, `TBD`, `[`, `...`).
 
 ## Guide format
 
@@ -143,9 +179,9 @@ block (title, series, speaker, date, passage, links), a short recap, a
 `DISCUSS` section of three themed question blocks, and a `TAKE ACTION`
 section closing with journaling reflections.
 
-Archived TPCC guides are supplied to the model as **structural** references —
-section shape, question count, register — not as content to copy. Guide prose
-is generated fresh from the sermon transcript.
+The format is described in our own words in `prompts/guide_format.md` and
+committed to the repo. No TPCC guide PDFs are stored or sent to the model
+(Decision 5). All guide prose is generated from the sermon transcript.
 
 ## Site
 
@@ -153,9 +189,21 @@ GitHub Pages built from committed markdown. Current week's guide on the
 landing page; archive grouped by series below. Public repo, so Actions
 minutes and Pages are free. `OPENAI_API_KEY` is the only secret.
 
+## Backfill and first run
+
+Backfill is **not in scope**. The feed holds 224 episodes, and an empty
+`state.json` would otherwise cause the first run to process all of them.
+
+Bootstrap: a one-time `seed` command writes every current feed GUID into
+`state.json` *except the most recent*, so the first scheduled run produces
+exactly one guide. The repo ships with `state.json` already seeded.
+
 ## Failure handling
 
 - No new episode -> exit 0, no commit.
+- Cross-link unresolved (no YouTube title match, or no TPCC slug match) ->
+  log a warning and omit that link from the header. Never fails the run. The
+  TPCC link is reconstructed from the slug if the series-page match fails.
 - Transcription or generation failure -> retry once, then fail loudly and
   open an issue. Never commit a partially built guide.
 - Model output failing shape validation -> retry once, then fail.
@@ -166,10 +214,11 @@ minutes and Pages are free. `OPENAI_API_KEY` is the only secret.
 Offline unit tests against saved fixtures for feed parsing, slug matching and
 PDF text extraction.
 
-**Quality benchmark:** several dozen back-catalog sermons have *both* an
-official transcript and an official TPCC group guide. Generating a guide from
-the transcript and comparing it against the real published one gives genuine
-ground truth for output quality — rare for a project of this kind.
+**Quality benchmark:** a *manual* evaluation activity, not shipped code and
+not in the module table. Several dozen back-catalog sermons have both an
+official transcript and an official TPCC group guide, so a guide generated
+from one can be read against the real published one to sanity-check output
+quality before launch. Reference PDFs stay local and uncommitted.
 
 ## Cost
 
