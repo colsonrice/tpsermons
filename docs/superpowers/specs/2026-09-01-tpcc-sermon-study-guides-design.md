@@ -38,25 +38,48 @@ All of the following was verified empirically against live sources on
 | Source | Verdict |
 |---|---|
 | TPCC Group Message Guide (PDF) | **Discontinued.** Present Jan/Feb 2026 and earlier; absent Aug 2026. Motivates the project; not used at runtime (Decision 5). |
-| TPCC message transcript (PDF) | **Best text source.** Exists for every message. ~8-day lag. |
-| Podcast MP3 (Captivate) | **Only same-week source.** Reliable, no bot-blocking. |
-| YouTube auto-captions | **Rejected.** See below. |
+| TPCC message transcript (PDF) | **Highest fidelity, when present.** Exists for every message. ~8-day lag. |
+| Podcast MP3 (Captivate) | **Discovery source + paid fallback.** Complete 224-episode list; no bot-blocking. |
+| YouTube message-only captions | **Primary text source.** Free, same-day, punctuated. Within 1.7% of the official transcript. |
 
-### YouTube is not a viable transcript source
+### YouTube captions are the best same-day source
 
-Sermon videos do carry English auto-generated (ASR) caption tracks. However:
+An earlier draft of this spec rejected YouTube on the grounds that ASR captions
+arrive unpunctuated and uncased. **That was asserted from memory and is wrong.**
+Measured directly:
 
-- Fetching the signed `/api/timedtext` caption URL returns **HTTP 200 with a
-  zero-byte body** on every format variant tried (`json3`, `srv3`, `vtt`,
-  raw), from a residential IP. YouTube now gates this endpoint behind a
-  proof-of-origin token.
-- Libraries that route around this (`youtube-transcript-api`, `yt-dlp`) use
-  the InnerTube API, which is routinely IP-blocked from GitHub Actions
-  datacenter ranges. Working around *that* requires a paid residential proxy.
-- Even when it works, ASR captions arrive with no punctuation, no casing and
-  no paragraph breaks. That is materially worse input than either alternative.
+| Video | Words | Periods | Capitals |
+|---|---|---|---|
+| Presence Over Position (message only) | 10,642 | 649 | 1,230 |
+| Blurry Faith (message only) | 8,434 | 688 | 1,247 |
 
-YouTube is therefore used only to resolve a video link for the guide header.
+YouTube's auto-captions are fully punctuated and capitalized. More importantly,
+they match the church's own transcript in coverage:
+
+| Source for "Help My Unbelief" | Words |
+|---|---|
+| YouTube, message-only cut | 7,607 |
+| Official TPCC transcript PDF | 7,482 |
+| YouTube, Full Gathering cut | 10,570 |
+
+The message-only captions are **within 1.7%** of the official transcript, and
+available the day the video posts rather than eight days later, at no cost.
+
+**Video selection matters.** Each sermon is posted twice. The Full Gathering
+cut adds ~3,000 words of worship and announcements, which would pollute the
+guide. Selection rule: take the title with three pipe-separated segments
+(`Title | Series | Passage`) and **reject** any title ending in
+`Full Gathering`. This also excludes `Taking Ground Podcast` episodes and the
+short single-sentence clips the channel posts, neither of which carry the
+three-segment structure.
+
+**Residual risk: CI IP blocking.** Caption retrieval was verified from a
+residential IP. YouTube rate-limits and sometimes blocks datacenter ranges,
+including GitHub Actions runners. This is a real risk, but it is a *cost*
+risk rather than a breakage risk here, because the podcast MP3 fallback
+already exists: a blocked run transcribes with Whisper for ~$0.15 and still
+produces a guide. If blocking proves routine rather than occasional, the
+options are a residential proxy or making Whisper primary. No proxy in v1.
 
 ### Transcript lag is ~8 days
 
@@ -87,9 +110,11 @@ OpenAI's 25 MB upload cap. **No chunking logic is required.**
    tradeoff: ASR text can garble proper nouns and scripture citations.
 2. **No regeneration.** A published guide is final, even after the official
    transcript later appears. Chosen for pipeline simplicity.
-3. **Source cascade retained** — official transcript is used when present.
-   For scheduled runs this means Whisper in practice; the PDF branch serves
-   manual re-runs and the quality benchmark (see "source" below).
+3. **Three-step source cascade**, best text first:
+   1. Official TPCC transcript PDF, if already posted (highest fidelity, free).
+   2. YouTube message-only captions (free, same-day). **The normal path.**
+   3. Podcast MP3 + Whisper (~$0.15) if YouTube is unavailable or blocked.
+   Every step is free except the last, which fires only on failure.
 4. **Public repo, guides only.** Transcripts are runner-local build artifacts,
    gitignored, never uploaded. Every guide links back to TPCC's message page.
 5. **No TPCC material in the prompt.** The guide format is captured as our own
@@ -111,10 +136,13 @@ OpenAI's 25 MB upload cap. **No chunking logic is required.**
   feed publishes Sun 48 / Mon 8 / Tue 3 / Wed 1, at hours ranging 05:00-22:17
   ET. A Monday-morning cron would silently skip the ~20% of weeks that publish
   late, with no error to notice. A daily run is a no-op when nothing is new, so
-  it costs nothing and delivers the guide the morning after the episode lands —
-  which is Monday in the common case.
+  it costs nothing and picks the episode up at the next 09:00 ET run — same day
+  for a morning publish, next morning otherwise. In the common case the guide
+  is ready Monday.
 - Feed is polled once per run. No other polling.
-- Transcription: `gpt-4o-mini-transcribe` (fallback `whisper-1`), ~$0.003/min.
+- Transcription: `gpt-4o-mini-transcribe`; the single retry re-issues against
+  `whisper-1` rather than repeating the primary, so a model-specific fault is
+  not retried into the same wall. ~$0.003/min.
 - Generation: `gpt-4o`. Both pinned as constants, overridable by env var.
 - The ~$0.20/sermon estimate assumes these two models at a 45-minute median.
 
@@ -123,24 +151,28 @@ OpenAI's 25 MB upload cap. **No chunking logic is required.**
 ```
 Captivate RSS ──> discover ──> source ──> generate ──> publish
                      |            |           |            |
-              new episode?    transcript   model +     markdown +
-              else exit 0      cascade   format spec   Pages site
+              new episode?   PDF > YT >   model +     markdown +
+              else exit 0      Whisper   format spec   Pages site
 ```
 
 **discover** — poll the Captivate feed; compare GUIDs against committed
-`state.json`. No new episode is a clean no-op exit, not a failure. Resolves
+`state.json`. No new episode is a clean no-op exit, not a failure.
+**When several unprocessed episodes are pending** — reachable after a week of
+failed runs — each is processed, oldest first, producing one guide apiece.
+Decision 1 governs which sermon a *scheduled* run targets, not a cap of one
+guide per run; silently dropping a sermon would be worse than a slow catch-up. Resolves
 cross-links: YouTube video (title match against channel feed) and TPCC message
 page (slug match against the series page).
 
-**source** — fetch the TPCC message page; use the official transcript PDF if
-present (`pdftotext`); otherwise ffmpeg-downsample the MP3 and transcribe in a
-single API call.
+**source** — walk the cascade in Decision 3. Fetch the TPCC message page and
+use the official transcript PDF if posted (`pdftotext`); else resolve the
+YouTube message-only video and pull its captions; else ffmpeg-downsample the
+MP3 and transcribe in one API call. Each step logs which source it used, and
+the chosen source is recorded in the guide's front matter for traceability.
 
-*The PDF branch ships in v1* even though the ~8-day lag means scheduled runs
-will essentially always fall through to Whisper. It is ~20 lines, it is what
-the manual quality benchmark runs on, and it makes `--episode <guid>` re-runs
-of older sermons both free and higher-fidelity. It is not justified by
-backfill, which is out of scope.
+All three branches are reachable in normal operation: the PDF branch on manual
+re-runs of sermons older than ~8 days, the caption branch on every scheduled
+run, and Whisper whenever YouTube fails.
 
 **generate** — assemble prompt, call model, validate output shape.
 
@@ -152,7 +184,7 @@ backfill, which is out of scope.
 |---|---|---|
 | `feed.py` | Captivate RSS -> `Episode` records | Pure parse; takes XML text |
 | `tpcc.py` | Message page -> transcript URL, canonical link, speaker | Pure parse; takes HTML text |
-| `youtube.py` | Channel RSS -> video-link lookup by title match | Pure parse; takes XML text |
+| `youtube.py` | Channel RSS -> message-only video match; caption retrieval | Parse is pure; fetch is a thin wrapper |
 | `transcribe.py` | ffmpeg re-encode + transcription call | Takes a path, returns text |
 | `generate.py` | Prompt assembly, model call, validation | Takes transcript, returns `Guide` |
 | `render.py` | `Guide` -> markdown + site HTML | No network |
@@ -168,6 +200,13 @@ The passage is parsed from the podcast title, which reliably encodes it —
 e.g. `Presence Over Position | The Urgent Kingdom | Mark 9:30-50`. It is
 carried into the guide header as a reference and supplied to the model to
 anchor it against ASR citation errors. Verse text is never fetched (Decision 6).
+
+**When the title does not match `Title | Series | Passage`**, `series` and
+`passage` are set to `None` and omitted from the header; the run continues and
+the model is given no passage anchor. This is non-fatal by the same reasoning
+as `speaker`. It also doubles as the sermon-detection rule: a feed item whose
+title lacks the three-segment structure is treated as a non-sermon (clip,
+podcast episode) and skipped entirely rather than processed with empty fields.
 
 `state.json`: processed GUIDs. Provides idempotency.
 
@@ -224,6 +263,13 @@ Bootstrap: a one-time `seed` command writes every current feed GUID into
 `state.json` *except the most recent*, so the first scheduled run produces
 exactly one guide. The repo ships with `state.json` already seeded.
 
+**`--episode <guid>` bypasses the state gate** — that is its purpose. It
+processes the named episode regardless of `state.json`, and **refuses to
+overwrite an existing guide unless `--force` is also passed**, preserving
+Decision 2 (no silent regeneration) while keeping deliberate re-runs possible.
+It is exposed as a `workflow_dispatch` input named `episode`, which the
+workflow passes through to the CLI flag.
+
 ## Failure handling
 
 - No new episode -> exit 0, no commit.
@@ -240,8 +286,11 @@ exactly one guide. The repo ships with `state.json` already seeded.
 
 ## Testing
 
-Offline unit tests against saved fixtures for feed parsing, slug matching and
-PDF text extraction.
+Offline unit tests against saved fixtures for feed parsing, slug matching, PDF
+text extraction, YouTube video selection (message-only vs Full Gathering vs
+clip vs podcast episode), and **shape validation** — the last being the most
+intricately specified component here, with the deliberate `...` and
+`[inaudible]` carve-outs warranting explicit regression coverage.
 
 **Quality benchmark:** a *manual* evaluation activity, not shipped code and
 not in the module table. Several dozen back-catalog sermons have both an
@@ -251,10 +300,10 @@ quality before launch. Reference PDFs stay local and uncommitted.
 
 ## Cost
 
-~$0.15 transcription + ~$0.05 generation = **~$0.20 per sermon (~$10/year)**.
-Daily runs that find no new episode cost nothing — they exit before any API
-call. Manual re-runs of older sermons are near-free, since those use the
-official transcript rather than transcription.
+Normal path (YouTube captions): **~$0.05 per sermon — generation only, about
+$2.60/year.** Transcription is free unless YouTube blocks the runner, in which
+case that week costs ~$0.20. Daily runs that find no new episode cost nothing;
+they exit before any API call.
 
 ## Legal posture
 
