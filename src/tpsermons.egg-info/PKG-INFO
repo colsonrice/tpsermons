@@ -1,0 +1,9 @@
+Metadata-Version: 2.4
+Name: tpsermons
+Version: 0.1.0
+Summary: Small-group discussion guides from Traders Point Christian Church sermons
+Requires-Python: >=3.9
+Requires-Dist: youtube-transcript-api>=1.0
+Requires-Dist: openai>=1.40
+Provides-Extra: dev
+Requires-Dist: pytest>=8.0; extra == "dev"

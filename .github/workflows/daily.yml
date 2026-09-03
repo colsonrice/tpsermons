@@ -1,0 +1,95 @@
+name: Generate sermon guide
+
+on:
+  schedule:
+    # Daily 13:00 UTC (09:00 ET during EDT). Daily rather than Monday-only:
+    # the feed publishes Sun 48 / Mon 8 / Tue 3 / Wed 1 across the last 60
+    # episodes, so a Monday cron would silently skip ~20% of weeks.
+    - cron: '0 13 * * *'
+  workflow_dispatch:
+    inputs:
+      episode:
+        description: 'Episode GUID to re-run (bypasses state)'
+        required: false
+      force:
+        description: 'Overwrite an existing guide'
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+  issues: write
+  pages: write
+  id-token: write
+
+concurrency:
+  group: sermon-guide
+  cancel-in-progress: false
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install system tools
+        run: sudo apt-get update && sudo apt-get install -y poppler-utils ffmpeg
+
+      - name: Install package
+        run: pip install -e .
+
+      - name: Generate guide
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+        run: |
+          python -m tpsermons.cli run \
+            ${{ inputs.episode && format('--episode {0}', inputs.episode) || '' }} \
+            ${{ inputs.force && '--force' || '' }}
+
+      - name: Commit new guides
+        run: |
+          if [ -n "$(git status --porcelain guides index.html state.json)" ]; then
+            git config user.name  "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add guides index.html state.json
+            git commit -m "guide: $(date -u +%Y-%m-%d)"
+            git push
+          else
+            echo "No new guide; nothing to commit."
+          fi
+
+      - name: Upload site
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: .
+
+  deploy:
+    needs: generate
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deploy.outputs.page_url }}
+    steps:
+      - id: deploy
+        uses: actions/deploy-pages@v4
+
+  report-failure:
+    needs: [generate]
+    if: failure()
+    runs-on: ubuntu-latest
+    permissions:
+      issues: write
+    steps:
+      - uses: actions/github-script@v7
+        with:
+          script: |
+            await github.rest.issues.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: `Sermon guide run failed (${new Date().toISOString().slice(0,10)})`,
+              body: `The scheduled run failed. [View logs](${context.serverUrl}/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}).`
+            })
