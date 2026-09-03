@@ -1,0 +1,60 @@
+from datetime import datetime, timezone
+
+import pytest
+
+from tpsermons.generate import build_guide
+from tpsermons.models import Episode, ValidationError
+
+EP = Episode(guid="g", title="Presence Over Position",
+             pub_date=datetime(2026, 8, 30, tzinfo=timezone.utc),
+             mp3_url="https://x/y.mp3", series="The Urgent Kingdom", passage="Mark 9:30-50")
+
+LINKS = {"tpcc": "https://tpcc.org/messages/presence-over-position",
+         "youtube": "https://youtu.be/-F6w9h2Jpg8"}
+
+
+def payload(**kw):
+    base = {
+        "recap": " ".join(["word"] * 80),
+        "discuss": [{"heading": "H%d" % i, "questions": ["Q1", "Q2"]} for i in range(3)],
+        "take_action": " ".join(["word"] * 60),
+        "reflections": ["a", "b", "c"],
+    }
+    base.update(kw)
+    return base
+
+
+def test_metadata_comes_from_code_not_the_model():
+    g = build_guide(EP, payload(), links=LINKS, speaker="Aaron Brockett", source="youtube_captions")
+    assert g.title == "Presence Over Position"
+    assert g.series == "The Urgent Kingdom"
+    assert g.passage == "Mark 9:30-50"
+    assert g.speaker == "Aaron Brockett"
+    assert g.date == "2026-08-30"
+
+
+def test_model_supplied_links_are_discarded():
+    # Hallucinated URLs must be structurally impossible, not merely unlikely.
+    g = build_guide(EP, payload(links={"tpcc": "https://evil.example"}),
+                    links=LINKS, speaker=None, source="youtube_captions")
+    assert g.links["tpcc"] == LINKS["tpcc"]
+    assert "evil" not in str(g.links)
+
+
+def test_model_supplied_title_is_discarded():
+    g = build_guide(EP, payload(title="Hallucinated Title"), links=LINKS,
+                    speaker=None, source="youtube_captions")
+    assert g.title == "Presence Over Position"
+
+
+def test_malformed_model_output_raises_validation_error():
+    with pytest.raises(ValidationError):
+        build_guide(EP, payload(reflections=["only", "two"]), links=LINKS,
+                    speaker=None, source="youtube_captions")
+
+
+def test_missing_key_raises_validation_error():
+    broken = payload()
+    del broken["take_action"]
+    with pytest.raises(ValidationError):
+        build_guide(EP, broken, links=LINKS, speaker=None, source="youtube_captions")
