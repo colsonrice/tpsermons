@@ -8,3 +8,8 @@ work/
 *.mp3
 *.pdf
 transcripts/
+
+# build artifacts
+*.egg-info/
+build/
+dist/
