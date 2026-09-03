@@ -1,0 +1,10 @@
+__pycache__/
+*.pyc
+.venv/
+.env
+
+# TPCC source material is never committed (spec Decision 4)
+work/
+*.mp3
+*.pdf
+transcripts/
