@@ -1,0 +1,32 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install -e ".[dev]"
+      - name: Run test suite (offline, no network)
+        run: python -m pytest -q
+
+  sourcing:
+    # Answers the one risk that cannot be tested from a developer machine:
+    # does YouTube serve captions to a GitHub datacenter IP?
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: sudo apt-get update && sudo apt-get install -y poppler-utils
+      - run: pip install -e .
+      - name: Probe the source cascade from a datacenter IP
+        run: python -m tpsermons.cli diagnose

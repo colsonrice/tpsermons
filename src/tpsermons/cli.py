@@ -161,12 +161,47 @@ def _write_site() -> None:  # pragma: no cover
     (ROOT / "index.html").write_text(render.render_site(guides), encoding="utf-8")
 
 
+def diagnose() -> int:  # pragma: no cover - network
+    """Exercise discovery and the free half of the cascade. No API key needed.
+
+    Exists to answer the one risk that cannot be tested from a developer
+    machine: whether YouTube serves captions to a datacenter IP.
+    """
+    eps = feed.parse_feed(get_text(PODCAST_FEED))
+    print("discovered %d sermons" % len(eps))
+    ep = eps[0]
+    print("newest: %s | %s | %s" % (ep.title, ep.series, ep.passage))
+
+    page = _message_html(ep)
+    if not page:
+        print("FAIL: could not reach the TPCC message page")
+        return 1
+
+    vid = tpcc.find_video_id(page)
+    has_pdf = bool(tpcc.find_transcript_url(page))
+    print("tpcc page ok | video=%s | transcript posted=%s | speaker=%s"
+          % (vid, has_pdf, tpcc.find_speaker(page)))
+
+    caps = youtube.fetch_captions(vid) if vid else None
+    if caps:
+        print("CAPTIONS OK from this runner: %d words" % len(caps.split()))
+        print("cascade would use: %s" % ("transcript_pdf" if has_pdf else "youtube_captions"))
+        return 0
+
+    print("CAPTIONS BLOCKED from this runner -- cascade would fall back to Whisper")
+    print("(this is the documented datacenter-IP risk; the run still produces a guide)")
+    return 0
+
+
 def main(argv=None) -> int:  # pragma: no cover
     ap = argparse.ArgumentParser(prog="tpsermons")
-    ap.add_argument("command", choices=["run", "seed"])
+    ap.add_argument("command", choices=["run", "seed", "diagnose"])
     ap.add_argument("--episode", help="episode GUID to process, bypassing state")
     ap.add_argument("--force", action="store_true", help="overwrite an existing guide")
     args = ap.parse_args(argv)
+
+    if args.command == "diagnose":
+        return diagnose()
 
     if args.command == "seed":
         eps = feed.parse_feed(get_text(PODCAST_FEED))
