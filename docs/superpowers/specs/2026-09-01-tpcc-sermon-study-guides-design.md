@@ -96,13 +96,31 @@ quality regression: `gpt-4o-mini-transcribe` is at least as accurate as YouTube
 ASR. YouTube is primary because it is *free*, not because it is better. So an
 unavailable caption track costs ~$0.15 and nothing else.
 
-**Residual risk: CI IP blocking.** Caption retrieval was verified from a
-residential IP. YouTube rate-limits and sometimes blocks datacenter ranges,
-including GitHub Actions runners. This is a real risk, but it is a *cost*
-risk rather than a breakage risk here, because the podcast MP3 fallback
-already exists: a blocked run transcribes with Whisper for ~$0.15 and still
-produces a guide. If blocking proves routine rather than occasional, the
-options are a residential proxy or making Whisper primary. No proxy in v1.
+**CONFIRMED BLOCKED IN CI (2026-09-05).** The residual risk this spec flagged
+turned out to be certain, not occasional. Two independent GitHub Actions runs
+probed the cascade from ubuntu-latest runners; both reported captions
+unavailable, while TPCC's own page resolved fine in the same runs:
+
+```
+tpcc page ok | video=-F6w9h2Jpg8 | transcript posted=False
+CAPTIONS BLOCKED from this runner -- cascade would fall back to Whisper
+```
+
+Captions retrieve perfectly from a residential IP (10,644 words) and not at all
+from GitHub's ranges. **The practical consequence: the scheduled path is
+Whisper, not captions.** Cost returns to ~$0.20/sermon (~$10/year) rather than
+~$0.05 (~$2.60/year).
+
+This does not invalidate the cascade -- it is the reason the cascade exists.
+The pipeline degrades to a paid source and still produces a guide on time,
+which is exactly the designed behaviour. Options considered and rejected: a
+residential proxy costs more per year than the ~$10 it would save; waiting for
+the 8-day official transcript is free but breaks the Monday delivery this
+project exists for. A self-hosted runner on a residential IP would restore the
+free path if one is ever available.
+
+The caption branch stays in the code: it costs nothing when it fails, it is the
+path used for manual local re-runs, and YouTube's posture may change.
 
 ### Transcript lag is ~8 days
 

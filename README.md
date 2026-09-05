@@ -20,8 +20,12 @@ Runs daily at 09:00 ET. Daily rather than Monday-only because the feed
 publishes Sun 48 / Mon 8 / Tue 3 / Wed 1 across the last 60 episodes — a
 Monday-only job would silently skip about one week in five.
 
-Cost is roughly **$0.05 per sermon** (guide generation only). Transcription is
-free unless YouTube is unavailable, in which case that week costs about $0.20.
+Cost is roughly **$0.20 per sermon (~$10/year)**.
+
+YouTube captions would make this nearly free, and they work perfectly from a
+home connection — but **YouTube blocks GitHub's datacenter IPs**, confirmed on
+two independent CI runs. So the scheduled path is Whisper. The caption branch
+stays because it costs nothing when it fails and is used for local re-runs.
 
 ## Setup
 
