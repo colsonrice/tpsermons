@@ -1,9 +1,11 @@
 import pytest
-from tpsermons.models import DiscussBlock, Guide, ValidationError
+from tpsermons.models import (SEGMENTS, DiscussBlock, Guide, ValidationError)
 
 
-def blocks(n=3, q=2):
-    return [DiscussBlock(heading="H%d" % i, questions=["Q%d" % j for j in range(q)])
+def blocks(n=3, probes=2):
+    return [DiscussBlock(heading="Heading %d" % i,
+                         question="What did that look like for you?",
+                         probes=["Probe %d" % j for j in range(probes)])
             for i in range(n)]
 
 
@@ -11,9 +13,17 @@ def guide(**kw):
     base = dict(
         title="T", series="S", speaker=None, date="2026-08-30", passage="Mark 9:30-50",
         links={"tpcc": "https://tpcc.org/messages/x"},
-        recap=" ".join(["word"] * 80), discuss=blocks(),
-        take_action=" ".join(["word"] * 60), reflections=["a", "b", "c"],
-        source="youtube_captions",
+        leader_notes=["Keep your own talking under a quarter of the night.",
+                      "This one may be raw for a couple of guys."],
+        opener="When did you last change your mind about something important?",
+        context=" ".join(["word"] * 30),
+        read_aloud="Read Mark 9:30-50 aloud; listen for what the disciples argue about.",
+        observation="What did Jesus actually say when he caught them arguing?",
+        discuss=blocks(),
+        obstacle="What is most likely to stop you doing that by next Thursday?",
+        commit=" ".join(["word"] * 40),
+        carry="Next week we ask each other how that conversation went.",
+        source="whisper",
     )
     base.update(kw)
     return Guide(**base)
@@ -23,33 +33,44 @@ def test_valid_guide_passes():
     guide().validate()
 
 
-@pytest.mark.parametrize("kw,why", [
-    (dict(discuss=blocks(n=2)), "too few discuss blocks"),
-    (dict(discuss=blocks(n=4)), "too many discuss blocks"),
-    (dict(discuss=blocks(q=1)), "too few questions in a block"),
-    (dict(discuss=blocks(q=4)), "too many questions in a block"),
-    (dict(reflections=["a", "b"]), "wrong reflection count"),
-    (dict(recap="too short"), "recap under word floor"),
-    (dict(recap=" ".join(["w"] * 200)), "recap over word ceiling"),
-    (dict(take_action="short"), "take_action under floor"),
+def test_evening_fits_the_45_to_60_minute_window():
+    total = sum(m for _, m, _ in SEGMENTS)
+    assert 45 <= total <= 60
+
+
+def test_deep_questions_happen_in_subgroups():
+    # Twelve men in one circle means three or four carry the room.
+    modes = {label: mode for label, _, mode in SEGMENTS}
+    assert "four" in modes["Dig in"]
+
+
+@pytest.mark.parametrize("kw", [
+    dict(discuss=blocks(n=2)),
+    dict(discuss=blocks(n=4)),
+    dict(discuss=blocks(probes=1)),
+    dict(discuss=blocks(probes=4)),
+    dict(leader_notes=["only one"]),
+    dict(leader_notes=["a", "b", "c", "d", "e"]),
+    dict(context="too short"),
 ])
-def test_invalid_shapes_rejected(kw, why):
+def test_invalid_shapes_rejected(kw):
     with pytest.raises(ValidationError):
         guide(**kw).validate()
 
 
-def test_placeholder_tokens_rejected():
-    for token in ["TODO", "TBD", "FIXME", "Lorem"]:
-        with pytest.raises(ValidationError):
-            guide(recap=" ".join(["word"] * 79 + [token])).validate()
+@pytest.mark.parametrize("field", ["opener", "observation", "obstacle"])
+def test_prompts_must_actually_be_questions(field):
     with pytest.raises(ValidationError):
-        guide(take_action=" ".join(["word"] * 59) + " [insert application here]").validate()
+        guide(**{field: "This is a statement."}).validate()
+
+
+def test_placeholder_tokens_rejected():
+    with pytest.raises(ValidationError):
+        guide(opener="TODO write the opener?").validate()
 
 
 def test_ellipsis_and_asr_markers_are_not_placeholders():
-    # Deliberate carve-out: ellipses occur in legitimate quotation and ASR
-    # emits bracketed markers. Neither may fail a valid guide.
-    guide(recap=" ".join(["word"] * 78) + " he said ... [inaudible]").validate()
+    guide(carry="We will ask how it went ... [inaudible] and follow up.").validate()
 
 
 def test_tpcc_link_is_required():

@@ -18,17 +18,26 @@ MODEL = "gpt-4o"
 FORMAT_DOC = Path(__file__).resolve().parents[2] / "prompts" / "guide_format.md"
 
 _SCHEMA_HINT = """Return JSON with exactly these keys:
-{"recap": str,
- "discuss": [{"heading": str, "questions": [str, str]} x3],
- "take_action": str,
- "reflections": [str, str, str]}"""
+{"leader_notes": [str, str],
+ "opener": str,
+ "context": str,
+ "read_aloud": str,
+ "observation": str,
+ "discuss": [{"heading": str, "question": str, "probes": [str, str]} x3],
+ "obstacle": str,
+ "commit": str,
+ "carry": str}
+
+Two to four leader_notes. Exactly three discuss blocks, each with two or three
+probes. opener, observation and obstacle must each be a question."""
 
 
 def build_guide(episode: Episode, payload: Dict, links: Dict[str, str],
                 speaker: Optional[str], source: str) -> Guide:
     """Merge model prose with code-supplied metadata, then validate."""
     try:
-        discuss = [DiscussBlock(heading=b["heading"], questions=list(b["questions"]))
+        discuss = [DiscussBlock(heading=b["heading"], question=b["question"],
+                                probes=list(b["probes"]))
                    for b in payload["discuss"]]
         guide = Guide(
             title=episode.title,
@@ -37,10 +46,15 @@ def build_guide(episode: Episode, payload: Dict, links: Dict[str, str],
             date=episode.pub_date.strftime("%Y-%m-%d"),
             passage=episode.passage,
             links=dict(links),
-            recap=payload["recap"],
+            leader_notes=list(payload["leader_notes"]),
+            opener=payload["opener"],
+            context=payload["context"],
+            read_aloud=payload["read_aloud"],
+            observation=payload["observation"],
             discuss=discuss,
-            take_action=payload["take_action"],
-            reflections=list(payload["reflections"]),
+            obstacle=payload["obstacle"],
+            commit=payload["commit"],
+            carry=payload["carry"],
             source=source,
         )
     except (KeyError, TypeError) as exc:
@@ -48,22 +62,23 @@ def build_guide(episode: Episode, payload: Dict, links: Dict[str, str],
     return guide.validate()
 
 
-def build_prompt(episode: Episode, transcript: str) -> str:
+def build_prompt(episode: Episode, transcript: str, speaker=None) -> str:
     fmt = FORMAT_DOC.read_text(encoding="utf-8") if FORMAT_DOC.exists() else ""
     passage = episode.passage or "(not identified)"
     return (
         "%s\n\n%s\n\n"
-        "Sermon title: %s\nSeries: %s\nScripture reference: %s\n\n"
-        "The reference above is authoritative; prefer it over anything the "
+        "Sermon title: %s\nSeries: %s\nScripture reference: %s\nSpeaker: %s\n\n"
+        "The metadata above is authoritative; prefer it over anything the "
         "transcript seems to say, since the transcript may be machine-generated.\n\n"
         "Transcript:\n%s\n"
-    ) % (fmt, _SCHEMA_HINT, episode.title, episode.series or "(unknown)", passage, transcript)
+    ) % (fmt, _SCHEMA_HINT, episode.title, episode.series or "(unknown)", passage,
+         speaker or "(unknown)", transcript)
 
 
 def generate(episode: Episode, transcript: str, links: Dict[str, str],
              speaker: Optional[str], source: str, client) -> Guide:  # pragma: no cover
     """Call the model, retrying once when the shape is wrong."""
-    prompt = build_prompt(episode, transcript)
+    prompt = build_prompt(episode, transcript, speaker)
     last = None
     for _ in range(2):
         try:

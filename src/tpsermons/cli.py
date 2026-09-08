@@ -12,6 +12,8 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Callable, List, Optional
 
+import json
+
 from . import feed, render, tpcc, transcribe, youtube
 from .generate import generate as real_generate
 from .http import get_bytes, get_text
@@ -69,6 +71,11 @@ def run(deps: Deps, out_dir: Path, state_path: Path,
 
         out_dir.mkdir(parents=True, exist_ok=True)
         path.write_text(render.render_markdown(guide), encoding="utf-8")
+        # JSON is the durable render source: it lets the site rebuild every
+        # guide's HTML when the design changes, with no regeneration spend.
+        path.with_suffix(".json").write_text(
+            json.dumps(render.guide_to_dict(guide), indent=1, ensure_ascii=False) + "\n",
+            encoding="utf-8")
         state.mark(ep.guid)
         written.append(path)
         print("wrote %s (source: %s)" % (path.name, source))
@@ -151,21 +158,22 @@ def _live_deps() -> Deps:  # pragma: no cover - network
 
 
 def _write_site() -> None:  # pragma: no cover
-    """Rebuild the index and a readable HTML page for every guide.
+    """Rebuild the index and every guide page from the committed JSON.
 
-    Guides are authored as markdown, but Pages serves .md as text/markdown --
-    a group leader clicking that link gets raw YAML front matter. Each guide
-    is therefore also published as HTML, and the index links to that.
+    Pages serves .md as text/markdown, so guides are published as HTML. JSON
+    rather than markdown is the render source, so a design change reaches old
+    guides without re-running the model.
     """
-    import re
     guides = []
-    for path in sorted(GUIDES.glob("*.md")):
-        md = path.read_text(encoding="utf-8")
-        path.with_suffix(".html").write_text(render.render_guide_page(md), encoding="utf-8")
-        fm = dict(re.findall(r"^(\w+): (.*)$", md.split("---")[1], re.M)) if "---" in md else {}
-        guides.append(type("G", (), {
-            "title": fm.get("title", path.stem), "date": fm.get("date", ""),
-            "series": fm.get("series"), "passage": fm.get("passage")})())
+    for path in sorted(GUIDES.glob("*.json")):
+        try:
+            g = render.guide_from_dict(json.loads(path.read_text(encoding="utf-8")))
+        except (KeyError, ValueError) as exc:
+            print("skipping %s: %s" % (path.name, exc), file=sys.stderr)
+            continue
+        (GUIDES / render.guide_filename(g, "html")).write_text(
+            render.render_guide_page(g), encoding="utf-8")
+        guides.append(g)
     (ROOT / "index.html").write_text(render.render_site(guides), encoding="utf-8")
     print("site rebuilt: %d guides" % len(guides))
 

@@ -11,13 +11,22 @@ def ep(guid, day, title="Sermon %s"):
 
 
 def fake_guide(episode, **_):
-    return Guide(title=episode.title, series="S", speaker=None,
-                 date=episode.pub_date.strftime("%Y-%m-%d"), passage="Mark 9",
-                 links={"tpcc": "https://tpcc.org/messages/x"},
-                 recap=" ".join(["w"] * 80),
-                 discuss=[DiscussBlock("H%d" % i, ["a", "b"]) for i in range(3)],
-                 take_action=" ".join(["w"] * 60), reflections=["a", "b", "c"],
-                 source="youtube_captions")
+    return Guide(
+        title=episode.title, series="S", speaker=None,
+        date=episode.pub_date.strftime("%Y-%m-%d"), passage="Mark 9",
+        links={"tpcc": "https://tpcc.org/messages/x"},
+        leader_notes=["Talk less than a quarter of the night.",
+                      "Go easy if this one lands hard."],
+        opener="When did you last change your mind?",
+        context=" ".join(["word"] * 30),
+        read_aloud="Read Mark 9 aloud; listen for the argument.",
+        observation="What did Jesus actually say?",
+        discuss=[DiscussBlock("H%d" % i, "Where has that shown up for you?",
+                              ["a", "b"]) for i in range(3)],
+        obstacle="What will get in the way this week?",
+        commit=" ".join(["word"] * 40),
+        carry="Next week we ask how it went.",
+        source="youtube_captions")
 
 
 def deps(episodes):

@@ -15,10 +15,18 @@ LINKS = {"tpcc": "https://tpcc.org/messages/presence-over-position",
 
 def payload(**kw):
     base = {
-        "recap": " ".join(["word"] * 80),
-        "discuss": [{"heading": "H%d" % i, "questions": ["Q1", "Q2"]} for i in range(3)],
-        "take_action": " ".join(["word"] * 60),
-        "reflections": ["a", "b", "c"],
+        "leader_notes": ["Talk less than a quarter of the night.",
+                         "This may be raw for someone in the room."],
+        "opener": "When did you last change your mind about something?",
+        "context": " ".join(["word"] * 30),
+        "read_aloud": "Read Mark 9 aloud; listen for the argument.",
+        "observation": "What did Jesus actually say to them?",
+        "discuss": [{"heading": "H%d" % i,
+                     "question": "Where has that shown up for you?",
+                     "probes": ["P1", "P2"]} for i in range(3)],
+        "obstacle": "What will realistically get in the way this week?",
+        "commit": " ".join(["word"] * 40),
+        "carry": "Next week we ask how that went.",
     }
     base.update(kw)
     return base
@@ -49,12 +57,12 @@ def test_model_supplied_title_is_discarded():
 
 def test_malformed_model_output_raises_validation_error():
     with pytest.raises(ValidationError):
-        build_guide(EP, payload(reflections=["only", "two"]), links=LINKS,
+        build_guide(EP, payload(discuss=payload()["discuss"][:2]), links=LINKS,
                     speaker=None, source="youtube_captions")
 
 
 def test_missing_key_raises_validation_error():
     broken = payload()
-    del broken["take_action"]
+    del broken["commit"]
     with pytest.raises(ValidationError):
         build_guide(EP, broken, links=LINKS, speaker=None, source="youtube_captions")

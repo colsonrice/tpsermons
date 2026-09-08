@@ -259,9 +259,8 @@ a:hover { color: var(--ink); }
 .backlink:hover { color: var(--clay); }
 
 .guide { width: 100%; max-width: var(--measure); margin-inline: auto; }
-.guide-wide { width: var(--shell); margin-inline: auto; }
 
-.guide-head { padding: clamp(2rem, 5vw, 3.25rem) 0 clamp(1.75rem, 4vw, 2.5rem); }
+.guide-head { padding: clamp(1.75rem, 4vw, 3rem) 0 clamp(1.5rem, 3vw, 2rem); }
 .guide-head h1 {
   font-family: var(--display);
   font-size: var(--step-3);
@@ -269,134 +268,174 @@ a:hover { color: var(--ink); }
   font-variation-settings: "SOFT" 40, "WONK" 1, "opsz" 90;
   line-height: 1.02;
   letter-spacing: -.02em;
-  margin: .8rem 0 1.4rem;
+  margin: .8rem 0 1.2rem;
   text-wrap: balance;
 }
 
 .links {
-  display: flex;
-  flex-wrap: wrap;
-  gap: .55rem;
-  margin-top: 1.6rem;
-  padding-top: 1.5rem;
+  display: flex; flex-wrap: wrap; gap: .5rem;
+  margin-top: 1.4rem; padding-top: 1.3rem;
   border-top: 1px solid var(--rule);
 }
 .links a {
   font-size: var(--step--1);
-  letter-spacing: .06em;
+  letter-spacing: .05em;
   text-decoration: none;
   border: 1px solid var(--rule-firm);
   border-radius: 999px;
-  padding: .42rem 1rem;
+  padding: .45rem 1rem;
   color: var(--ink-soft);
   transition: all .25s;
+  min-height: 40px;                 /* comfortable thumb target */
+  display: inline-flex; align-items: center;
 }
-.links a:hover { border-color: var(--clay); color: var(--clay); background: var(--paper-card); }
+.links a:hover, .links a:active { border-color: var(--clay); color: var(--clay); }
 
-.guide h2 {
+.runtime {
+  margin: 1rem 0 0;
+  font-size: var(--step--1);
+  color: var(--ink-faint);
+  letter-spacing: .04em;
+}
+
+/* Leader notes — read before the room fills up. */
+.leader-notes {
+  background: var(--paper-sunk);
+  border: 1px dashed var(--rule-firm);
+  border-radius: 3px;
+  padding: 1.25rem 1.35rem;
+  margin: 1.5rem 0 2.5rem;
+}
+.leader-notes ul { margin: .7rem 0 0; padding-left: 1.1rem; }
+.leader-notes li { margin: .4rem 0; color: var(--ink-soft); font-size: .95em; }
+.leader-notes li::marker { color: var(--clay-soft); }
+
+/* --- segments: the evening, in order --------------------------------------- */
+
+.seg { margin: 0 0 2.75rem; }
+
+.seg-head {
+  display: flex; align-items: baseline; flex-wrap: wrap;
+  gap: .5rem .7rem;
+  margin: 0 0 1.1rem;
+  padding-bottom: .6rem;
+  border-bottom: 1px solid var(--rule);
+}
+.seg-head h2 {
   font-family: var(--body);
   font-size: var(--step--1);
   font-weight: 700;
   letter-spacing: .18em;
   text-transform: uppercase;
   color: var(--clay);
-  margin: 3.25rem 0 1.1rem;
-  padding-bottom: .6rem;
-  border-bottom: 1px solid var(--rule);
+  margin: 0;
+  flex: 0 0 auto;
 }
+.chip {
+  font-size: .72rem;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  padding: .18rem .55rem;
+  border-radius: 999px;
+  white-space: nowrap;
+}
+.chip-time { background: var(--clay); color: var(--paper); font-weight: 600; }
+.chip-mode { border: 1px solid var(--rule-firm); color: var(--ink-faint); }
 
-.guide h3 {
+/* The question itself — always the largest thing in its section. */
+.ask {
   font-family: var(--display);
   font-size: var(--step-1);
-  font-weight: 400;
-  font-variation-settings: "SOFT" 30, "WONK" 1, "opsz" 40;
-  letter-spacing: -.01em;
-  line-height: 1.25;
-  margin: 2.4rem 0 .9rem;
+  font-variation-settings: "SOFT" 30, "opsz" 40;
+  line-height: 1.35;
+  letter-spacing: -.005em;
+  margin: .6rem 0 1rem;
+  text-wrap: pretty;
 }
 
-.guide p { margin: 0 0 1.15rem; }
-
-/* Recap reads as a lead paragraph. */
-.sec-recap p:first-of-type {
-  font-size: var(--step-1);
-  line-height: 1.56;
+.context { color: var(--ink-soft); margin: 0 0 1rem; }
+.read-aloud {
+  border-left: 2px solid var(--sage);
+  padding: .1rem 0 .1rem .9rem;
+  margin: 0 0 1.2rem;
   color: var(--ink);
-}
-.sec-recap p:first-of-type::first-letter {
-  font-family: var(--display);
-  font-size: 3.1em;
-  float: left;
-  line-height: .82;
-  padding: .06em .1em 0 0;
-  color: var(--clay);
-  font-variation-settings: "SOFT" 60, "WONK" 1;
-}
-
-/* Numbered questions — the heart of the page. */
-.sec-discuss ol {
-  list-style: none;
-  counter-reset: q;
-  padding: 0;
-  margin: 0 0 1.4rem;
-}
-.sec-discuss li {
-  counter-increment: q;
-  display: grid;
-  grid-template-columns: 2.1rem 1fr;
-  gap: 0 1rem;
-  padding: .65rem 0;
-  align-items: start;
-}
-.sec-discuss li + li { border-top: 1px dotted var(--rule); }
-.sec-discuss li::before {
-  content: counter(q);
-  font-family: var(--display);
-  font-size: 1.35rem;
-  font-variation-settings: "SOFT" 40, "opsz" 30;
-  color: var(--clay-soft);
-  line-height: 1.3;
-  text-align: right;
-  font-variant-numeric: lining-nums;
-}
-
-/* Take Action gets weight — it's the one thing to do this week. */
-.sec-action {
-  background: var(--paper-sunk);
-  border-left: 3px solid var(--sage);
-  padding: 1.6rem 1.5rem .5rem;
-  margin-top: 1rem;
-  border-radius: 2px;
-}
-.sec-action h2 { margin-top: 0; border-bottom: none; padding-bottom: 0; color: var(--sage); }
-
-.sec-reflections ul { list-style: none; padding: 0; margin: 0; }
-.sec-reflections li {
-  padding: .85rem 0 .85rem 1.6rem;
-  position: relative;
-  color: var(--ink-soft);
   font-style: italic;
 }
-.sec-reflections li + li { border-top: 1px dotted var(--rule); }
-.sec-reflections li::before {
-  content: "";
-  position: absolute;
-  left: 0; top: 1.5em;
-  width: .5rem; height: 1px;
-  background: var(--clay-soft);
+.instruction {
+  font-size: var(--step--1);
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  font-weight: 600;
+  color: var(--sage);
+  margin: 0 0 1.4rem;
+}
+
+/* --- the three blocks ------------------------------------------------------ */
+
+.block { padding: 1.2rem 0; }
+.block + .block { border-top: 1px solid var(--rule); }
+.block-head { display: flex; align-items: baseline; gap: .8rem; }
+.block-n {
+  font-family: var(--display);
+  font-size: 1.5rem;
+  font-variation-settings: "SOFT" 40, "opsz" 30;
+  color: var(--clay-soft);
+  line-height: 1;
+  font-variant-numeric: lining-nums;
+  flex: 0 0 auto;
+  width: 1.3rem;
+}
+.block-head h3 {
+  font-family: var(--body);
+  font-size: var(--step--1);
+  font-weight: 700;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  margin: 0;
+}
+.block .ask { margin-left: 2.1rem; }
+
+.probes { margin: .2rem 0 0 2.1rem; }
+.probes summary {
+  cursor: pointer;
+  font-size: var(--step--1);
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  list-style: none;
+  padding: .5rem 0;
+  min-height: 40px;
+  display: flex; align-items: center; gap: .45rem;
+}
+.probes summary::-webkit-details-marker { display: none; }
+.probes summary::before { content: "＋"; color: var(--clay-soft); font-weight: 600; }
+.probes[open] summary::before { content: "－"; }
+.probes summary:hover { color: var(--clay); }
+.probes ul { margin: .3rem 0 .6rem; padding-left: 1.1rem; }
+.probes li { margin: .45rem 0; color: var(--ink-soft); font-size: .95em; }
+.probes li::marker { color: var(--rule-firm); }
+
+/* Commit closes the night — give it weight. */
+.seg-commit { background: var(--paper-sunk); border-left: 3px solid var(--sage);
+  padding: 1.4rem 1.4rem .4rem; border-radius: 2px; }
+.seg-commit .seg-head { border-bottom-color: transparent; margin-bottom: .6rem; }
+.seg-commit .seg-head h2 { color: var(--sage); }
+.seg-commit .chip-time { background: var(--sage); }
+.carry {
+  margin-top: 1rem; padding-top: 1rem;
+  border-top: 1px dotted var(--rule-firm);
+  color: var(--ink-soft); font-size: .95em;
 }
 
 .colophon {
-  margin: 4rem 0 5rem;
-  padding-top: 1.5rem;
+  margin: 3.5rem 0 4.5rem;
+  padding-top: 1.4rem;
   border-top: 1px solid var(--rule);
   font-size: var(--step--1);
   color: var(--ink-faint);
   line-height: 1.6;
 }
-.colophon em { font-style: normal; color: var(--ink-faint); }
-
-.guide hr { display: none; }
 
 /* --- footer --------------------------------------------------------------- */
 
@@ -437,16 +476,24 @@ a:hover { color: var(--ink); }
   @page { margin: 16mm 14mm; }
   body { font-size: 10.5pt; line-height: 1.45; }
   body::before, .backlink, .links, .site-foot { display: none !important; }
-  .shell, .guide, .guide-wide { width: auto; max-width: none; margin: 0; }
+  .shell, .guide { width: auto; max-width: none; margin: 0; }
   .guide-head { padding-top: 0; }
   .guide-head h1 { font-size: 21pt; margin: .2rem 0 .6rem; }
-  .guide h2 { font-size: 8.5pt; margin: 14pt 0 6pt; page-break-after: avoid; }
-  .guide h3 { font-size: 12pt; margin: 11pt 0 4pt; page-break-after: avoid; }
-  .sec-recap p:first-of-type { font-size: 10.5pt; }
-  .sec-recap p:first-of-type::first-letter { font-size: 1em; float: none; color: #000; padding: 0; }
-  .sec-discuss li, .sec-reflections li { page-break-inside: avoid; padding: 3pt 0; }
-  .sec-discuss li::before { font-size: 11pt; color: #000; }
-  .sec-action { border-left: 2pt solid #000; padding: 8pt 10pt 1pt; page-break-inside: avoid; }
+  .runtime { font-size: 8.5pt; }
+  .seg { margin-bottom: 12pt; page-break-inside: avoid; }
+  .seg-head { margin-bottom: 5pt; padding-bottom: 3pt; }
+  .seg-head h2 { font-size: 8.5pt; }
+  .chip { border: .5pt solid #666 !important; background: none !important;
+          color: #000 !important; padding: 0 4pt; font-size: 7.5pt; }
+  .ask { font-size: 11.5pt; margin: 4pt 0 6pt; }
+  .block { padding: 6pt 0; page-break-inside: avoid; }
+  .block-n { font-size: 11pt; color: #000; }
+  .probes { margin-left: 2.1rem; }
+  .probes[open] summary::before, .probes summary::before { content: ""; }
+  .probes summary { min-height: 0; padding: 0; font-size: 8pt; }
+  .probes ul { display: block; }          /* always print the probes */
+  .leader-notes { border: .5pt dashed #999; padding: 6pt 8pt; page-break-inside: avoid; }
+  .seg-commit { border-left: 2pt solid #000; padding: 8pt 10pt 1pt; }
   .colophon { margin: 14pt 0 0; font-size: 8pt; }
   a { color: #000; text-decoration: none; }
 }
