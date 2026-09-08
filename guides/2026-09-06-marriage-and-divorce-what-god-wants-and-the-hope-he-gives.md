@@ -15,54 +15,54 @@ The Urgent Kingdom · Mark 10 · Aaron Brockett
 
 ## Leader Notes
 
-- Sensitive topic: divorce and marriage might be painful for some.
-- Divide into groups of four to ensure everyone's voice is heard.
-- Encourage authenticity and avoid judgment.
+- Heads-up: Topic may be raw for those who've experienced divorce.
+- Remind groups to stick to discussion time limits.
+- Encourage honest sharing without judgment.
 
 ## Open · 5 min · all together
 
-What's a meal or dish that always reminds you of home?
+What's one promise you made years ago that's harder to keep now?
 
 ## Read · 8 min · all together
 
-Jesus is teaching in Judea, a region familiar with Herod's controversial divorce. The Pharisees ask Jesus about divorce to trap him.
+Jesus was teaching in Judea when Pharisees asked Him a tricky question about divorce, trying to trap Him.
 
-Mark 10: Look for how Jesus reframes the conversation from divorce to God's intent for marriage.
+Read Mark 10. Note Jesus' response to the Pharisees' question about divorce.
 
-What was the Pharisees' goal in asking Jesus about divorce, and how did Jesus respond?
+What was Jesus' main point about marriage when the Pharisees questioned Him?
 
 ## Dig in · 27 min · groups of four
 
-### Marriage Intent
+### Marriage's True Purpose
 
-How does Jesus describe God's original intent for marriage?
+When have you seen the 'one flesh' concept of marriage described here in real life?
 
-- Why does Jesus refer back to Genesis?
-- How does this vision challenge or affirm your own view of marriage?
+- What surprised you about it?
+- How does it challenge how you view marriage?
 
-### Living the Covenant
+### Navigating Brokenness
 
-Have you ever experienced marriage (yours or others) as a covenant and not a contract?
+Where have you experienced or seen the painful side of divorce?
 
-- What was the difference in how challenges were handled?
-- How does the idea of covenant change expectations?
+- What long-term impacts are still felt?
+- How did you see God bring healing, if at all?
 
-### Hope after Brokenness
+### Grace Beyond Failure
 
-In what ways have you seen God bring redemption after relational hurt?
+When did you experience grace after a mistake or failure in any area?
 
-- What role did grace play in the healing process?
-- How does Jesus' approach offer hope?
+- What made receiving grace difficult?
+- How did it change your relationships?
 
 ## Regroup · 10 min · all together
 
-What do you think makes it hard to live out a covenantal relationship today?
+What is the honest reason you might avoid the hard conversations in your relationship?
 
 ## Commit · 5 min · all together
 
-This week, identify one way you can strengthen a relationship by showing commitment beyond comfort or convenience.
+Name one small step you will take this week toward reconciliation or growth in your relationships.
 
-**Next week:** Ask each other next week how living out commitment changed your relationships.
+**Next week:** Next week, ask each other: 'What happened when you took that step towards reconciliation or growth?'
 
 ---
 

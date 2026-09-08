@@ -14,54 +14,53 @@ The Urgent Kingdom · Mark 9:30-50
 
 ## Leader Notes
 
-- Facilitation reminder: Groups of four for deeper discussion.
-- Be aware: The topic may be raw for those struggling with ambition or past failures.
-- Watch for men struggling with the concept of 'serving without an agenda'.
+- Be mindful that discussions may reveal personal struggles with pride or insecurity.
+- Divide the room into smaller groups for deeper discussions.
 
 ## Open · 5 min · all together
 
-What's a small chore or task you surprisingly enjoyed doing recently?
+When did you realize you were focusing more on your status than on a relationship?
 
 ## Read · 8 min · all together
 
-Jesus and his disciples are traveling from Galilee to Jerusalem. Listen for their discussion on greatness and Jesus’ response.
+Jesus and the disciples are traveling through Galilee towards Jerusalem, where Jesus will be crucified.
 
-Mark 9:30-50. Watch for how Jesus describes true greatness compared to what the disciples expect.
+Mark 9:30-50. Look for Jesus' teaching on true greatness and service.
 
-Why were the disciples arguing, and how did Jesus redirect their focus?
+What did Jesus say about where true greatness comes from?
 
 ## Dig in · 27 min · groups of four
 
-### True Greatness Defined
+### Living for an Audience of One
 
-How does Jesus redefine greatness in this passage?
+When have you humbled yourself and found unexpected honor?
 
-- What stands out about his use of a child in his teaching?
-- How does serving without expecting a return challenge you?
+- What did you learn from serving someone who couldn't repay you?
+- How did that experience change your perspective on greatness?
 
-### Personal Experience with Ambition
+### Handling Hidden Motivations
 
-Can you recall a time you prioritized position over presence?
+What personal insecurity do you catch yourself trying to cover with status?
 
-- What motivated your pursuit of that position?
-- How did it affect your relationships or spiritual life?
+- What has God revealed to you in your own 'badlands' experiences?
+- How has the pursuit of position affected your decisions?
 
-### The Cost of Following
+### The Cost of Following Jesus
 
-What does it mean for you to serve without an agenda or recognition?
+Where has following Jesus asked more of you than you expected?
 
-- What fears or insecurities come up for you in this context?
-- Who in your life could benefit from your service right now?
+- What have you had to 'cut off' to remain faithful?
+- What role does community play in keeping you accountable?
 
 ## Regroup · 10 min · all together
 
-What stops you from serving others without expecting something in return?
+What will realistically stop you from acting on this week's discussion?
 
 ## Commit · 5 min · all together
 
-This week, I will serve someone who cannot repay me and reflect on the experience.
+Share one specific way you will serve without an agenda this week.
 
-**Next week:** Next week, ask: 'What did you learn from serving without expectation?'
+**Next week:** Next week, ask each other how you served without expecting anything in return.
 
 ---
 
