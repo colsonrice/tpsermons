@@ -50,3 +50,28 @@ def test_verse_text_is_not_fetched_only_the_reference():
 
 def test_filename_is_date_prefixed_and_slugged():
     assert guide_filename(guide()) == "2026-08-30-presence-over-position.md"
+
+
+def test_markdown_converts_to_html_without_front_matter_leaking():
+    from tpsermons.render import render_guide_page
+    md = render_markdown(guide())
+    page = render_guide_page(md)
+    assert "<h1>" in page
+    assert "title:" not in page          # YAML front matter must not render
+    assert "---" not in page.split("<body")[-1][:200]
+
+
+def test_guide_page_renders_headings_lists_and_links():
+    from tpsermons.render import render_guide_page
+    page = render_guide_page(render_markdown(guide()))
+    assert "<h2>Recap</h2>" in page
+    assert "<h3>Heading 0</h3>" in page
+    assert "<ol>" in page and "<li>" in page      # numbered discuss questions
+    assert "<ul>" in page                          # reflections
+    assert 'href="https://tpcc.org/messages/presence-over-position"' in page
+
+
+def test_guide_page_escapes_nothing_it_should_not():
+    from tpsermons.render import render_guide_page
+    page = render_guide_page(render_markdown(guide(title="Q&A: Faith")))
+    assert "Q&amp;A: Faith" in page

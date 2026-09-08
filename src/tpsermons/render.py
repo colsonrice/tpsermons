@@ -60,6 +60,85 @@ def render_markdown(guide: Guide) -> str:
     return "\n".join(lines)
 
 
+_STYLE = (
+    "body{font:16px/1.6 system-ui,-apple-system,sans-serif;max-width:42rem;"
+    "margin:2rem auto;padding:0 1rem;color:#222}"
+    "h1{margin-bottom:.2rem;line-height:1.25}"
+    "h2{margin-top:2rem;font-size:1rem;text-transform:uppercase;"
+    "letter-spacing:.05em;color:#666}"
+    "h3{margin-top:1.5rem;font-size:1.05rem}"
+    "a{color:#0b5}small{color:#777}"
+    "ol,ul{padding-left:1.2rem}li{margin:.35rem 0}"
+    "hr{border:0;border-top:1px solid #eee;margin:2rem 0}"
+    "em{color:#777;font-size:.9rem}")
+
+_LINK = re.compile(r"\[([^\]]+)\]\(([^)]+)\)")
+
+
+def _inline(text: str) -> str:
+    out = html.escape(text)
+    out = _LINK.sub(lambda m: '<a href="%s">%s</a>' % (m.group(2), m.group(1)), out)
+    return re.sub(r"\*([^*]+)\*", r"<em>\1</em>", out)
+
+
+def strip_front_matter(md: str) -> str:
+    if md.startswith("---"):
+        end = md.find("\n---", 3)
+        if end != -1:
+            return md[end + 4:].lstrip("\n")
+    return md
+
+
+def markdown_to_html(md: str) -> str:
+    """Convert the exact markdown subset render_markdown emits."""
+    lines = strip_front_matter(md).split("\n")
+    out, list_tag = [], None
+
+    def close():
+        nonlocal list_tag
+        if list_tag:
+            out.append("</%s>" % list_tag)
+            list_tag = None
+
+    for raw in lines:
+        line = raw.rstrip()
+        if not line.strip():
+            close()
+            continue
+        if line.startswith("### "):
+            close(); out.append("<h3>%s</h3>" % _inline(line[4:]))
+        elif line.startswith("## "):
+            close(); out.append("<h2>%s</h2>" % _inline(line[3:]))
+        elif line.startswith("# "):
+            close(); out.append("<h1>%s</h1>" % _inline(line[2:]))
+        elif line.startswith("---"):
+            close(); out.append("<hr>")
+        elif re.match(r"^\d+\. ", line):
+            if list_tag != "ol":
+                close(); out.append("<ol>"); list_tag = "ol"
+            out.append("<li>%s</li>" % _inline(re.sub(r"^\d+\. ", "", line)))
+        elif line.startswith("- "):
+            if list_tag != "ul":
+                close(); out.append("<ul>"); list_tag = "ul"
+            out.append("<li>%s</li>" % _inline(line[2:]))
+        else:
+            close(); out.append("<p>%s</p>" % _inline(line))
+    close()
+    return "\n".join(out)
+
+
+def render_guide_page(md: str) -> str:
+    """A standalone, readable HTML page for one guide."""
+    body = markdown_to_html(md)
+    m = re.search(r"<h1>(.*?)</h1>", body)
+    title = re.sub(r"<[^>]+>", "", m.group(1)) if m else "Group Guide"
+    return (
+        "<!doctype html><meta charset='utf-8'>"
+        "<meta name='viewport' content='width=device-width,initial-scale=1'>"
+        "<title>%s</title><style>%s</style>"
+        "<p><a href='../index.html'>&larr; All guides</a></p>%s" % (title, _STYLE, body))
+
+
 def render_site(guides: List[Guide], latest_markdown: Optional[str] = None) -> str:
     """A minimal static index: newest guide first, then an archive by series."""
     def esc(s):
@@ -73,7 +152,7 @@ def render_site(guides: List[Guide], latest_markdown: Optional[str] = None) -> s
             rows.append("<h2>%s</h2>" % esc(current or "Other"))
         rows.append(
             '<p><a href="guides/%s">%s</a> <small>%s%s</small></p>' % (
-                esc(guide_filename(g)), esc(g.title), esc(g.date),
+                esc(guide_filename(g).replace('.md', '.html')), esc(g.title), esc(g.date),
                 " · " + esc(g.passage) if g.passage else ""))
 
     return (
