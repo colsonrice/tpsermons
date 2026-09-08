@@ -79,16 +79,28 @@ def generate(episode: Episode, transcript: str, links: Dict[str, str],
              speaker: Optional[str], source: str, client) -> Guide:  # pragma: no cover
     """Call the model, retrying once when the shape is wrong."""
     prompt = build_prompt(episode, transcript, speaker)
-    last = None
-    for _ in range(2):
+    messages = [{"role": "user", "content": prompt}]
+    last, raw = None, "{}"
+    for attempt in range(3):
         try:
             resp = client.chat.completions.create(
                 model=MODEL,
                 response_format={"type": "json_object"},
-                messages=[{"role": "user", "content": prompt}],
+                messages=messages,
             )
-            payload = json.loads(resp.choices[0].message.content)
+            raw = resp.choices[0].message.content
+            payload = json.loads(raw)
             return build_guide(episode, payload, links, speaker, source)
         except (ValidationError, ValueError) as exc:
             last = exc
-    raise ValidationError("model output failed validation twice: %s" % last)
+            # Tell the model what was wrong. Re-sending an identical prompt
+            # just reproduces the same failure, which is exactly what happened
+            # the first time this ran in CI.
+            messages = messages[:1] + [
+                {"role": "assistant", "content": raw},
+                {"role": "user", "content":
+                    "That output was rejected: %s. Fix only that problem and "
+                    "return the corrected JSON, keeping everything else." % exc},
+            ]
+            print("  attempt %d rejected: %s" % (attempt + 1, exc))
+    raise ValidationError("model output failed validation 3x: %s" % last)

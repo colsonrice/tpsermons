@@ -66,3 +66,12 @@ def test_missing_key_raises_validation_error():
     del broken["commit"]
     with pytest.raises(ValidationError):
         build_guide(EP, broken, links=LINKS, speaker=None, source="youtube_captions")
+
+
+def test_terse_commitments_are_allowed():
+    # "Call your brother before Thursday and apologize for Christmas" is a
+    # good commitment. A word floor that rejects it is the rule's problem.
+    terse = "Call your brother before Thursday and apologize for what you said."
+    g = build_guide(EP, payload(commit=terse), links=LINKS, speaker=None,
+                    source="whisper")
+    assert g.commit == terse

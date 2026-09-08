@@ -31,7 +31,7 @@ DISCUSS_BLOCKS = 3
 PROBES_PER_BLOCK = (2, 3)
 LEADER_NOTES = (2, 4)
 CONTEXT_WORDS = (12, 70)
-COMMIT_WORDS = (15, 90)
+COMMIT_WORDS = (10, 90)
 
 # The evening, as minutes. Sums to 55 -- inside the 45-60 window.
 SEGMENTS = (
