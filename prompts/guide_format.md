@@ -64,6 +64,39 @@ leaving. Concrete enough to finish in a week and to be asked about later.
 **Carry** — one sentence naming what the group will ask each other next week.
 This closes the accountability loop.
 
+## Question standards — the part most guides get wrong
+
+Every question is judged against these. A question that fails any of them is
+wrong even if it is theologically sound.
+
+**Never open with "Have you ever", "Do you", "Can you", "Is there".** Those can
+be answered with one word and the room goes quiet. Ask "When", "Where", "What",
+or "Who" instead.
+
+| Weak | Strong |
+|---|---|
+| Have you ever experienced marriage as a covenant? | Where has keeping a promise cost you more than you expected? |
+| What makes it hard to live this out today? | What is the honest reason you have not had that conversation yet? |
+| How does Jesus describe God's design for marriage? | Where have you settled for what is allowed instead of what was intended? |
+| What role does grace play in healing? | Who is owed an apology from you that you have been putting off? |
+
+The left column asks about the world. The right column asks about the man. The
+left column can be answered by someone who has never thought about it. The
+right column cannot.
+
+**The opener** must be answerable by every man in ninety seconds, must not
+require vulnerability, and must still point at the evening's theme. Not a
+generic icebreaker: "What's a meal that reminds you of home" is a failure if
+the message is about covenant. "What did you commit to years ago that costs
+more now than you expected" is the same warmth aimed at the right target.
+
+**The obstacle question** must be about *this man, this week*. It contains the
+word "you". It names friction, not theory. "What will realistically stop you
+before next Thursday" — not "what makes this hard in our culture".
+
+**At least two of the three Dig In questions** must ask a man to describe
+something that actually happened to him, not what he believes.
+
 ## Rules
 
 - Ground everything in the sermon transcript you are given. Do not import

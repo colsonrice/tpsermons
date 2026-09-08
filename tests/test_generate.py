@@ -24,7 +24,7 @@ def payload(**kw):
         "discuss": [{"heading": "H%d" % i,
                      "question": "Where has that shown up for you?",
                      "probes": ["P1", "P2"]} for i in range(3)],
-        "obstacle": "What will realistically get in the way this week?",
+        "obstacle": "What will realistically stop you before next Thursday?",
         "commit": " ".join(["word"] * 40),
         "carry": "Next week we ask how that went.",
     }

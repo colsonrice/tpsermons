@@ -76,3 +76,21 @@ def test_ellipsis_and_asr_markers_are_not_placeholders():
 def test_tpcc_link_is_required():
     with pytest.raises(ValidationError):
         guide(links={"youtube": "https://youtu.be/x"}).validate()
+
+
+@pytest.mark.parametrize("bad", [
+    "Have you ever thought about this?",
+    "Do you struggle with pride?",
+    "Is there something you would change?",
+    "Can you see how that applies?",
+])
+def test_closed_questions_are_rejected(bad):
+    # One-word answers stall a room of twelve. Ask When/Where/What/Who.
+    with pytest.raises(ValidationError):
+        guide(opener=bad).validate()
+
+
+def test_obstacle_must_be_about_the_man_not_the_world():
+    with pytest.raises(ValidationError):
+        guide(obstacle="What makes this hard in our culture today?").validate()
+    guide(obstacle="What will realistically stop you before next Thursday?").validate()

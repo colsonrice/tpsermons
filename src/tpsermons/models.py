@@ -22,6 +22,11 @@ from typing import Dict, List, Optional
 _PLACEHOLDER = re.compile(r"\b(TODO|TBD|FIXME|XXX|Lorem)\b", re.IGNORECASE)
 _BRACKET_STUB = re.compile(r"\[insert[^\]]*\]", re.IGNORECASE)
 
+# Questions opening this way are answerable in one word and stall the room.
+_CLOSED_OPENER = re.compile(
+    r"^\s*(have|has|do|does|did|are|is|was|were|can|could|will|would|should)\b",
+    re.IGNORECASE)
+
 DISCUSS_BLOCKS = 3
 PROBES_PER_BLOCK = (2, 3)
 LEADER_NOTES = (2, 4)
@@ -109,8 +114,12 @@ class Guide:
         _words("commit", self.commit, *COMMIT_WORDS)
 
         for name in ("opener", "observation", "obstacle"):
-            if "?" not in getattr(self, name):
+            value = getattr(self, name)
+            if "?" not in value:
                 raise ValidationError("%s must be a question" % name)
+            _open_ended(name, value)
+        if "you" not in self.obstacle.lower():
+            raise ValidationError("obstacle must ask about this man, not the world")
 
         if len(self.discuss) != DISCUSS_BLOCKS:
             raise ValidationError(
@@ -122,6 +131,7 @@ class Guide:
             _placeholder("discuss[%d].question" % i, b.question)
             if "?" not in b.question:
                 raise ValidationError("discuss[%d].question must be a question" % i)
+            _open_ended("discuss[%d].question" % i, b.question)
             if not plo <= len(b.probes) <= phi:
                 raise ValidationError(
                     "discuss[%d] has %d probes, expected %d-%d" % (i, len(b.probes), plo, phi))
@@ -135,6 +145,14 @@ def _words(name: str, value: str, lo: int, hi: int) -> None:
     n = len(value.split())
     if not lo <= n <= hi:
         raise ValidationError("%s is %d words, expected %d-%d" % (name, n, lo, hi))
+
+
+def _open_ended(name: str, value: str) -> None:
+    """Reject yes/no openers -- they are answerable in one word."""
+    if _CLOSED_OPENER.match(value):
+        raise ValidationError(
+            "%s opens closed (%r); ask When/Where/What/Who instead"
+            % (name, value.split()[0]))
 
 
 def _placeholder(name: str, value: str) -> None:

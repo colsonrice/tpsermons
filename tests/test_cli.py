@@ -23,7 +23,7 @@ def fake_guide(episode, **_):
         observation="What did Jesus actually say?",
         discuss=[DiscussBlock("H%d" % i, "Where has that shown up for you?",
                               ["a", "b"]) for i in range(3)],
-        obstacle="What will get in the way this week?",
+        obstacle="What will stop you before next Thursday?",
         commit=" ".join(["word"] * 40),
         carry="Next week we ask how it went.",
         source="youtube_captions")

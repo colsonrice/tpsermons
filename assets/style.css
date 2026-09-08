@@ -247,8 +247,10 @@ a:hover { color: var(--ink); }
 /* --- guide page ----------------------------------------------------------- */
 
 .backlink {
-  display: inline-block;
-  margin: 2.25rem 0 0;
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;              /* iOS tap-target minimum */
+  margin: 1.5rem 0 0;
   font-size: var(--step--1);
   letter-spacing: .1em;
   text-transform: uppercase;
@@ -286,7 +288,7 @@ a:hover { color: var(--ink); }
   padding: .45rem 1rem;
   color: var(--ink-soft);
   transition: all .25s;
-  min-height: 40px;                 /* comfortable thumb target */
+  min-height: 44px;                 /* comfortable thumb target */
   display: inline-flex; align-items: center;
 }
 .links a:hover, .links a:active { border-color: var(--clay); color: var(--clay); }
@@ -405,7 +407,7 @@ a:hover { color: var(--ink); }
   color: var(--ink-faint);
   list-style: none;
   padding: .5rem 0;
-  min-height: 40px;
+  min-height: 44px;
   display: flex; align-items: center; gap: .45rem;
 }
 .probes summary::-webkit-details-marker { display: none; }
@@ -435,6 +437,17 @@ a:hover { color: var(--ink); }
   font-size: var(--step--1);
   color: var(--ink-faint);
   line-height: 1.6;
+}
+
+@media (max-width: 30rem) {
+  .guide-head { padding-top: .75rem; }
+  .seg { margin-bottom: 2.25rem; }
+  .seg-head { gap: .4rem .5rem; }
+  .block .ask, .probes { margin-left: 0; }
+  .block-head { gap: .6rem; }
+  .leader-notes { padding: 1rem 1.1rem; }
+  .seg-commit { padding: 1.15rem 1.1rem .4rem; }
+  .links a { flex: 1 1 auto; justify-content: center; }
 }
 
 /* --- footer --------------------------------------------------------------- */
