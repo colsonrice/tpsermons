@@ -2,10 +2,20 @@ name: Generate sermon guide
 
 on:
   schedule:
-    # Daily 13:00 UTC (09:00 ET during EDT). Daily rather than Monday-only:
-    # the feed publishes Sun 48 / Mon 8 / Tue 3 / Wed 1 across the last 60
-    # episodes, so a Monday cron would silently skip ~20% of weeks.
-    - cron: '0 13 * * *'
+    # Every 2 hours. Two reasons this is not overkill:
+    #
+    # 1. The feed publishes Sun 48 / Mon 8 / Tue 3 / Wed 1 across the last 60
+    #    episodes, so a Monday-only cron would skip ~20% of weeks entirely.
+    # 2. GitHub delays scheduled runs under load -- measured on this repo,
+    #    a 13:00 UTC cron actually started at 15:58, 18:06 and 17:04 on three
+    #    consecutive days (+3h to +5h), and GitHub drops runs outright during
+    #    heavy load. A single daily trigger cannot hold a hard deadline.
+    #
+    # Requirement: published before 18:00 ET Monday, earlier preferred. At this
+    # cadence the guide typically lands Sunday evening, hours after the sermon
+    # posts, and a delayed or dropped run costs at most one 2-hour slot.
+    # Idle runs exit before any install or API call, so they are ~free.
+    - cron: '0 */2 * * *'
   workflow_dispatch:
     inputs:
       episode:
@@ -36,13 +46,23 @@ jobs:
         with:
           python-version: '3.12'
 
+      - name: Check for a new episode
+        id: check
+        run: |
+          pip install -e . --quiet
+          if python -m tpsermons.cli pending --quiet; then
+            echo "found=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "found=false" >> "$GITHUB_OUTPUT"
+            echo "No new episode; skipping the expensive steps."
+          fi
+
       - name: Install system tools
+        if: steps.check.outputs.found == 'true' || inputs.episode != ''
         run: sudo apt-get update && sudo apt-get install -y poppler-utils ffmpeg
 
-      - name: Install package
-        run: pip install -e .
-
       - name: Generate guide
+        if: steps.check.outputs.found == 'true' || inputs.episode != ''
         env:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
         run: |
@@ -51,6 +71,7 @@ jobs:
             ${{ inputs.force && '--force' || '' }}
 
       - name: Commit new guides
+        if: steps.check.outputs.found == 'true' || inputs.episode != ''
         run: |
           if [ -n "$(git status --porcelain guides index.html state.json)" ]; then
             git config user.name  "github-actions[bot]"

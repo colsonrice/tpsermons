@@ -195,10 +195,20 @@ def diagnose() -> int:  # pragma: no cover - network
 
 def main(argv=None) -> int:  # pragma: no cover
     ap = argparse.ArgumentParser(prog="tpsermons")
-    ap.add_argument("command", choices=["run", "seed", "diagnose"])
+    ap.add_argument("command", choices=["run", "seed", "diagnose", "pending"])
     ap.add_argument("--episode", help="episode GUID to process, bypassing state")
     ap.add_argument("--force", action="store_true", help="overwrite an existing guide")
+    ap.add_argument("--quiet", action="store_true", help="suppress output (for pending)")
     args = ap.parse_args(argv)
+
+    if args.command == "pending":
+        # Exit 0 when work exists, 1 when idle, so the workflow can gate on it
+        # without installing ffmpeg/poppler or touching the API.
+        eps = feed.parse_feed(get_text(PODCAST_FEED))
+        p = State(STATE).pending([e.guid for e in eps])
+        if not args.quiet:
+            print("%d pending" % len(p))
+        return 0 if p else 1
 
     if args.command == "diagnose":
         return diagnose()
