@@ -1,0 +1,452 @@
+/* ===========================================================================
+   Traders Point Group Guides
+   Editorial / devotional. Warm paper, clay accent, generous typographic
+   rhythm. Designed to be read on a phone at a kitchen table — and printed.
+   =========================================================================== */
+
+:root {
+  --paper:      #FAF6EF;
+  --paper-sunk: #F2EADD;
+  --paper-card: #FFFCF7;
+  --ink:        #1A1512;
+  --ink-soft:   #5D534B;
+  --ink-faint:  #938779;
+  --clay:       #A8442A;
+  --clay-soft:  #C9714F;
+  --sage:       #6A7355;
+  --rule:       #E6DCCB;
+  --rule-firm:  #D2C4AE;
+
+  --display: "Fraunces", "Iowan Old Style", Georgia, serif;
+  --body:    "Newsreader", Georgia, "Times New Roman", serif;
+
+  --measure: 34rem;
+  --shell:   min(68rem, 100% - 2.5rem);
+
+  --step--1: clamp(.78rem, .76rem + .12vw, .85rem);
+  --step-0:  clamp(1.05rem, 1rem + .22vw, 1.18rem);
+  --step-1:  clamp(1.25rem, 1.15rem + .4vw, 1.5rem);
+  --step-2:  clamp(1.6rem, 1.4rem + .9vw, 2.2rem);
+  --step-3:  clamp(2.1rem, 1.7rem + 1.9vw, 3.4rem);
+  --step-4:  clamp(2.6rem, 1.9rem + 3.2vw, 4.8rem);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --paper:      #15110F;
+    --paper-sunk: #1C1714;
+    --paper-card: #1F1A16;
+    --ink:        #F2EADF;
+    --ink-soft:   #B7A99A;
+    --ink-faint:  #7E7264;
+    --clay:       #E08059;
+    --clay-soft:  #C9714F;
+    --sage:       #98A37C;
+    --rule:       #2C2521;
+    --rule-firm:  #3D342E;
+  }
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--body);
+  font-size: var(--step-0);
+  line-height: 1.66;
+  font-optical-sizing: auto;
+  text-rendering: optimizeLegibility;
+  position: relative;
+}
+
+/* Paper grain — barely there, but it kills the flat-screen feeling. */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  opacity: .035;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+.shell { width: var(--shell); margin-inline: auto; position: relative; z-index: 2; }
+
+a { color: var(--clay); text-underline-offset: .18em; text-decoration-thickness: .06em; }
+a:hover { color: var(--ink); }
+
+/* --- shared type ---------------------------------------------------------- */
+
+.eyebrow {
+  font-family: var(--body);
+  font-size: var(--step--1);
+  font-weight: 600;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: var(--clay);
+  margin: 0;
+}
+
+.rule {
+  border: 0;
+  border-top: 1px solid var(--rule);
+  margin: 3.5rem 0;
+}
+
+/* --- masthead ------------------------------------------------------------- */
+
+.masthead {
+  padding: clamp(3rem, 9vw, 6.5rem) 0 clamp(2rem, 5vw, 3.5rem);
+  border-bottom: 1px solid var(--rule);
+}
+
+.masthead h1 {
+  font-family: var(--display);
+  font-size: var(--step-4);
+  font-weight: 400;
+  font-variation-settings: "SOFT" 40, "WONK" 1, "opsz" 100;
+  line-height: .95;
+  letter-spacing: -.02em;
+  margin: .6rem 0 0;
+  max-width: 18ch;
+}
+
+.masthead h1 em {
+  font-style: italic;
+  color: var(--clay);
+  font-variation-settings: "SOFT" 60, "WONK" 1;
+}
+
+.masthead .blurb {
+  margin: 1.5rem 0 0;
+  max-width: 44ch;
+  color: var(--ink-soft);
+  font-size: var(--step-1);
+  line-height: 1.5;
+}
+
+/* --- featured (this week) ------------------------------------------------- */
+
+.featured {
+  display: block;
+  margin: clamp(2.5rem, 6vw, 4rem) 0;
+  padding: clamp(1.75rem, 4vw, 3rem);
+  background: var(--paper-card);
+  border: 1px solid var(--rule);
+  border-left: 3px solid var(--clay);
+  border-radius: 2px;
+  text-decoration: none;
+  color: inherit;
+  transition: transform .35s cubic-bezier(.2,.7,.3,1), box-shadow .35s, border-color .35s;
+  box-shadow: 0 1px 2px rgba(26,21,18,.03);
+}
+.featured:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 18px 40px -22px rgba(26,21,18,.35);
+  border-color: var(--rule-firm);
+  border-left-color: var(--clay);
+}
+.featured h2 {
+  font-family: var(--display);
+  font-size: var(--step-3);
+  font-weight: 400;
+  font-variation-settings: "SOFT" 40, "WONK" 1, "opsz" 80;
+  line-height: 1.02;
+  letter-spacing: -.018em;
+  margin: .9rem 0 0;
+  max-width: 20ch;
+  text-wrap: balance;
+}
+.featured .meta { margin-top: 1.2rem; }
+.featured .cue {
+  display: inline-flex;
+  align-items: center;
+  gap: .5rem;
+  margin-top: 1.6rem;
+  font-size: var(--step--1);
+  font-weight: 600;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--clay);
+}
+.featured .cue span { transition: transform .3s cubic-bezier(.2,.7,.3,1); }
+.featured:hover .cue span { transform: translateX(5px); }
+
+/* --- meta line ------------------------------------------------------------ */
+
+.meta {
+  font-size: var(--step--1);
+  color: var(--ink-faint);
+  letter-spacing: .04em;
+  display: flex;
+  flex-wrap: wrap;
+  gap: .45rem .85rem;
+  align-items: baseline;
+}
+.meta .passage {
+  color: var(--sage);
+  font-weight: 600;
+  font-variant-numeric: lining-nums;
+}
+
+/* --- archive -------------------------------------------------------------- */
+
+.archive { padding-bottom: clamp(4rem, 10vw, 7rem); }
+
+.series-head {
+  display: flex;
+  align-items: baseline;
+  gap: 1rem;
+  margin: clamp(2.5rem, 6vw, 4rem) 0 .25rem;
+}
+.series-head::after {
+  content: "";
+  flex: 1;
+  border-top: 1px solid var(--rule);
+  transform: translateY(-.3em);
+}
+
+.entry {
+  display: grid;
+  grid-template-columns: 5.5rem 1fr;
+  gap: 0 1.5rem;
+  align-items: baseline;
+  padding: 1.15rem 0;
+  border-bottom: 1px solid var(--rule);
+  text-decoration: none;
+  color: inherit;
+  transition: background .25s, padding-left .25s;
+}
+.entry:hover { background: var(--paper-sunk); padding-left: .7rem; }
+.entry .when {
+  font-size: var(--step--1);
+  color: var(--ink-faint);
+  font-variant-numeric: tabular-nums lining-nums;
+  letter-spacing: .03em;
+}
+.entry .what {
+  font-family: var(--display);
+  font-size: var(--step-1);
+  font-weight: 400;
+  font-variation-settings: "SOFT" 30, "opsz" 40;
+  line-height: 1.2;
+  letter-spacing: -.01em;
+}
+.entry:hover .what { color: var(--clay); }
+.entry .ref { display: block; font-family: var(--body); font-size: var(--step--1); color: var(--sage); margin-top: .3rem; letter-spacing: .03em; }
+
+@media (max-width: 34rem) {
+  .entry { grid-template-columns: 1fr; gap: .35rem; }
+  .entry .when { order: 2; }
+}
+
+/* --- guide page ----------------------------------------------------------- */
+
+.backlink {
+  display: inline-block;
+  margin: 2.25rem 0 0;
+  font-size: var(--step--1);
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  font-weight: 600;
+  text-decoration: none;
+  color: var(--ink-faint);
+}
+.backlink:hover { color: var(--clay); }
+
+.guide { width: 100%; max-width: var(--measure); margin-inline: auto; }
+.guide-wide { width: var(--shell); margin-inline: auto; }
+
+.guide-head { padding: clamp(2rem, 5vw, 3.25rem) 0 clamp(1.75rem, 4vw, 2.5rem); }
+.guide-head h1 {
+  font-family: var(--display);
+  font-size: var(--step-3);
+  font-weight: 400;
+  font-variation-settings: "SOFT" 40, "WONK" 1, "opsz" 90;
+  line-height: 1.02;
+  letter-spacing: -.02em;
+  margin: .8rem 0 1.4rem;
+  text-wrap: balance;
+}
+
+.links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .55rem;
+  margin-top: 1.6rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--rule);
+}
+.links a {
+  font-size: var(--step--1);
+  letter-spacing: .06em;
+  text-decoration: none;
+  border: 1px solid var(--rule-firm);
+  border-radius: 999px;
+  padding: .42rem 1rem;
+  color: var(--ink-soft);
+  transition: all .25s;
+}
+.links a:hover { border-color: var(--clay); color: var(--clay); background: var(--paper-card); }
+
+.guide h2 {
+  font-family: var(--body);
+  font-size: var(--step--1);
+  font-weight: 700;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: var(--clay);
+  margin: 3.25rem 0 1.1rem;
+  padding-bottom: .6rem;
+  border-bottom: 1px solid var(--rule);
+}
+
+.guide h3 {
+  font-family: var(--display);
+  font-size: var(--step-1);
+  font-weight: 400;
+  font-variation-settings: "SOFT" 30, "WONK" 1, "opsz" 40;
+  letter-spacing: -.01em;
+  line-height: 1.25;
+  margin: 2.4rem 0 .9rem;
+}
+
+.guide p { margin: 0 0 1.15rem; }
+
+/* Recap reads as a lead paragraph. */
+.sec-recap p:first-of-type {
+  font-size: var(--step-1);
+  line-height: 1.56;
+  color: var(--ink);
+}
+.sec-recap p:first-of-type::first-letter {
+  font-family: var(--display);
+  font-size: 3.1em;
+  float: left;
+  line-height: .82;
+  padding: .06em .1em 0 0;
+  color: var(--clay);
+  font-variation-settings: "SOFT" 60, "WONK" 1;
+}
+
+/* Numbered questions — the heart of the page. */
+.sec-discuss ol {
+  list-style: none;
+  counter-reset: q;
+  padding: 0;
+  margin: 0 0 1.4rem;
+}
+.sec-discuss li {
+  counter-increment: q;
+  display: grid;
+  grid-template-columns: 2.1rem 1fr;
+  gap: 0 1rem;
+  padding: .65rem 0;
+  align-items: start;
+}
+.sec-discuss li + li { border-top: 1px dotted var(--rule); }
+.sec-discuss li::before {
+  content: counter(q);
+  font-family: var(--display);
+  font-size: 1.35rem;
+  font-variation-settings: "SOFT" 40, "opsz" 30;
+  color: var(--clay-soft);
+  line-height: 1.3;
+  text-align: right;
+  font-variant-numeric: lining-nums;
+}
+
+/* Take Action gets weight — it's the one thing to do this week. */
+.sec-action {
+  background: var(--paper-sunk);
+  border-left: 3px solid var(--sage);
+  padding: 1.6rem 1.5rem .5rem;
+  margin-top: 1rem;
+  border-radius: 2px;
+}
+.sec-action h2 { margin-top: 0; border-bottom: none; padding-bottom: 0; color: var(--sage); }
+
+.sec-reflections ul { list-style: none; padding: 0; margin: 0; }
+.sec-reflections li {
+  padding: .85rem 0 .85rem 1.6rem;
+  position: relative;
+  color: var(--ink-soft);
+  font-style: italic;
+}
+.sec-reflections li + li { border-top: 1px dotted var(--rule); }
+.sec-reflections li::before {
+  content: "";
+  position: absolute;
+  left: 0; top: 1.5em;
+  width: .5rem; height: 1px;
+  background: var(--clay-soft);
+}
+
+.colophon {
+  margin: 4rem 0 5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--rule);
+  font-size: var(--step--1);
+  color: var(--ink-faint);
+  line-height: 1.6;
+}
+.colophon em { font-style: normal; color: var(--ink-faint); }
+
+.guide hr { display: none; }
+
+/* --- footer --------------------------------------------------------------- */
+
+.site-foot {
+  border-top: 1px solid var(--rule);
+  padding: 2.25rem 0 3.5rem;
+  font-size: var(--step--1);
+  color: var(--ink-faint);
+  display: flex;
+  flex-wrap: wrap;
+  gap: .5rem 1.5rem;
+  justify-content: space-between;
+}
+
+/* --- entrance ------------------------------------------------------------- */
+
+@media (prefers-reduced-motion: no-preference) {
+  .rise { animation: rise .75s cubic-bezier(.2,.7,.3,1) both; }
+  .rise:nth-child(1) { animation-delay: .02s; }
+  .rise:nth-child(2) { animation-delay: .09s; }
+  .rise:nth-child(3) { animation-delay: .16s; }
+  .rise:nth-child(4) { animation-delay: .23s; }
+  @keyframes rise {
+    from { opacity: 0; transform: translateY(12px); }
+    to   { opacity: 1; transform: none; }
+  }
+}
+
+/* --- print: group leaders actually print these ---------------------------- */
+
+@media print {
+  :root {
+    --paper: #fff; --paper-sunk: #fff; --paper-card: #fff;
+    --ink: #000; --ink-soft: #222; --ink-faint: #555;
+    --clay: #000; --clay-soft: #444; --sage: #333;
+    --rule: #ccc; --rule-firm: #999;
+  }
+  @page { margin: 16mm 14mm; }
+  body { font-size: 10.5pt; line-height: 1.45; }
+  body::before, .backlink, .links, .site-foot { display: none !important; }
+  .shell, .guide, .guide-wide { width: auto; max-width: none; margin: 0; }
+  .guide-head { padding-top: 0; }
+  .guide-head h1 { font-size: 21pt; margin: .2rem 0 .6rem; }
+  .guide h2 { font-size: 8.5pt; margin: 14pt 0 6pt; page-break-after: avoid; }
+  .guide h3 { font-size: 12pt; margin: 11pt 0 4pt; page-break-after: avoid; }
+  .sec-recap p:first-of-type { font-size: 10.5pt; }
+  .sec-recap p:first-of-type::first-letter { font-size: 1em; float: none; color: #000; padding: 0; }
+  .sec-discuss li, .sec-reflections li { page-break-inside: avoid; padding: 3pt 0; }
+  .sec-discuss li::before { font-size: 11pt; color: #000; }
+  .sec-action { border-left: 2pt solid #000; padding: 8pt 10pt 1pt; page-break-inside: avoid; }
+  .colophon { margin: 14pt 0 0; font-size: 8pt; }
+  a { color: #000; text-decoration: none; }
+}

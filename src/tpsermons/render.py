@@ -60,38 +60,64 @@ def render_markdown(guide: Guide) -> str:
     return "\n".join(lines)
 
 
-_STYLE = (
-    "body{font:16px/1.6 system-ui,-apple-system,sans-serif;max-width:42rem;"
-    "margin:2rem auto;padding:0 1rem;color:#222}"
-    "h1{margin-bottom:.2rem;line-height:1.25}"
-    "h2{margin-top:2rem;font-size:1rem;text-transform:uppercase;"
-    "letter-spacing:.05em;color:#666}"
-    "h3{margin-top:1.5rem;font-size:1.05rem}"
-    "a{color:#0b5}small{color:#777}"
-    "ol,ul{padding-left:1.2rem}li{margin:.35rem 0}"
-    "hr{border:0;border-top:1px solid #eee;margin:2rem 0}"
-    "em{color:#777;font-size:.9rem}")
+SECTION_CLASS = {
+    "recap": "sec-recap",
+    "discuss": "sec-discuss",
+    "take action": "sec-action",
+    "reflections": "sec-reflections",
+}
 
 _LINK = re.compile(r"\[([^\]]+)\]\(([^)]+)\)")
+_FONTS = (
+    "<link rel='preconnect' href='https://fonts.googleapis.com'>"
+    "<link rel='preconnect' href='https://fonts.gstatic.com' crossorigin>"
+    "<link rel='stylesheet' href='https://fonts.googleapis.com/css2?"
+    "family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..700&"
+    "family=Newsreader:ital,opsz,wght@0,6..72,300..700;1,6..72,300..700&display=swap'>"
+)
+_ICON = (
+    "<link rel='icon' href=\"data:image/svg+xml,"
+    "%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E"
+    "%3Crect width='32' height='32' rx='6' fill='%23A8442A'/%3E"
+    "%3Ctext x='16' y='23' font-size='19' font-family='Georgia,serif' "
+    "text-anchor='middle' fill='%23FAF6EF'%3EG%3C/text%3E%3C/svg%3E\">"
+)
+
+
+def _doc(title: str, depth: str, body: str) -> str:
+    return (
+        "<!doctype html><html lang='en'><head><meta charset='utf-8'>"
+        "<meta name='viewport' content='width=device-width,initial-scale=1'>"
+        "<title>%s</title>%s%s"
+        "<link rel='stylesheet' href='%sassets/style.css'>"
+        "</head><body>%s</body></html>" % (html.escape(title), _FONTS, _ICON, depth, body)
+    )
 
 
 def _inline(text: str) -> str:
     out = html.escape(text)
-    out = _LINK.sub(lambda m: '<a href="%s">%s</a>' % (m.group(2), m.group(1)), out)
+    out = _LINK.sub(lambda m: "<a href=\"%s\">%s</a>" % (m.group(2), m.group(1)), out)
     return re.sub(r"\*([^*]+)\*", r"<em>\1</em>", out)
 
 
+def parse_front_matter(md: str):
+    """Return (fields, body) from a guide markdown document."""
+    if not md.startswith("---"):
+        return {}, md
+    end = md.find("\n---", 3)
+    if end == -1:
+        return {}, md
+    block = md[3:end]
+    fields = dict(re.findall(r"^(\w+): (.*)$", block, re.M))
+    return fields, md[end + 4:].lstrip("\n")
+
+
 def strip_front_matter(md: str) -> str:
-    if md.startswith("---"):
-        end = md.find("\n---", 3)
-        if end != -1:
-            return md[end + 4:].lstrip("\n")
-    return md
+    return parse_front_matter(md)[1]
 
 
-def markdown_to_html(md: str) -> str:
-    """Convert the exact markdown subset render_markdown emits."""
-    lines = strip_front_matter(md).split("\n")
+def _blocks_to_html(lines) -> str:
+    """Render the markdown subset render_markdown emits."""
     out, list_tag = [], None
 
     def close():
@@ -127,43 +153,139 @@ def markdown_to_html(md: str) -> str:
     return "\n".join(out)
 
 
+def markdown_to_html(md: str) -> str:
+    return _blocks_to_html(strip_front_matter(md).split("\n"))
+
+
+def _meta_line(fields) -> str:
+    bits = []
+    if fields.get("date"):
+        bits.append("<span>%s</span>" % html.escape(_pretty_date(fields["date"])))
+    if fields.get("speaker"):
+        bits.append("<span>%s</span>" % html.escape(fields["speaker"]))
+    if fields.get("passage"):
+        bits.append("<span class='passage'>%s</span>" % html.escape(fields["passage"]))
+    return "<div class='meta'>%s</div>" % "".join(bits)
+
+
+def _pretty_date(iso: str) -> str:
+    try:
+        y, m, d = (int(x) for x in iso.split("-"))
+    except ValueError:
+        return iso
+    months = ("January", "February", "March", "April", "May", "June", "July",
+              "August", "September", "October", "November", "December")
+    return "%s %d, %d" % (months[m - 1], d, y)
+
+
+def _short_date(iso: str) -> str:
+    try:
+        y, m, d = (int(x) for x in iso.split("-"))
+    except ValueError:
+        return iso
+    return "%s %d" % (("Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul",
+                       "Aug", "Sep", "Oct", "Nov", "Dec")[m - 1], d)
+
+
 def render_guide_page(md: str) -> str:
-    """A standalone, readable HTML page for one guide."""
-    body = markdown_to_html(md)
-    m = re.search(r"<h1>(.*?)</h1>", body)
-    title = re.sub(r"<[^>]+>", "", m.group(1)) if m else "Group Guide"
-    return (
-        "<!doctype html><meta charset='utf-8'>"
-        "<meta name='viewport' content='width=device-width,initial-scale=1'>"
-        "<title>%s</title><style>%s</style>"
-        "<p><a href='../index.html'>&larr; All guides</a></p>%s" % (title, _STYLE, body))
+    """A standalone, readable page for one guide."""
+    fields, body = parse_front_matter(md)
+    title = fields.get("title", "Group Guide")
+
+    links_html = ""
+    for line in body.split("\n"):
+        if line.startswith("[") and "](" in line:
+            links_html = "<div class='links'>%s</div>" % "".join(
+                "<a href=\"%s\">%s</a>" % (u, html.escape(l)) for l, u in _LINK.findall(line))
+            break
+
+    sections, current, buf = [], None, []
+    for line in body.split("\n"):
+        if line.startswith("## "):
+            if current:
+                sections.append((current, buf))
+            current, buf = line[3:].strip(), []
+        elif current is not None:
+            if line.startswith("---") or (line.startswith("*") and line.endswith("*")):
+                continue
+            buf.append(line)
+    if current:
+        sections.append((current, buf))
+
+    parts = []
+    for heading, lines in sections:
+        cls = SECTION_CLASS.get(heading.lower(), "sec")
+        parts.append("<section class='%s rise'><h2>%s</h2>%s</section>"
+                     % (cls, html.escape(heading), _blocks_to_html(lines)))
+
+    src = fields.get("source", "")
+    colophon = (
+        "<p class='colophon'>Generated from the sermon audio%s. "
+        "Sermon content belongs to Traders Point Christian Church &mdash; "
+        "these guides are a study aid, not a transcript.</p>"
+        % (" (%s)" % html.escape(src) if src else "")
+    )
+
+    body_html = (
+        "<div class='shell'>"
+        "<a class='backlink' href='../index.html'>&larr; All guides</a>"
+        "<article class='guide'>"
+        "<header class='guide-head rise'>"
+        "%s<h1>%s</h1>%s%s"
+        "</header>%s%s</article></div>"
+        % ("<p class='eyebrow'>%s</p>" % html.escape(fields["series"]) if fields.get("series") else "",
+           html.escape(title), _meta_line(fields), links_html, "".join(parts), colophon)
+    )
+    return _doc(title, "../", body_html)
 
 
-def render_site(guides: List[Guide], latest_markdown: Optional[str] = None) -> str:
-    """A minimal static index: newest guide first, then an archive by series."""
-    def esc(s):
-        return html.escape(s or "")
+def render_site(guides, latest_markdown=None):
+    """The index: this week's guide featured, everything else as an archive."""
+    ordered = sorted(guides, key=lambda g: g.date or "", reverse=True)
 
-    rows = []
-    current = None
-    for g in sorted(guides, key=lambda x: x.date, reverse=True):
+    masthead = (
+        "<header class='masthead'>"
+        "<p class='eyebrow rise'>Traders Point Christian Church</p>"
+        "<h1 class='rise'>Group <em>Guides</em></h1>"
+        "<p class='blurb rise'>Discussion guides for small groups, published "
+        "each week after the Sunday message.</p>"
+        "</header>"
+    )
+
+    featured = ""
+    rest = ordered
+    if ordered:
+        g = ordered[0]
+        rest = ordered[1:]
+        featured = (
+            "<a class='featured rise' href='guides/%s'>"
+            "<p class='eyebrow'>This week</p><h2>%s</h2>%s"
+            "<div class='cue'>Open the guide <span>&rarr;</span></div></a>"
+            % (html.escape(guide_filename(g).replace(".md", ".html")),
+               html.escape(g.title),
+               _meta_line({"date": g.date, "passage": g.passage,
+                           "speaker": getattr(g, "speaker", None)}))
+        )
+
+    rows, current = [], object()
+    for g in rest:
         if g.series != current:
             current = g.series
-            rows.append("<h2>%s</h2>" % esc(current or "Other"))
+            rows.append("<div class='series-head'><p class='eyebrow'>%s</p></div>"
+                        % html.escape(current or "Other"))
         rows.append(
-            '<p><a href="guides/%s">%s</a> <small>%s%s</small></p>' % (
-                esc(guide_filename(g).replace('.md', '.html')), esc(g.title), esc(g.date),
-                " · " + esc(g.passage) if g.passage else ""))
+            "<a class='entry' href='guides/%s'><span class='when'>%s</span>"
+            "<span class='what'>%s%s</span></a>"
+            % (html.escape(guide_filename(g).replace(".md", ".html")),
+               html.escape(_short_date(g.date)), html.escape(g.title),
+               "<span class='ref'>%s</span>" % html.escape(g.passage) if g.passage else "")
+        )
 
-    return (
-        "<!doctype html><meta charset='utf-8'>"
-        "<meta name='viewport' content='width=device-width,initial-scale=1'>"
-        "<title>TPCC Group Guides</title>"
-        "<style>body{font:16px/1.6 system-ui,sans-serif;max-width:42rem;"
-        "margin:2rem auto;padding:0 1rem;color:#222}"
-        "h1{margin-bottom:.2rem}h2{margin-top:2rem;font-size:1rem;"
-        "text-transform:uppercase;letter-spacing:.05em;color:#666}"
-        "a{color:#0b5}small{color:#777}</style>"
-        "<h1>Group Discussion Guides</h1>"
-        "<p>Weekly small-group guides generated from Traders Point Christian "
-        "Church sermons.</p>" + "\n".join(rows))
+    archive = "<section class='archive'>%s</section>" % "".join(rows) if rows else ""
+    foot = ("<footer class='site-foot'><span>Generated weekly &middot; "
+            "<a href='https://tpcc.org/messages'>tpcc.org</a></span>"
+            "<span>%d guides</span></footer>" % len(ordered))
+
+    return _doc("Group Guides \u00b7 Traders Point",
+                "", "<div class='shell'>%s%s%s%s</div>"
+                % (masthead, featured, archive, foot))
