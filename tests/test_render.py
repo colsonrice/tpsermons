@@ -15,7 +15,8 @@ def guide(**kw):
                       "This may land hard for a couple of guys."],
         opener="When did you last want a title more than the work?",
         context=" ".join(["word"] * 30),
-        read_aloud="Read Mark 9:30-50 aloud; listen for what they argue about.",
+        read_refs=["Mark 9:33-37"],
+        read_aloud="Listen for what they argue about on the road.",
         observation="What did Jesus say when he caught them arguing?",
         discuss=[DiscussBlock("Heading %d" % i, "Where has that shown up for you?",
                               ["Probe A", "Probe B"]) for i in range(3)],
@@ -37,20 +38,22 @@ def test_roundtrips_through_json():
     back.validate()
 
 
-def test_page_shows_the_runtime_and_every_segment():
+def test_page_shows_every_movement():
     page = render_guide_page(guide())
-    total = sum(m for _, m, _ in SEGMENTS)
-    assert "%d minutes" % total in page
-    for label, mins, _mode in SEGMENTS:
+    for label in SEGMENTS:
         assert label in page
-        assert "%d min" % mins in page
 
 
-def test_page_tells_the_leader_to_split_into_fours():
-    # The whole point: twelve men in one circle means four guys talk.
+def test_page_carries_no_clock_and_no_breakouts():
     page = render_guide_page(guide())
-    assert "groups of four" in page
-    assert "Break into groups of four" in page
+    for banned in ("min", "minutes", "groups of four", "Break into", "breakout"):
+        assert banned not in page.replace("administ", ""), banned
+
+
+def test_scripture_sections_are_shown_as_short_ranges():
+    page = render_guide_page(guide(read_refs=["Mark 9:33-37", "Mark 9:42-48"]))
+    assert "Mark 9:33-37" in page and "Mark 9:42-48" in page
+    assert "ref-chip" in page
 
 
 def test_probes_are_tucked_behind_a_disclosure():
@@ -76,7 +79,9 @@ def test_carry_closes_the_accountability_loop():
 def test_markdown_contains_the_full_script():
     md = render_markdown(guide())
     assert "## Leader Notes" in md
-    assert "Dig in" in md
+    assert "## Discuss" in md
+    assert "## Get Honest" in md
+    assert "Mark 9:33-37" in md
     assert "**Next week:**" in md
     assert "Probe A" in md
 

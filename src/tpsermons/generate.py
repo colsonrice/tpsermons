@@ -21,6 +21,7 @@ _SCHEMA_HINT = """Return JSON with exactly these keys:
 {"leader_notes": [str, str],
  "opener": str,
  "context": str,
+ "read_refs": [str],
  "read_aloud": str,
  "observation": str,
  "discuss": [{"heading": str, "question": str, "probes": [str, str]} x3],
@@ -29,7 +30,11 @@ _SCHEMA_HINT = """Return JSON with exactly these keys:
  "carry": str}
 
 Two to four leader_notes. Exactly three discuss blocks, each with two or three
-probes. opener, observation and obstacle must each be a question."""
+probes. opener, observation and obstacle must each be a question.
+
+read_refs holds one or two SHORT verse ranges, e.g. ["Mark 10:2-9"] or
+["Mark 10:2-9", "Mark 10:13-16"]. Never a bare chapter. Each entry must
+include verse numbers."""
 
 
 def build_guide(episode: Episode, payload: Dict, links: Dict[str, str],
@@ -49,6 +54,7 @@ def build_guide(episode: Episode, payload: Dict, links: Dict[str, str],
             leader_notes=list(payload["leader_notes"]),
             opener=payload["opener"],
             context=payload["context"],
+            read_refs=list(payload["read_refs"]),
             read_aloud=payload["read_aloud"],
             observation=payload["observation"],
             discuss=discuss,

@@ -23,6 +23,7 @@ from .state import State
 
 ROOT = Path(__file__).resolve().parents[2]
 GUIDES = ROOT / "guides"
+TRANSCRIPTS = ROOT / "transcripts"
 STATE = ROOT / "state.json"
 PODCAST_FEED = "https://feeds.captivate.fm/traders-point/"
 
@@ -127,8 +128,22 @@ def _live_deps() -> Deps:  # pragma: no cover - network
         return transcribe.transcribe_url(ep.mp3_url, client, get_bytes)
 
     def resolve(ep):
+        # A cached transcript makes re-running a guide free -- otherwise every
+        # prompt tweak re-transcribes the same audio through Whisper.
+        cached = TRANSCRIPTS / ("%s.txt" % ep.guid)
+        if cached.exists():
+            text = cached.read_text(encoding="utf-8")
+            head, _, rest = text.partition("\n")
+            src = head[9:].strip() if head.startswith("#source:") else "cache"
+            print("  using cached transcript (%s)" % src)
+            return (rest.strip(), src)
+
         got = resolve_text(ep, pdf=pdf, captions=captions, whisper=whisper)
-        return (got.text, got.source) if got else None
+        if not got:
+            return None
+        TRANSCRIPTS.mkdir(parents=True, exist_ok=True)
+        cached.write_text("#source: %s\n%s" % (got.source, got.text), encoding="utf-8")
+        return (got.text, got.source)
 
     def links(ep):
         page = html_for(ep)

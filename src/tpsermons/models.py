@@ -33,14 +33,12 @@ LEADER_NOTES = (2, 4)
 CONTEXT_WORDS = (12, 70)
 COMMIT_WORDS = (10, 90)
 
-# The evening, as minutes. Sums to 55 -- inside the 45-60 window.
-SEGMENTS = (
-    ("Open", 5, "all together"),
-    ("Read", 8, "all together"),
-    ("Dig in", 27, "groups of four"),
-    ("Regroup", 10, "all together"),
-    ("Commit", 5, "all together"),
-)
+# The movements of the evening, in order. No clock, no breakout groups --
+# the group stays together and takes as long as a question deserves.
+SEGMENTS = ("Open", "Read", "Discuss", "Get Honest", "Commit")
+
+# Scripture is read in short sections, never a whole chapter.
+READ_REFS = (1, 2)
 
 
 class ValidationError(Exception):
@@ -89,6 +87,7 @@ class Guide:
     leader_notes: List[str]
     opener: str
     context: str
+    read_refs: List[str]
     read_aloud: str
     observation: str
     discuss: List[DiscussBlock]
@@ -107,6 +106,18 @@ class Guide:
                 "expected %d-%d leader notes, got %d" % (lo, hi, len(self.leader_notes)))
         for n in self.leader_notes:
             _placeholder("leader_notes", n)
+
+        rlo, rhi = READ_REFS
+        if not rlo <= len(self.read_refs) <= rhi:
+            raise ValidationError(
+                "expected %d-%d scripture sections, got %d -- read a section, "
+                "never a whole chapter" % (rlo, rhi, len(self.read_refs)))
+        for r in self.read_refs:
+            _placeholder("read_refs", r)
+            if not re.search(r"\d+:\d+", r):
+                raise ValidationError(
+                    "read_refs entry %r must name verses (e.g. 'Mark 10:2-9'), "
+                    "not a whole chapter" % r)
 
         for name in ("opener", "read_aloud", "observation", "obstacle", "carry"):
             _placeholder(name, getattr(self, name))

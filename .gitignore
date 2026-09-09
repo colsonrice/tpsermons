@@ -3,11 +3,10 @@ __pycache__/
 .venv/
 .env
 
-# TPCC source material is never committed (spec Decision 4)
+# Audio and source PDFs stay out; transcripts are cached (see README).
 work/
 *.mp3
 *.pdf
-transcripts/
 
 # build artifacts
 *.egg-info/

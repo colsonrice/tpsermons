@@ -52,9 +52,20 @@ Re-run a specific episode (bypasses the processed-state gate):
 
 Requires `ffmpeg` and `pdftotext` (poppler) only for the fallback paths.
 
+## Structure of a guide
+
+The group stays together throughout — no breakouts, no time limits on
+questions. Five movements: **Open** (one low-stakes question), **Read** (one or
+two short verse ranges, never a whole chapter, plus one observation question),
+**Discuss** (three questions with follow-up probes), **Get Honest** (what will
+actually get in the way), and **Commit** (one specific action, plus what the
+group will ask each other next week).
+
 ## What is and isn't published
 
-Guides are original work — a summary plus discussion questions — and they are
-published. TPCC's sermon transcripts and audio are **not**: they are fetched at
-runtime, used, and discarded, never committed and never uploaded as build
-artifacts. Every guide links back to the church's own message page and video.
+Guides are original work — discussion questions and framing — and they are
+published to the site. Sermon **audio** is never stored. Transcripts are cached
+under `transcripts/` so that re-running a guide costs nothing; they are not
+linked from the site, and can be removed at any time by deleting the directory
+and adding it back to `.gitignore`. Every guide links back to the church's own
+message page and video.

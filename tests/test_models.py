@@ -17,7 +17,8 @@ def guide(**kw):
                       "This one may be raw for a couple of guys."],
         opener="When did you last change your mind about something important?",
         context=" ".join(["word"] * 30),
-        read_aloud="Read Mark 9:30-50 aloud; listen for what the disciples argue about.",
+        read_refs=["Mark 9:33-37"],
+        read_aloud="Listen for what the disciples argue about on the road.",
         observation="What did Jesus actually say when he caught them arguing?",
         discuss=blocks(),
         obstacle="What is most likely to stop you doing that by next Thursday?",
@@ -33,15 +34,21 @@ def test_valid_guide_passes():
     guide().validate()
 
 
-def test_evening_fits_the_45_to_60_minute_window():
-    total = sum(m for _, m, _ in SEGMENTS)
-    assert 45 <= total <= 60
+def test_segments_carry_no_clock_and_no_breakouts():
+    # The group stays together and takes as long as a question deserves.
+    assert SEGMENTS == ("Open", "Read", "Discuss", "Get Honest", "Commit")
 
 
-def test_deep_questions_happen_in_subgroups():
-    # Twelve men in one circle means three or four carry the room.
-    modes = {label: mode for label, _, mode in SEGMENTS}
-    assert "four" in modes["Dig in"]
+def test_reading_must_be_verses_not_a_whole_chapter():
+    with pytest.raises(ValidationError):
+        guide(read_refs=["Mark 10"]).validate()
+    guide(read_refs=["Mark 10:2-9"]).validate()
+
+
+def test_at_most_two_reading_sections():
+    guide(read_refs=["Mark 10:2-9", "Mark 10:13-16"]).validate()
+    with pytest.raises(ValidationError):
+        guide(read_refs=["Mark 10:2-9", "Mark 10:13-16", "Mark 10:17-22"]).validate()
 
 
 @pytest.mark.parametrize("kw", [

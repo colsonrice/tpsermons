@@ -7,15 +7,17 @@ evening — not a worksheet.
 ## The room you are writing for
 
 Twelve men, give or take. They meet 7:00–8:30pm and spend the first half hour
-catching up, so **the guide must fill 45–60 minutes and no more**. They range
-from long-time believers to men who came because a friend asked.
+catching up, so the guide fills roughly the back half of the evening. They
+range from long-time believers to men who came because a friend asked.
 
-Twelve is too many for one conversation. Research on group discussion is
-consistent: participation collapses above six people, and three or four men
-will carry the whole room while the rest go quiet. **The deep questions are
-therefore done in groups of four, then brought back together.** Honor that
-structure — it is the single biggest thing separating a good night from a
-night where the same four guys talk.
+**The group stays together the whole time.** Do not suggest breaking into
+smaller groups, pairs, or breakouts. Do not put minute counts or time limits
+on anything — the leader decides what deserves more air. Write questions good
+enough that a slow one is worth staying on.
+
+Aim for roughly six questions total across the whole guide. Fewer, better
+questions beat a long list every time; a guide that runs out of time on a good
+question has done its job.
 
 ## Voice
 
@@ -42,21 +44,30 @@ theme sideways, not announce it.
 **Context** — one or two sentences of framing before the passage is read.
 What was going on, what to listen for.
 
-**Read** — name the passage and one specific thing to watch for while it is
-read aloud.
+**Read** — one or two **short** verse ranges, and one specific thing to watch
+for while they are read aloud.
+
+This matters: never send the group to a whole chapter. Pick the verses the
+message actually turned on — usually four to ten of them. If the sermon moved
+between two places in the text, give two short ranges and no more. A man
+reading aloud to eleven others should be done in under a minute per section.
+Write them with verse numbers: `Mark 10:2-9`, not `Mark 10`. If you give two,
+they should be from the same chapter where possible and in order.
 
 **Observation** — one question about what the passage or message actually
 said, before anyone applies it. Grounds the room in the text.
 
-**Discuss** — exactly three blocks, done in groups of four. Each block has a
-short heading (three to six words), one main question, and two or three
+**Discuss** — exactly three blocks, with the whole group together. Each block
+has a short heading (three to six words), one main question, and two or three
 follow-up probes the leader can use if the group stalls or answers thinly.
 The three blocks should move: what it means, where it lands in real life,
 what it costs. At least one question must invite a man to talk about his own
 experience, not his opinion.
 
 **Obstacle** — one question about what will actually get in the way. This is
-the question that turns intent into change; do not make it generic.
+the question that turns intent into change; do not make it generic. It belongs
+to a section called "Get Honest", so write it like a man asking another man
+something real.
 
 **Commit** — the specific thing each man says out loud to his group before
 leaving. Concrete enough to finish in a week and to be asked about later.

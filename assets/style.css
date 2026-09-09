@@ -333,16 +333,21 @@ a:hover { color: var(--ink); }
   margin: 0;
   flex: 0 0 auto;
 }
-.chip {
-  font-size: .72rem;
-  letter-spacing: .08em;
-  text-transform: uppercase;
-  padding: .18rem .55rem;
-  border-radius: 999px;
+/* Scripture ranges — short by design, so show them like tabs on a Bible. */
+.refs { display: flex; flex-wrap: wrap; gap: .45rem; margin: 0 0 1.1rem; }
+.ref-chip {
+  font-family: var(--display);
+  font-variation-settings: "SOFT" 30, "opsz" 20;
+  font-size: 1.02rem;
+  font-variant-numeric: lining-nums;
+  letter-spacing: .01em;
+  color: var(--sage);
+  border: 1px solid var(--rule-firm);
+  border-radius: 3px;
+  padding: .3rem .75rem;
+  background: var(--paper-card);
   white-space: nowrap;
 }
-.chip-time { background: var(--clay); color: var(--paper); font-weight: 600; }
-.chip-mode { border: 1px solid var(--rule-firm); color: var(--ink-faint); }
 
 /* The question itself — always the largest thing in its section. */
 .ask {
@@ -423,7 +428,10 @@ a:hover { color: var(--ink); }
   padding: 1.4rem 1.4rem .4rem; border-radius: 2px; }
 .seg-commit .seg-head { border-bottom-color: transparent; margin-bottom: .6rem; }
 .seg-commit .seg-head h2 { color: var(--sage); }
-.seg-commit .chip-time { background: var(--sage); }
+
+/* Get Honest is the hinge of the night. */
+.seg-honest .seg-head h2 { color: var(--clay-deep); }
+.seg-honest .ask { font-size: var(--step-2); line-height: 1.25; }
 .carry {
   margin-top: 1rem; padding-top: 1rem;
   border-top: 1px dotted var(--rule-firm);
@@ -492,12 +500,12 @@ a:hover { color: var(--ink); }
   .shell, .guide { width: auto; max-width: none; margin: 0; }
   .guide-head { padding-top: 0; }
   .guide-head h1 { font-size: 21pt; margin: .2rem 0 .6rem; }
-  .runtime { font-size: 8.5pt; }
+
   .seg { margin-bottom: 12pt; page-break-inside: avoid; }
   .seg-head { margin-bottom: 5pt; padding-bottom: 3pt; }
   .seg-head h2 { font-size: 8.5pt; }
-  .chip { border: .5pt solid #666 !important; background: none !important;
-          color: #000 !important; padding: 0 4pt; font-size: 7.5pt; }
+  .ref-chip { border: .5pt solid #666; background: none; color: #000;
+              padding: 0 4pt; font-size: 10pt; }
   .ask { font-size: 11.5pt; margin: 4pt 0 6pt; }
   .block { padding: 6pt 0; page-break-inside: avoid; }
   .block-n { font-size: 11pt; color: #000; }

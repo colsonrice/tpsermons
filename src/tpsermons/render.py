@@ -117,7 +117,7 @@ def guide_to_dict(g):
         "title": g.title, "series": g.series, "speaker": g.speaker, "date": g.date,
         "passage": g.passage, "links": g.links, "source": g.source,
         "leader_notes": list(g.leader_notes), "opener": g.opener, "context": g.context,
-        "read_aloud": g.read_aloud, "observation": g.observation,
+        "read_refs": list(g.read_refs), "read_aloud": g.read_aloud, "observation": g.observation,
         "discuss": [{"heading": b.heading, "question": b.question,
                      "probes": list(b.probes)} for b in g.discuss],
         "obstacle": g.obstacle, "commit": g.commit, "carry": g.carry,
@@ -129,7 +129,7 @@ def guide_from_dict(d):
         title=d["title"], series=d.get("series"), speaker=d.get("speaker"),
         date=d["date"], passage=d.get("passage"), links=d.get("links", {}),
         leader_notes=d["leader_notes"], opener=d["opener"], context=d["context"],
-        read_aloud=d["read_aloud"], observation=d["observation"],
+        read_refs=d["read_refs"], read_aloud=d["read_aloud"], observation=d["observation"],
         discuss=[DiscussBlock(b["heading"], b["question"], b["probes"])
                  for b in d["discuss"]],
         obstacle=d["obstacle"], commit=d["commit"], carry=d["carry"],
@@ -164,22 +164,15 @@ def render_markdown(g):
         L += [" · ".join(links), ""]
 
     L += ["## Leader Notes", ""] + ["- %s" % n for n in g.leader_notes] + [""]
-    for label, mins, mode in SEGMENTS:
-        L.append("## %s · %d min · %s" % (label, mins, mode))
-        L.append("")
-        if label == "Open":
-            L += [g.opener, ""]
-        elif label == "Read":
-            L += [g.context, "", g.read_aloud, "", g.observation, ""]
-        elif label == "Dig in":
-            for b in g.discuss:
-                L += ["### %s" % b.heading, "", b.question, ""]
-                L += ["- %s" % p for p in b.probes] + [""]
-        elif label == "Regroup":
-            L += [g.obstacle, ""]
-        else:
-            L += [g.commit, "", "**Next week:** %s" % g.carry, ""]
-
+    L += ["## Open", "", g.opener, ""]
+    L += ["## Read", "", g.context, "",
+          "**%s**" % " · ".join(g.read_refs), "", g.read_aloud, "", g.observation, ""]
+    L += ["## Discuss", ""]
+    for b in g.discuss:
+        L += ["### %s" % b.heading, "", b.question, ""]
+        L += ["- %s" % p for p in b.probes] + [""]
+    L += ["## Get Honest", "", g.obstacle, ""]
+    L += ["## Commit", "", g.commit, "", "**Next week:** %s" % g.carry, ""]
     L += ["---", "",
           "*Generated from the sermon (%s). Sermon content belongs to Traders "
           "Point Christian Church; this is a study aid, not a transcript.*" % g.source, ""]
@@ -199,26 +192,26 @@ def _meta_line(date=None, passage=None, speaker=None):
     return "<div class='meta'>%s</div>" % "".join(bits)
 
 
-def _segment(label, mins, mode, inner, cls):
+def _segment(label, inner, cls):
     return ("<section class='seg %s rise'>"
-            "<div class='seg-head'><h2>%s</h2>"
-            "<span class='chip chip-time'>%d min</span>"
-            "<span class='chip chip-mode'>%s</span></div>%s</section>"
-            % (cls, _e(label), mins, _e(mode), inner))
+            "<div class='seg-head'><h2>%s</h2></div>%s</section>"
+            % (cls, _e(label), inner))
 
 
 def render_guide_page(g):
     """A standalone, runnable page for one guide."""
-    mins = dict((label, m) for label, m, _ in SEGMENTS)
-    mode = dict((label, md) for label, _, md in SEGMENTS)
-
-    notes = "<aside class='leader-notes rise'><p class='eyebrow'>Before you start</p><ul>%s</ul></aside>" % (
-        "".join("<li>%s</li>" % _e(n) for n in g.leader_notes))
+    notes = ("<aside class='leader-notes rise'>"
+             "<p class='eyebrow'>Before you start</p><ul>%s</ul></aside>"
+             % "".join("<li>%s</li>" % _e(n) for n in g.leader_notes))
 
     open_html = "<p class='ask'>%s</p>" % _e(g.opener)
 
-    read_html = ("<p class='context'>%s</p><p class='read-aloud'>%s</p>"
-                 "<p class='ask'>%s</p>" % (_e(g.context), _e(g.read_aloud), _e(g.observation)))
+    refs = "".join("<span class='ref-chip'>%s</span>" % _e(r) for r in g.read_refs)
+    read_html = ("<p class='context'>%s</p>"
+                 "<div class='refs'>%s</div>"
+                 "<p class='read-aloud'>%s</p>"
+                 "<p class='ask'>%s</p>"
+                 % (_e(g.context), refs, _e(g.read_aloud), _e(g.observation)))
 
     blocks = []
     for i, b in enumerate(g.discuss, 1):
@@ -229,39 +222,31 @@ def render_guide_page(g):
             "<p class='ask'>%s</p>"
             "<details class='probes'><summary>If it stalls</summary><ul>%s</ul></details>"
             "</div>" % (i, _e(b.heading), _e(b.question), probes))
-    dig_html = ("<p class='instruction'>Break into groups of four. "
-                "Everyone answers.</p>%s" % "".join(blocks))
 
-    regroup_html = ("<p class='instruction'>Back together. One man per group "
-                    "shares where his conversation went.</p><p class='ask'>%s</p>"
-                    % _e(g.obstacle))
-
+    honest_html = "<p class='ask'>%s</p>" % _e(g.obstacle)
     commit_html = ("<p>%s</p><p class='carry'><strong>Next week we ask:</strong> %s</p>"
                    % (_e(g.commit), _e(g.carry)))
 
-    segs = (_segment("Open", mins["Open"], mode["Open"], open_html, "seg-open")
-            + _segment("Read", mins["Read"], mode["Read"], read_html, "seg-read")
-            + _segment("Dig in", mins["Dig in"], mode["Dig in"], dig_html, "seg-dig")
-            + _segment("Regroup", mins["Regroup"], mode["Regroup"], regroup_html, "seg-regroup")
-            + _segment("Commit", mins["Commit"], mode["Commit"], commit_html, "seg-commit"))
+    segs = (_segment("Open", open_html, "seg-open")
+            + _segment("Read", read_html, "seg-read")
+            + _segment("Discuss", "".join(blocks), "seg-dig")
+            + _segment("Get Honest", honest_html, "seg-honest")
+            + _segment("Commit", commit_html, "seg-commit"))
 
     links = "".join("<a href=\"%s\">%s</a>" % (g.links[k], _e(lbl))
                     for k, lbl in LINK_LABELS if g.links.get(k))
-    total = sum(m for _, m, _ in SEGMENTS)
 
     body = ("<div class='shell'>"
             "<a class='backlink' href='../index.html'>&larr; All guides</a>"
             "<article class='guide'>"
             "<header class='guide-head rise'>%s<h1>%s</h1>%s"
-            "<div class='links'>%s</div>"
-            "<p class='runtime'>%d minutes &middot; groups of four for the middle</p>"
-            "</header>%s%s"
+            "<div class='links'>%s</div></header>%s%s"
             "<p class='colophon'>Generated from the sermon (%s). Sermon content "
             "belongs to Traders Point Christian Church &mdash; this is a study "
             "aid, not a transcript.</p></article></div>"
             % ("<p class='eyebrow'>%s</p>" % _e(g.series) if g.series else "",
                _e(g.title), _meta_line(g.date, g.passage, g.speaker), links,
-               total, notes, segs, _e(g.source)))
+               notes, segs, _e(g.source)))
     return _doc(g.title, "../", body)
 
 
