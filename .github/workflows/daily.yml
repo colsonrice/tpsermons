@@ -70,6 +70,12 @@ jobs:
         if: steps.check.outputs.found == 'true' || inputs.episode != ''
         env:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          # Optional. Absent means the guide publishes without being emailed.
+          SMTP_USER: ${{ secrets.SMTP_USER }}
+          SMTP_PASSWORD: ${{ secrets.SMTP_PASSWORD }}
+          MAIL_TO: ${{ secrets.MAIL_TO }}
+          SMTP_HOST: ${{ secrets.SMTP_HOST }}
+          SMTP_PORT: ${{ secrets.SMTP_PORT }}
         run: |
           python -m tpsermons.cli run \
             ${{ inputs.episode && format('--episode {0}', inputs.episode) || '' }} \

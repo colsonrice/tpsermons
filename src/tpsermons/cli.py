@@ -14,7 +14,7 @@ from typing import Callable, List, Optional
 
 import json
 
-from . import feed, render, tpcc, transcribe, youtube
+from . import feed, mail, render, tpcc, transcribe, youtube
 from .generate import generate as real_generate
 from .http import get_bytes, get_text
 from .models import Episode
@@ -26,6 +26,7 @@ GUIDES = ROOT / "guides"
 TRANSCRIPTS = ROOT / "transcripts"
 STATE = ROOT / "state.json"
 PODCAST_FEED = "https://feeds.captivate.fm/traders-point/"
+SITE_URL = "https://colsonrice.github.io/tpsermons"
 
 
 @dataclass
@@ -220,11 +221,35 @@ def main(argv=None) -> int:  # pragma: no cover
         return 0
 
     written = run(_live_deps(), GUIDES, STATE, episode=args.episode, force=args.force)
-    if written:
-        _write_site()
-    else:
+    if not written:
         print("no new episodes")
+        return 0
+
+    _write_site()
+    _email(written)
     return 0
+
+
+def _email(written) -> None:  # pragma: no cover - network
+    """Mail each new guide, if mail is configured.
+
+    Never raises: the guide is already published and committed by this point,
+    so a mail failure must not fail the run or block the deploy.
+    """
+    cfg = mail.MailConfig.from_env(os.environ)
+    if cfg is None:
+        print("mail not configured (set SMTP_USER, SMTP_PASSWORD, MAIL_TO); skipping")
+        return
+    for path in written:
+        try:
+            g = render.guide_from_dict(json.loads(
+                path.with_suffix(".json").read_text(encoding="utf-8")))
+            url = "%s/guides/%s" % (SITE_URL, render.guide_filename(g, "html"))
+            subject, body_html, body_text = mail.render_email(g, url)
+            mail.send(subject, body_html, body_text, cfg)
+            print("emailed %r to %s" % (subject, ", ".join(cfg.to)))
+        except Exception as exc:
+            print("email failed for %s: %s" % (path.name, exc), file=sys.stderr)
 
 
 if __name__ == "__main__":
