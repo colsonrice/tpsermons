@@ -22,6 +22,18 @@ from typing import Dict, List, Optional
 _PLACEHOLDER = re.compile(r"\b(TODO|TBD|FIXME|XXX|Lorem)\b", re.IGNORECASE)
 _BRACKET_STUB = re.compile(r"\[insert[^\]]*\]", re.IGNORECASE)
 
+# Phrases lifted verbatim from the prompt's illustrative examples. The model
+# copied these once; a guide must be built from this week's sermon, not from
+# the instructions. Matched loosely on distinctive fragments.
+_LIFTED = (
+    "keeping a promise cost you more than you expected",
+    "honest reason you have not had that conversation",
+    "settled for what is allowed instead of what was intended",
+    "give something away that you actually missed",
+    "holding on tightly cost you something",
+    "help this month without being asked twice",
+)
+
 # Questions opening this way are answerable in one word and stall the room.
 _CLOSED_OPENER = re.compile(
     r"^\s*(have|has|do|does|did|are|is|was|were|can|could|will|would|should)\b",
@@ -129,6 +141,7 @@ class Guide:
             if "?" not in value:
                 raise ValidationError("%s must be a question" % name)
             _open_ended(name, value)
+            _not_lifted(name, value)
         if "you" not in self.obstacle.lower():
             raise ValidationError("obstacle must ask about this man, not the world")
 
@@ -143,6 +156,7 @@ class Guide:
             if "?" not in b.question:
                 raise ValidationError("discuss[%d].question must be a question" % i)
             _open_ended("discuss[%d].question" % i, b.question)
+            _not_lifted("discuss[%d].question" % i, b.question)
             if not plo <= len(b.probes) <= phi:
                 raise ValidationError(
                     "discuss[%d] has %d probes, expected %d-%d" % (i, len(b.probes), plo, phi))
@@ -156,6 +170,16 @@ def _words(name: str, value: str, lo: int, hi: int) -> None:
     n = len(value.split())
     if not lo <= n <= hi:
         raise ValidationError("%s is %d words, expected %d-%d" % (name, n, lo, hi))
+
+
+def _not_lifted(name: str, value: str) -> None:
+    """Reject wording copied from the prompt's examples."""
+    low = value.lower()
+    for frag in _LIFTED:
+        if frag in low:
+            raise ValidationError(
+                "%s reuses an example from the instructions (%r); write a "
+                "question from this week's sermon" % (name, frag))
 
 
 def _open_ended(name: str, value: str) -> None:

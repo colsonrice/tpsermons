@@ -101,3 +101,14 @@ def test_obstacle_must_be_about_the_man_not_the_world():
     with pytest.raises(ValidationError):
         guide(obstacle="What makes this hard in our culture today?").validate()
     guide(obstacle="What will realistically stop you before next Thursday?").validate()
+
+
+def test_questions_copied_from_the_prompt_examples_are_rejected():
+    # The model lifted three example questions verbatim on a real run. A guide
+    # must come from this week's sermon, not from the instructions.
+    lifted = "Where has keeping a promise cost you more than you expected?"
+    with pytest.raises(ValidationError):
+        guide(discuss=[DiscussBlock("H", lifted, ["a", "b"])] + blocks(n=2)).validate()
+    with pytest.raises(ValidationError):
+        guide(obstacle="What is the honest reason you have not had that "
+                       "conversation with you yet?").validate()

@@ -84,26 +84,29 @@ wrong even if it is theologically sound.
 be answered with one word and the room goes quiet. Ask "When", "Where", "What",
 or "Who" instead.
 
+These examples are about **generosity**, deliberately not about whatever you
+are writing. They show the *shape* of a strong question. Never reuse their
+wording — every question you write must be built from this week's sermon.
+
 | Weak | Strong |
 |---|---|
-| Have you ever experienced marriage as a covenant? | Where has keeping a promise cost you more than you expected? |
-| What makes it hard to live this out today? | What is the honest reason you have not had that conversation yet? |
-| How does Jesus describe God's design for marriage? | Where have you settled for what is allowed instead of what was intended? |
-| What role does grace play in healing? | Who is owed an apology from you that you have been putting off? |
+| Have you ever struggled with generosity? | When did you last give something away that you actually missed? |
+| What makes generosity hard in our culture? | What is the honest reason you did not give the last time you thought about it? |
+| How does Paul describe cheerful giving? | Where has holding on tightly cost you something you did not expect? |
+| What role does money play in our hearts? | Who could you help this month without being asked twice? |
 
 The left column asks about the world. The right column asks about the man. The
 left column can be answered by someone who has never thought about it. The
 right column cannot.
 
 **The opener** must be answerable by every man in ninety seconds, must not
-require vulnerability, and must still point at the evening's theme. Not a
-generic icebreaker: "What's a meal that reminds you of home" is a failure if
-the message is about covenant. "What did you commit to years ago that costs
-more now than you expected" is the same warmth aimed at the right target.
+require vulnerability, and must still point at the evening's theme. A generic
+icebreaker about food or hobbies is a failure. Take the theme of *this*
+message and find the everyday, low-stakes version of it.
 
 **The obstacle question** must be about *this man, this week*. It contains the
-word "you". It names friction, not theory. "What will realistically stop you
-before next Thursday" — not "what makes this hard in our culture".
+word "you". It names friction, not theory — the specific thing that will
+actually stop him, drawn from what this message asked of him.
 
 **At least two of the three Dig In questions** must ask a man to describe
 something that actually happened to him, not what he believes.

@@ -73,10 +73,10 @@ jobs:
       - name: Commit new guides
         if: steps.check.outputs.found == 'true' || inputs.episode != ''
         run: |
-          if [ -n "$(git status --porcelain guides index.html state.json)" ]; then
+          if [ -n "$(git status --porcelain guides index.html state.json transcripts)" ]; then
             git config user.name  "github-actions[bot]"
             git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-            git add guides index.html state.json
+            git add guides index.html state.json transcripts
             git commit -m "guide: $(date -u +%Y-%m-%d)"
             git push
           else
