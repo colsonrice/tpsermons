@@ -194,6 +194,35 @@ def _write_site() -> None:  # pragma: no cover
     print("site rebuilt: %d guides" % len(guides))
 
 
+def diagnose() -> int:  # pragma: no cover - network
+    """Exercise discovery and the free half of the cascade. No API key needed.
+
+    Exists to answer the one question that cannot be tested from a developer
+    machine: whether YouTube serves captions to a datacenter IP.
+    """
+    eps = feed.parse_feed(get_text(PODCAST_FEED))
+    print("discovered %d sermons" % len(eps))
+    ep = eps[0]
+    print("newest: %s | %s | %s" % (ep.title, ep.series, ep.passage))
+
+    page = _message_html(ep)
+    if not page:
+        print("FAIL: could not reach the TPCC message page")
+        return 1
+
+    vid = tpcc.find_video_id(page)
+    has_pdf = bool(tpcc.find_transcript_url(page))
+    print("tpcc page ok | video=%s | transcript posted=%s | speaker=%s"
+          % (vid, has_pdf, tpcc.find_speaker(page)))
+
+    caps = youtube.fetch_captions(vid) if vid else None
+    if caps:
+        print("CAPTIONS OK from this runner: %d words" % len(caps.split()))
+        return 0
+    print("CAPTIONS BLOCKED from this runner -- cascade falls back to Whisper")
+    return 0
+
+
 def main(argv=None) -> int:  # pragma: no cover
     ap = argparse.ArgumentParser(prog="tpsermons")
     ap.add_argument("command", choices=["run", "seed", "diagnose", "pending"])
