@@ -19,6 +19,18 @@ _PLACEHOLDER = re.compile(r"\b(TODO|TBD|FIXME|XXX|Lorem)\b", re.IGNORECASE)
 _BRACKET_STUB = re.compile(r"\[insert[^\]]*\]", re.IGNORECASE)
 _EM_DASH = re.compile(r"[—–]")
 
+# A question mark per prompt. A statement that sets up a single question is
+# fine ("Think about a time when you were overlooked. What did you do?"), but
+# two questions let a man answer the easier one and skip the other.
+def _single_question(name: str, value: str) -> None:
+    marks = value.count("?")
+    if marks > 1:
+        raise ValidationError(
+            "%s asks %d questions in one prompt; split it or keep the sharper "
+            "one (%r)" % (name, marks, value))
+    # Zero question marks is fine: the spec endorses imperative prompts such
+    # as "Think about a time when you were overlooked."
+
 SECTIONS = (3, 4)            # 3 to 4 is the sweet spot; never more than 5
 QUESTIONS_PER_SECTION = (2, 4)
 TOTAL_QUESTIONS = (12, 15)   # 12 to 14 ideal for 60 minutes
@@ -122,6 +134,7 @@ class Guide:
             if ice.label.strip().upper() != want:
                 raise ValidationError("icebreakers must be labelled A, B, C in order")
             _text("icebreaker %s" % want, ice.question)
+            _single_question("icebreaker %s" % want, ice.question)
             _text("icebreaker %s fits" % want, ice.fits)
 
         _count("sections", self.sections, *SECTIONS)
@@ -132,6 +145,7 @@ class Guide:
             _count("sections[%d].questions" % i, sec.questions, qlo, qhi)
             for q in sec.questions:
                 _text("sections[%d].question" % i, q)
+                _single_question("sections[%d].question" % i, q)
             if len(sec.reflection_questions) != len(sec.questions):
                 raise ValidationError(
                     "sections[%d] has %d questions but %d reflection questions; "
@@ -139,6 +153,7 @@ class Guide:
                     % (i, len(sec.questions), len(sec.reflection_questions)))
             for q in sec.reflection_questions:
                 _text("sections[%d].reflection" % i, q)
+                _single_question("sections[%d].reflection" % i, q)
 
         tlo, thi = TOTAL_QUESTIONS
         if not tlo <= self.question_count <= thi:

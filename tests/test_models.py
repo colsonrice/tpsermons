@@ -72,3 +72,34 @@ def test_key_themes_and_cheat_sheet_bounds():
 def test_tpcc_link_is_required():
     with pytest.raises(ValidationError):
         make_guide(links={"youtube": "https://youtu.be/x"}).validate()
+
+
+def test_double_barrelled_questions_are_rejected():
+    # Two questions let a man answer the easier one and skip the other.
+    secs = sections()
+    bad = type(secs[0])(
+        secs[0].title, secs[0].setup,
+        ["How do you see this? Where does that challenge you?"] * 4,
+        secs[0].reflection_questions)
+    with pytest.raises(ValidationError):
+        make_guide(sections=[bad] + secs[1:]).validate()
+
+
+def test_setup_sentence_before_one_question_is_allowed():
+    # The group's spec likes "Think about a time when..." framing.
+    secs = sections()
+    good = type(secs[0])(
+        secs[0].title, secs[0].setup,
+        ["Think about a time you were overlooked. What did you do next?"] * 4,
+        ["Think about a time I was overlooked. What did I do next?"] * 4)
+    make_guide(sections=[good] + secs[1:]).validate()
+
+
+def test_imperative_prompts_are_allowed():
+    # "Think about a time when..." is endorsed by the group's spec and has no
+    # question mark at all. Requiring one would ban a form they asked for.
+    secs = sections()
+    good = type(secs[0])(secs[0].title, secs[0].setup,
+                         ["Describe a time you were overlooked."] * 4,
+                         ["Describe a time I was overlooked."] * 4)
+    make_guide(sections=[good] + secs[1:]).validate()

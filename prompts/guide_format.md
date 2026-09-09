@@ -22,8 +22,19 @@ polished, correct answers and force a specific, named, personal application.
   a seminary paper.
 - Questions are specific and personal. **"Have you ever..." and "Think about a
   time when..." are good.** "What does this passage teach us about..." is not.
-- **No forked questions.** Each question is a single direct prompt. Never use
-  an "or" construction that lets a man pick the easier branch to answer.
+- **One question per prompt.** Each question ends with exactly one question
+  mark. Never stack two questions together: a man will answer the easier one
+  and skip the other. If both halves are worth asking, keep the sharper one.
+
+  Wrong: "How do you see marriage as more than a contract? Where does that
+  challenge you?"
+  Right: "Where has treating a commitment as a contract cost you something?"
+
+  A statement that sets up a single question is fine and often good:
+  "Think about a time you were overlooked. What did you do next?"
+
+- **No forked questions.** Never use an "or" construction that lets a man pick
+  the easier branch to answer.
 - Do not pad with sermon recap. The guide is for discussion, not review.
 - Do not write a question answerable with yes/no or with a theological
   abstraction. Every question should require a man to look at his own life.
