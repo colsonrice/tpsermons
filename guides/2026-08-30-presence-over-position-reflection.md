@@ -13,57 +13,59 @@ The Urgent Kingdom · Mark 9:30-50
 
 ---
 
-## The Struggle for Position
+## Presence over Position
 
-**Have I ever found myself competing for recognition instead of focusing on presence?**
-
-
-
-**When have I replaced seeking God's presence with chasing a promotion or status? How did that affect me?**
+**Where in my life have I pursued recognition over presence?**
 
 
 
-**What fears do I have about losing my status or position?**
+**Think about a time I served someone with no expectation of return. What did that reveal about my motives?**
 
 
 
-**How has striving for position affected my relationships with others?**
+**How do I balance ambition with the call to serve humbly?**
 
 
 
-## Presence Over Performance
+## Surrendering Control
 
-**Think of a time when I served someone with no expectation of return. How did that change me?**
-
-
-
-**What is one area of my life where I can serve without seeking recognition this week?**
+**When have I felt the need to control or judge someone's spiritual journey?**
 
 
 
-**When have I seen service without agenda bring unexpected blessings?**
+**How do I handle feelings of jealousy or competition in my spiritual life?**
 
 
 
-**How does serving without expectation impact my view of humility?**
+**What steps can I take to be more inclusive in my faith community?**
 
 
 
-## Facing Our Inner Battles
+## Dealing with Sin Seriously
 
-**What 'tigers' in my life seem manageable but have the potential to cause harm when left unchecked?**
-
-
-
-**Where have I settled for 'I can handle it' rather than addressing a sin seriously?**
+**What 'small sins' have I been tolerating that could grow into larger issues?**
 
 
 
-**How can recognizing the seriousness of sin bring about meaningful change in my life?**
+**Think about a temptation I face. How can I address it in a constructive way?**
 
 
 
-**What steps can I take to confront and eliminate a recurring temptation?**
+**In what ways has ignoring sin affected my personal or spiritual growth?**
+
+
+
+## Staying Salty
+
+**In what environments do I find it hardest to maintain my Christian identity?**
+
+
+
+**How do I remain 'salty' in situations that challenge my values?**
+
+
+
+**What practices help reinforce my faith when external pressures mount?**
 
 
 
@@ -71,6 +73,6 @@ The Urgent Kingdom · Mark 9:30-50
 
 ## This Week
 
-Identify one specific way I will choose service over significance this week and share it with a trusted friend for accountability.
+Decide one way to prioritize presence with God and serving others, sharing your plan with a group member for accountability.
 
 

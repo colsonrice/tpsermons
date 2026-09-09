@@ -14,57 +14,57 @@ The Urgent Kingdom · Mark 10 · Aaron Brockett
 
 ---
 
-## Marriage: God's Design
+## The Design of Marriage
 
-**How do I see marriage as more than a social contract? Where does this challenge my current view?**
-
-
-
-**Where have I seen God's grace repair brokenness in a relationship?**
+**Where have I treated commitments lightly, and what was the result?**
 
 
 
-**Think of a time when I had to wrestle with the idea of marriage as a covenant. What did I learn?**
+**In what ways does my marriage or significant relationship reflect the idea of two becoming one?**
 
 
 
-**In what ways does seeing marriage as God's design affect how I engage with my spouse or partner?**
+**How does the notion of marriage as a covenant rather than a contract challenge my current thinking?**
 
 
 
-## The Weight of Divorce
-
-**Describe a moment when I realized the seriousness of divorce's impact. How did it affect my actions?**
+**What aspects of God's design for marriage have I found most challenging to live out?**
 
 
 
-**How have the broken relationships around me shaped my understanding of commitment?**
+## Facing the Challenges
+
+**Recall a time when societal expectations influenced my relationship choices. What did I learn?**
 
 
 
-**What are the hard conversations I've avoided in a relationship that could bring healing?**
+**When have I felt tempted to walk away from a commitment, and how did I respond?**
 
 
 
-**Has there been a time I've witnessed grace in a situation where divorce seemed inevitable?**
+**How does cultural pressure affect my view or practice of marriage?**
 
 
 
-## Redeeming Brokenness
-
-**Identify a part of my family story that God has redeemed. What gives me hope in continuing that legacy?**
+**What specific cultural pressures have tested the strength of my commitments recently?**
 
 
 
-**Where do I find myself needing to trust in God's redemptive power today?**
+## Grace and Redemption
+
+**Identify a moment when I experienced or witnessed grace in a relationship. What impact did it have?**
 
 
 
-**How do I practically align my current relationships with God's view on covenant?**
+**Where have I needed to forgive or ask for forgiveness, and what was the outcome?**
 
 
 
-**Who in my life needs to see the redemptive work of God through my actions right now?**
+**What steps can I take this week to embody grace more fully in my relationships?**
+
+
+
+**Reflect on a time when I saw reconciliation change a situation once thought hopeless. What did it teach me?**
 
 
 
@@ -72,6 +72,6 @@ The Urgent Kingdom · Mark 10 · Aaron Brockett
 
 ## This Week
 
-Identify one relationship where you need to apply God’s grace this week and share with someone who can support you.
+This week, address one area where you have not fully embodied grace in a relationship. Share this with someone who can hold you accountable.
 
 
