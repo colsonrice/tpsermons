@@ -11,40 +11,44 @@
  },
  "source": "whisper",
  "leader_notes": [
-  "Be mindful that discussions may reveal personal struggles with pride or insecurity.",
-  "Divide the room into smaller groups for deeper discussions."
+  "Expect range of spiritual maturity in responses.",
+  "Be gentle if anyone appears defensive or withdrawn."
  ],
- "opener": "When did you realize you were focusing more on your status than on a relationship?",
- "context": "Jesus and the disciples are traveling through Galilee towards Jerusalem, where Jesus will be crucified.",
- "read_aloud": "Mark 9:30-50. Look for Jesus' teaching on true greatness and service.",
- "observation": "What did Jesus say about where true greatness comes from?",
+ "opener": "What's a time you competed for something important, and how did it go?",
+ "context": "Jesus taught his disciples privately while traveling through Galilee, revealing his future betrayal and death.",
+ "read_refs": [
+  "Mark 9:33-37",
+  "Mark 9:42-50"
+ ],
+ "read_aloud": "Listen for how Jesus redefines what greatness means.",
+ "observation": "What does Jesus say is required to be considered first or great in his kingdom?",
  "discuss": [
   {
-   "heading": "Living for an Audience of One",
-   "question": "When have you humbled yourself and found unexpected honor?",
+   "heading": "Redefining Greatness",
+   "question": "When have you experienced a shift in understanding what true greatness means?",
    "probes": [
-    "What did you learn from serving someone who couldn't repay you?",
-    "How did that experience change your perspective on greatness?"
+    "What led to that realization?",
+    "How did it change your actions or priorities?"
    ]
   },
   {
-   "heading": "Handling Hidden Motivations",
-   "question": "What personal insecurity do you catch yourself trying to cover with status?",
+   "heading": "Impact of Presence Over Position",
+   "question": "Where in your life have you noticed a focus on position overshadowing genuine presence or relationships?",
    "probes": [
-    "What has God revealed to you in your own 'badlands' experiences?",
-    "How has the pursuit of position affected your decisions?"
+    "How did you respond in that situation?",
+    "What did you learn from it?"
    ]
   },
   {
-   "heading": "The Cost of Following Jesus",
-   "question": "Where has following Jesus asked more of you than you expected?",
+   "heading": "Handling Sin Seriously",
+   "question": "When have you had to make a tough decision to remove a harmful influence from your life?",
    "probes": [
-    "What have you had to 'cut off' to remain faithful?",
-    "What role does community play in keeping you accountable?"
+    "What prompted that decision?",
+    "How did it affect your life afterward?"
    ]
   }
  ],
- "obstacle": "What will realistically stop you from acting on this week's discussion?",
- "commit": "Share one specific way you will serve without an agenda this week.",
- "carry": "Next week, ask each other how you served without expecting anything in return."
+ "obstacle": "What's the honest reason you might resist taking action on this in the coming week?",
+ "commit": "This week, I'll choose one relationship or situation to prioritize presence over achieving a position.",
+ "carry": "Next week, we'll ask each other how we chose presence over position in one situation."
 }

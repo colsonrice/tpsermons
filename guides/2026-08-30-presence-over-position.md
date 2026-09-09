@@ -14,53 +14,55 @@ The Urgent Kingdom · Mark 9:30-50
 
 ## Leader Notes
 
-- Be mindful that discussions may reveal personal struggles with pride or insecurity.
-- Divide the room into smaller groups for deeper discussions.
+- Expect range of spiritual maturity in responses.
+- Be gentle if anyone appears defensive or withdrawn.
 
-## Open · 5 min · all together
+## Open
 
-When did you realize you were focusing more on your status than on a relationship?
+What's a time you competed for something important, and how did it go?
 
-## Read · 8 min · all together
+## Read
 
-Jesus and the disciples are traveling through Galilee towards Jerusalem, where Jesus will be crucified.
+Jesus taught his disciples privately while traveling through Galilee, revealing his future betrayal and death.
 
-Mark 9:30-50. Look for Jesus' teaching on true greatness and service.
+**Mark 9:33-37 · Mark 9:42-50**
 
-What did Jesus say about where true greatness comes from?
+Listen for how Jesus redefines what greatness means.
 
-## Dig in · 27 min · groups of four
+What does Jesus say is required to be considered first or great in his kingdom?
 
-### Living for an Audience of One
+## Discuss
 
-When have you humbled yourself and found unexpected honor?
+### Redefining Greatness
 
-- What did you learn from serving someone who couldn't repay you?
-- How did that experience change your perspective on greatness?
+When have you experienced a shift in understanding what true greatness means?
 
-### Handling Hidden Motivations
+- What led to that realization?
+- How did it change your actions or priorities?
 
-What personal insecurity do you catch yourself trying to cover with status?
+### Impact of Presence Over Position
 
-- What has God revealed to you in your own 'badlands' experiences?
-- How has the pursuit of position affected your decisions?
+Where in your life have you noticed a focus on position overshadowing genuine presence or relationships?
 
-### The Cost of Following Jesus
+- How did you respond in that situation?
+- What did you learn from it?
 
-Where has following Jesus asked more of you than you expected?
+### Handling Sin Seriously
 
-- What have you had to 'cut off' to remain faithful?
-- What role does community play in keeping you accountable?
+When have you had to make a tough decision to remove a harmful influence from your life?
 
-## Regroup · 10 min · all together
+- What prompted that decision?
+- How did it affect your life afterward?
 
-What will realistically stop you from acting on this week's discussion?
+## Get Honest
 
-## Commit · 5 min · all together
+What's the honest reason you might resist taking action on this in the coming week?
 
-Share one specific way you will serve without an agenda this week.
+## Commit
 
-**Next week:** Next week, ask each other how you served without expecting anything in return.
+This week, I'll choose one relationship or situation to prioritize presence over achieving a position.
+
+**Next week:** Next week, we'll ask each other how we chose presence over position in one situation.
 
 ---
 

@@ -11,41 +11,44 @@
  },
  "source": "whisper",
  "leader_notes": [
-  "Heads-up: Topic may be raw for those who've experienced divorce.",
-  "Remind groups to stick to discussion time limits.",
-  "Encourage honest sharing without judgment."
+  "Sensitive topic alert: Divorce and marriage can be raw for some.",
+  "Facilitation reminder: Encourage open sharing, not debates.",
+  "Ensure everyone has a Bible or can share for the reading."
  ],
- "opener": "What's one promise you made years ago that's harder to keep now?",
- "context": "Jesus was teaching in Judea when Pharisees asked Him a tricky question about divorce, trying to trap Him.",
- "read_aloud": "Read Mark 10. Note Jesus' response to the Pharisees' question about divorce.",
- "observation": "What was Jesus' main point about marriage when the Pharisees questioned Him?",
+ "opener": "What's one promise you made years ago that still shapes your life today?",
+ "context": "In Mark 10, Jesus addresses the Pharisees on marriage and divorce, revisiting God's original design for marriage.",
+ "read_refs": [
+  "Mark 10:2-9"
+ ],
+ "read_aloud": "Listen for how Jesus differentiates between what is permitted and what was intended.",
+ "observation": "What is the core reason Jesus gives for God's design of marriage?",
  "discuss": [
   {
-   "heading": "Marriage's True Purpose",
-   "question": "When have you seen the 'one flesh' concept of marriage described here in real life?",
+   "heading": "Marriage's Original Intent",
+   "question": "Where have you settled for what is allowed instead of what was intended in your relationships?",
    "probes": [
-    "What surprised you about it?",
-    "How does it challenge how you view marriage?"
+    "What did you notice about Jesus' response to the Pharisees?",
+    "How does 'hard hearts' play into this passage?"
    ]
   },
   {
-   "heading": "Navigating Brokenness",
-   "question": "Where have you experienced or seen the painful side of divorce?",
+   "heading": "The Cost of Covenant",
+   "question": "Where has keeping a promise cost you more than you expected?",
    "probes": [
-    "What long-term impacts are still felt?",
-    "How did you see God bring healing, if at all?"
+    "What makes marriage feel like a covenant more than a contract?",
+    "How have you experienced grace in your relationships?"
    ]
   },
   {
-   "heading": "Grace Beyond Failure",
-   "question": "When did you experience grace after a mistake or failure in any area?",
+   "heading": "Hope in Brokenness",
+   "question": "When have you seen redemption in a broken relationship?",
    "probes": [
-    "What made receiving grace difficult?",
-    "How did it change your relationships?"
+    "What was the turning point?",
+    "How did forgiveness play a role?"
    ]
   }
  ],
- "obstacle": "What is the honest reason you might avoid the hard conversations in your relationship?",
- "commit": "Name one small step you will take this week toward reconciliation or growth in your relationships.",
- "carry": "Next week, ask each other: 'What happened when you took that step towards reconciliation or growth?'"
+ "obstacle": "What is the honest reason you have not had that conversation yet?",
+ "commit": "Name one relationship where you will pursue God's intention this week.",
+ "carry": "Next week, we'll ask how you acted on your commitment."
 }

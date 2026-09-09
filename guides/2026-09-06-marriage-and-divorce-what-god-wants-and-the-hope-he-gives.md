@@ -15,54 +15,56 @@ The Urgent Kingdom · Mark 10 · Aaron Brockett
 
 ## Leader Notes
 
-- Heads-up: Topic may be raw for those who've experienced divorce.
-- Remind groups to stick to discussion time limits.
-- Encourage honest sharing without judgment.
+- Sensitive topic alert: Divorce and marriage can be raw for some.
+- Facilitation reminder: Encourage open sharing, not debates.
+- Ensure everyone has a Bible or can share for the reading.
 
-## Open · 5 min · all together
+## Open
 
-What's one promise you made years ago that's harder to keep now?
+What's one promise you made years ago that still shapes your life today?
 
-## Read · 8 min · all together
+## Read
 
-Jesus was teaching in Judea when Pharisees asked Him a tricky question about divorce, trying to trap Him.
+In Mark 10, Jesus addresses the Pharisees on marriage and divorce, revisiting God's original design for marriage.
 
-Read Mark 10. Note Jesus' response to the Pharisees' question about divorce.
+**Mark 10:2-9**
 
-What was Jesus' main point about marriage when the Pharisees questioned Him?
+Listen for how Jesus differentiates between what is permitted and what was intended.
 
-## Dig in · 27 min · groups of four
+What is the core reason Jesus gives for God's design of marriage?
 
-### Marriage's True Purpose
+## Discuss
 
-When have you seen the 'one flesh' concept of marriage described here in real life?
+### Marriage's Original Intent
 
-- What surprised you about it?
-- How does it challenge how you view marriage?
+Where have you settled for what is allowed instead of what was intended in your relationships?
 
-### Navigating Brokenness
+- What did you notice about Jesus' response to the Pharisees?
+- How does 'hard hearts' play into this passage?
 
-Where have you experienced or seen the painful side of divorce?
+### The Cost of Covenant
 
-- What long-term impacts are still felt?
-- How did you see God bring healing, if at all?
+Where has keeping a promise cost you more than you expected?
 
-### Grace Beyond Failure
+- What makes marriage feel like a covenant more than a contract?
+- How have you experienced grace in your relationships?
 
-When did you experience grace after a mistake or failure in any area?
+### Hope in Brokenness
 
-- What made receiving grace difficult?
-- How did it change your relationships?
+When have you seen redemption in a broken relationship?
 
-## Regroup · 10 min · all together
+- What was the turning point?
+- How did forgiveness play a role?
 
-What is the honest reason you might avoid the hard conversations in your relationship?
+## Get Honest
 
-## Commit · 5 min · all together
+What is the honest reason you have not had that conversation yet?
 
-Name one small step you will take this week toward reconciliation or growth in your relationships.
+## Commit
 
-**Next week:** Next week, ask each other: 'What happened when you took that step towards reconciliation or growth?'
+Name one relationship where you will pursue God's intention this week.
+
+**Next week:** Next week, we'll ask how you acted on your commitment.
 
 ---
 
