@@ -377,86 +377,109 @@ a:hover { color: var(--ink); }
   margin: 0 0 1.4rem;
 }
 
-/* --- the three blocks ------------------------------------------------------ */
+/* --- at a glance ---------------------------------------------------------- */
 
-.block { padding: 1.2rem 0; }
-.block + .block { border-top: 1px solid var(--rule); }
-.block-head { display: flex; align-items: baseline; gap: .8rem; }
-.block-n {
+.glance {
+  border: 1px solid var(--rule-firm);
+  border-radius: 3px;
+  padding: 1.1rem 1.25rem;
+  margin: 1.5rem 0 2.25rem;
+  background: var(--paper-card);
+}
+.glance dl { display: flex; flex-wrap: wrap; gap: .5rem 2rem; margin: 0; }
+.glance div { display: flex; gap: .5rem; align-items: baseline; }
+.glance dt {
+  font-size: var(--step--1); text-transform: uppercase; letter-spacing: .1em;
+  color: var(--ink-faint); font-weight: 600;
+}
+.glance dd { margin: 0; font-size: var(--step--1); color: var(--ink); }
+.glance .goal {
+  margin: .9rem 0 0; padding-top: .9rem;
+  border-top: 1px solid var(--rule);
   font-family: var(--display);
-  font-size: 1.5rem;
-  font-variation-settings: "SOFT" 40, "opsz" 30;
-  color: var(--clay-soft);
-  line-height: 1;
-  font-variant-numeric: lining-nums;
-  flex: 0 0 auto;
-  width: 1.3rem;
+  font-variation-settings: "SOFT" 30, "opsz" 30;
+  font-size: 1.08rem; line-height: 1.4; color: var(--ink);
 }
-.block-head h3 {
-  font-family: var(--body);
-  font-size: var(--step--1);
-  font-weight: 700;
-  letter-spacing: .12em;
-  text-transform: uppercase;
-  color: var(--ink-faint);
-  margin: 0;
-}
-.block .ask { margin-left: 2.1rem; }
 
-.probes { margin: .2rem 0 0 2.1rem; }
-.probes summary {
-  cursor: pointer;
-  font-size: var(--step--1);
-  letter-spacing: .06em;
-  text-transform: uppercase;
-  color: var(--ink-faint);
-  list-style: none;
-  padding: .5rem 0;
-  min-height: 44px;
-  display: flex; align-items: center; gap: .45rem;
+.subtitle {
+  margin: .3rem 0 0; font-size: var(--step--1);
+  letter-spacing: .14em; text-transform: uppercase;
+  color: var(--sage); font-weight: 600;
 }
-.probes summary::-webkit-details-marker { display: none; }
-.probes summary::before { content: "＋"; color: var(--clay-soft); font-weight: 600; }
-.probes[open] summary::before { content: "－"; }
-.probes summary:hover { color: var(--clay); }
-.probes ul { margin: .3rem 0 .6rem; padding-left: 1.1rem; }
-.probes li { margin: .45rem 0; color: var(--ink-soft); font-size: .95em; }
-.probes li::marker { color: var(--rule-firm); }
+.links a.alt { border-style: dashed; }
 
-/* Commit closes the night — give it weight. */
+/* --- leader notes: paragraphs, not bullets -------------------------------- */
+
+.leader-notes { background: var(--paper-sunk); border: 1px dashed var(--rule-firm);
+  border-radius: 3px; padding: 1.3rem 1.4rem .4rem; }
+.leader-notes .seg-head { border-bottom-color: transparent; margin-bottom: .5rem; }
+.leader-notes p { color: var(--ink-soft); margin: 0 0 1rem; font-size: .97em; }
+
+/* --- icebreakers ---------------------------------------------------------- */
+
+.ice { display: grid; grid-template-columns: 2rem 1fr; gap: 0 .9rem;
+  padding: .9rem 0; align-items: start; }
+.ice + .ice { border-top: 1px dotted var(--rule); }
+.ice-label {
+  font-family: var(--display); font-size: 1.35rem; line-height: 1.2;
+  font-variation-settings: "SOFT" 40, "opsz" 30; color: var(--clay-soft);
+}
+.ice .ask { margin: 0 0 .3rem; font-size: var(--step-1); }
+.fits { margin: 0; font-size: var(--step--1); color: var(--ink-faint);
+  font-style: italic; letter-spacing: .02em; }
+
+/* --- discussion sections -------------------------------------------------- */
+
+.setup { color: var(--ink-soft); margin: 0 0 1.4rem; }
+
+.q { display: grid; grid-template-columns: 2rem 1fr; gap: 0 .9rem;
+  padding: .8rem 0; align-items: start; }
+.q + .q { border-top: 1px dotted var(--rule); }
+.q-n {
+  font-family: var(--display); font-size: 1.3rem; line-height: 1.3;
+  font-variation-settings: "SOFT" 40, "opsz" 30; color: var(--clay-soft);
+  font-variant-numeric: lining-nums; text-align: right;
+}
+.q .ask { margin: 0; font-weight: 500; }
+
+/* --- cheat sheet ---------------------------------------------------------- */
+
+.table-wrap { overflow-x: auto; margin: .4rem 0 0; }
+table.cheat { width: 100%; border-collapse: collapse; font-size: .95em; }
+table.cheat th {
+  text-align: left; font-family: var(--body); font-size: var(--step--1);
+  text-transform: uppercase; letter-spacing: .1em; color: var(--ink-faint);
+  font-weight: 700; padding: 0 .8rem .5rem 0; border-bottom: 1px solid var(--rule-firm);
+}
+table.cheat td { padding: .7rem .8rem .7rem 0; border-bottom: 1px dotted var(--rule);
+  vertical-align: top; color: var(--ink-soft); }
+table.cheat td:first-child { color: var(--ink); font-weight: 500; white-space: nowrap; }
+
+/* --- key themes ----------------------------------------------------------- */
+
+.themes { list-style: none; padding: 0; margin: .4rem 0 0; }
+.themes li { padding: .55rem 0 .55rem 1.5rem; position: relative; color: var(--ink-soft); }
+.themes li + li { border-top: 1px dotted var(--rule); }
+.themes li::before { content: ""; position: absolute; left: 0; top: 1.15em;
+  width: .55rem; height: 1px; background: var(--clay-soft); }
+
+/* --- participant sheet: room to write ------------------------------------- */
+
+.sheet .q { padding-bottom: .3rem; }
+.write { border-bottom: 1px solid var(--rule-firm); height: 2.6rem;
+  grid-column: 2; margin: .2rem 0 .6rem; }
+.write-tall { height: 5.5rem; grid-column: 1; }
+
 .seg-commit { background: var(--paper-sunk); border-left: 3px solid var(--sage);
-  padding: 1.4rem 1.4rem .4rem; border-radius: 2px; }
+  padding: 1.4rem 1.4rem .8rem; border-radius: 2px; }
 .seg-commit .seg-head { border-bottom-color: transparent; margin-bottom: .6rem; }
 .seg-commit .seg-head h2 { color: var(--sage); }
+.carry { margin-top: 1rem; padding-top: 1rem;
+  border-top: 1px dotted var(--rule-firm); color: var(--ink-soft); font-size: .95em; }
 
-/* Get Honest is the hinge of the night. */
-.seg-honest .seg-head h2 { color: var(--clay-deep); }
-.seg-honest .ask { font-size: var(--step-2); line-height: 1.25; }
-.carry {
-  margin-top: 1rem; padding-top: 1rem;
-  border-top: 1px dotted var(--rule-firm);
-  color: var(--ink-soft); font-size: .95em;
-}
-
-.colophon {
-  margin: 3.5rem 0 4.5rem;
-  padding-top: 1.4rem;
-  border-top: 1px solid var(--rule);
-  font-size: var(--step--1);
-  color: var(--ink-faint);
-  line-height: 1.6;
-}
-
-@media (max-width: 30rem) {
-  .guide-head { padding-top: .75rem; }
-  .seg { margin-bottom: 2.25rem; }
-  .seg-head { gap: .4rem .5rem; }
-  .block .ask, .probes { margin-left: 0; }
-  .block-head { gap: .6rem; }
-  .leader-notes { padding: 1rem 1.1rem; }
-  .seg-commit { padding: 1.15rem 1.1rem .4rem; }
-  .links a { flex: 1 1 auto; justify-content: center; }
-}
+.colophon { margin: 3.5rem 0 4.5rem; padding-top: 1.4rem;
+  border-top: 1px solid var(--rule); font-size: var(--step--1);
+  color: var(--ink-faint); line-height: 1.6; }
 
 /* --- footer --------------------------------------------------------------- */
 
@@ -501,20 +524,22 @@ a:hover { color: var(--ink); }
   .guide-head { padding-top: 0; }
   .guide-head h1 { font-size: 21pt; margin: .2rem 0 .6rem; }
 
-  .seg { margin-bottom: 12pt; page-break-inside: avoid; }
-  .seg-head { margin-bottom: 5pt; padding-bottom: 3pt; }
+  .seg { margin-bottom: 11pt; page-break-inside: avoid; }
+  .seg-head { margin-bottom: 4pt; padding-bottom: 3pt; }
   .seg-head h2 { font-size: 8.5pt; }
-  .ref-chip { border: .5pt solid #666; background: none; color: #000;
-              padding: 0 4pt; font-size: 10pt; }
-  .ask { font-size: 11.5pt; margin: 4pt 0 6pt; }
-  .block { padding: 6pt 0; page-break-inside: avoid; }
-  .block-n { font-size: 11pt; color: #000; }
-  .probes { margin-left: 2.1rem; }
-  .probes[open] summary::before, .probes summary::before { content: ""; }
-  .probes summary { min-height: 0; padding: 0; font-size: 8pt; }
-  .probes ul { display: block; }          /* always print the probes */
-  .leader-notes { border: .5pt dashed #999; padding: 6pt 8pt; page-break-inside: avoid; }
+  .ask { font-size: 10.5pt; margin: 0; }
+  .q, .ice { padding: 4pt 0; page-break-inside: avoid; }
+  .q-n, .ice-label { font-size: 10.5pt; color: #000; }
+  .glance { border: .5pt solid #999; padding: 6pt 8pt; page-break-inside: avoid; }
+  .glance .goal { font-size: 10pt; }
+  .leader-notes { border: .5pt dashed #999; padding: 6pt 8pt 1pt; }
+  .setup { font-size: 10pt; }
+  table.cheat { font-size: 9pt; page-break-inside: avoid; }
+  table.cheat td { padding: 3pt 6pt 3pt 0; }
+  .themes li { padding: 2pt 0 2pt 12pt; }
   .seg-commit { border-left: 2pt solid #000; padding: 8pt 10pt 1pt; }
+  .write { border-bottom: .5pt solid #666; height: 22pt; }
+  .write-tall { height: 48pt; }
   .colophon { margin: 14pt 0 0; font-size: 8pt; }
   a { color: #000; text-decoration: none; }
 }

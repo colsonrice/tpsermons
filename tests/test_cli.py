@@ -2,7 +2,8 @@ import json
 from datetime import datetime, timezone
 
 from tpsermons.cli import Deps, run
-from tpsermons.models import DiscussBlock, Episode, Guide
+from tests.fixtures import make_guide
+from tpsermons.models import Episode
 
 def ep(guid, day, title="Sermon %s"):
     return Episode(guid=guid, title=title % guid,
@@ -11,23 +12,8 @@ def ep(guid, day, title="Sermon %s"):
 
 
 def fake_guide(episode, **_):
-    return Guide(
-        title=episode.title, series="S", speaker=None,
-        date=episode.pub_date.strftime("%Y-%m-%d"), passage="Mark 9",
-        links={"tpcc": "https://tpcc.org/messages/x"},
-        leader_notes=["Talk less than a quarter of the night.",
-                      "Go easy if this one lands hard."],
-        opener="When did you last change your mind?",
-        context=" ".join(["word"] * 30),
-        read_refs=["Mark 9:33-37"],
-        read_aloud="Listen for what they argue about.",
-        observation="What did Jesus actually say?",
-        discuss=[DiscussBlock("H%d" % i, "Where has that shown up for you?",
-                              ["a", "b"]) for i in range(3)],
-        obstacle="What will stop you before next Thursday?",
-        commit=" ".join(["word"] * 40),
-        carry="Next week we ask how it went.",
-        source="youtube_captions")
+    return make_guide(title=episode.title,
+                      date=episode.pub_date.strftime("%Y-%m-%d"))
 
 
 def deps(episodes):

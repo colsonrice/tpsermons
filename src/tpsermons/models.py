@@ -1,56 +1,31 @@
 """Boundary types.
 
-`Guide` is the contract between `generate` and `render`. Metadata fields are
-injected by code; only the prose fields are model-authored, which is what makes
-hallucinated links and invented speaker names structurally impossible rather
-than merely unlikely.
+`Guide` is the contract between `generate` and `render`. Metadata is injected
+by code; only the prose is model-authored, so hallucinated links and invented
+speaker names are structurally impossible.
 
-The guide is shaped as a runnable 45-60 minute script for a men's group of
-about twelve. The deep questions happen in groups of four, because discussion
-participation collapses above six people and twelve men in one circle means
-three or four carry the room.
+The shape follows the group's own written spec: a leader guide of roughly
+three to four printed pages, plus a stripped-down participant reflection sheet
+carrying the same questions in the first person.
 """
 from __future__ import annotations
 
 import re
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 from datetime import datetime
 from typing import Dict, List, Optional
 
-# Whole-token placeholders only. Bare "..." and bracketed ASR markers such as
-# "[inaudible]" must NOT trip this -- ellipses occur in legitimate quotation.
 _PLACEHOLDER = re.compile(r"\b(TODO|TBD|FIXME|XXX|Lorem)\b", re.IGNORECASE)
 _BRACKET_STUB = re.compile(r"\[insert[^\]]*\]", re.IGNORECASE)
+_EM_DASH = re.compile(r"[—–]")
 
-# Phrases lifted verbatim from the prompt's illustrative examples. The model
-# copied these once; a guide must be built from this week's sermon, not from
-# the instructions. Matched loosely on distinctive fragments.
-_LIFTED = (
-    "keeping a promise cost you more than you expected",
-    "honest reason you have not had that conversation",
-    "settled for what is allowed instead of what was intended",
-    "give something away that you actually missed",
-    "holding on tightly cost you something",
-    "help this month without being asked twice",
-)
-
-# Questions opening this way are answerable in one word and stall the room.
-_CLOSED_OPENER = re.compile(
-    r"^\s*(have|has|do|does|did|are|is|was|were|can|could|will|would|should)\b",
-    re.IGNORECASE)
-
-DISCUSS_BLOCKS = 3
-PROBES_PER_BLOCK = (2, 3)
-LEADER_NOTES = (2, 4)
-CONTEXT_WORDS = (12, 70)
-COMMIT_WORDS = (10, 90)
-
-# The movements of the evening, in order. No clock, no breakout groups --
-# the group stays together and takes as long as a question deserves.
-SEGMENTS = ("Open", "Read", "Discuss", "Get Honest", "Commit")
-
-# Scripture is read in short sections, never a whole chapter.
-READ_REFS = (1, 2)
+SECTIONS = (3, 4)            # 3 to 4 is the sweet spot; never more than 5
+QUESTIONS_PER_SECTION = (2, 4)
+TOTAL_QUESTIONS = (12, 15)   # 12 to 14 ideal for 60 minutes
+ICEBREAKERS = 3              # labelled A / B / C
+LEADER_NOTE_PARAS = (3, 5)
+KEY_THEMES = (5, 7)
+CHEAT_ROWS = (5, 7)
 
 
 class ValidationError(Exception):
@@ -76,14 +51,28 @@ class Episode:
 @dataclass(frozen=True)
 class SourcedText:
     text: str
-    source: str  # transcript_pdf | youtube_captions | whisper
+    source: str
 
 
 @dataclass(frozen=True)
-class DiscussBlock:
-    heading: str
+class Icebreaker:
+    label: str          # A / B / C
     question: str
-    probes: List[str]
+    fits: str           # which group dynamic this one suits
+
+
+@dataclass(frozen=True)
+class Section:
+    title: str
+    setup: str                        # 3-5 sentences grounding the section
+    questions: List[str]              # 2-4, leader guide
+    reflection_questions: List[str]   # same, rewritten first person
+
+
+@dataclass(frozen=True)
+class CheatRow:
+    dynamic: str
+    response: str
 
 
 @dataclass
@@ -96,103 +85,88 @@ class Guide:
     passage: Optional[str]
     links: Dict[str, str]
     # --- authored by the model -------------------------------------------
+    goal: str
     leader_notes: List[str]
-    opener: str
-    context: str
-    read_refs: List[str]
-    read_aloud: str
-    observation: str
-    discuss: List[DiscussBlock]
-    obstacle: str
-    commit: str
-    carry: str
+    scripture_instructions: str
+    icebreakers: List[Icebreaker]
+    sections: List[Section]
+    closing_go_around: str
+    prayer: str
+    cheat_sheet: List[CheatRow]
+    key_themes: List[str]
+    commitment_prompt: str
     source: str = ""
+
+    @property
+    def question_count(self) -> int:
+        return sum(len(s.questions) for s in self.sections)
 
     def validate(self) -> "Guide":
         if "tpcc" not in self.links or not self.links["tpcc"]:
             raise ValidationError("links.tpcc is required and is never omitted")
 
-        lo, hi = LEADER_NOTES
-        if not lo <= len(self.leader_notes) <= hi:
-            raise ValidationError(
-                "expected %d-%d leader notes, got %d" % (lo, hi, len(self.leader_notes)))
+        _text("goal", self.goal)
+        _text("scripture_instructions", self.scripture_instructions)
+        _text("closing_go_around", self.closing_go_around)
+        _text("prayer", self.prayer)
+        _text("commitment_prompt", self.commitment_prompt)
+
+        _count("leader_notes", self.leader_notes, *LEADER_NOTE_PARAS)
         for n in self.leader_notes:
-            _placeholder("leader_notes", n)
+            _text("leader_notes", n)
 
-        rlo, rhi = READ_REFS
-        if not rlo <= len(self.read_refs) <= rhi:
+        if len(self.icebreakers) != ICEBREAKERS:
             raise ValidationError(
-                "expected %d-%d scripture sections, got %d -- read a section, "
-                "never a whole chapter" % (rlo, rhi, len(self.read_refs)))
-        for r in self.read_refs:
-            _placeholder("read_refs", r)
-            if not re.search(r"\d+:\d+", r):
+                "expected %d icebreakers, got %d" % (ICEBREAKERS, len(self.icebreakers)))
+        for want, ice in zip("ABC", self.icebreakers):
+            if ice.label.strip().upper() != want:
+                raise ValidationError("icebreakers must be labelled A, B, C in order")
+            _text("icebreaker %s" % want, ice.question)
+            _text("icebreaker %s fits" % want, ice.fits)
+
+        _count("sections", self.sections, *SECTIONS)
+        qlo, qhi = QUESTIONS_PER_SECTION
+        for i, sec in enumerate(self.sections):
+            _text("sections[%d].title" % i, sec.title)
+            _text("sections[%d].setup" % i, sec.setup)
+            _count("sections[%d].questions" % i, sec.questions, qlo, qhi)
+            for q in sec.questions:
+                _text("sections[%d].question" % i, q)
+            if len(sec.reflection_questions) != len(sec.questions):
                 raise ValidationError(
-                    "read_refs entry %r must name verses (e.g. 'Mark 10:2-9'), "
-                    "not a whole chapter" % r)
+                    "sections[%d] has %d questions but %d reflection questions; "
+                    "the sheet mirrors the guide"
+                    % (i, len(sec.questions), len(sec.reflection_questions)))
+            for q in sec.reflection_questions:
+                _text("sections[%d].reflection" % i, q)
 
-        for name in ("opener", "read_aloud", "observation", "obstacle", "carry"):
-            _placeholder(name, getattr(self, name))
-        _words("context", self.context, *CONTEXT_WORDS)
-        _words("commit", self.commit, *COMMIT_WORDS)
-
-        for name in ("opener", "observation", "obstacle"):
-            value = getattr(self, name)
-            if "?" not in value:
-                raise ValidationError("%s must be a question" % name)
-            _open_ended(name, value)
-            _not_lifted(name, value)
-        if "you" not in self.obstacle.lower():
-            raise ValidationError("obstacle must ask about this man, not the world")
-
-        if len(self.discuss) != DISCUSS_BLOCKS:
+        tlo, thi = TOTAL_QUESTIONS
+        if not tlo <= self.question_count <= thi:
             raise ValidationError(
-                "expected %d discuss blocks, got %d" % (DISCUSS_BLOCKS, len(self.discuss)))
-        plo, phi = PROBES_PER_BLOCK
-        for i, b in enumerate(self.discuss):
-            if not b.heading.strip():
-                raise ValidationError("discuss[%d] has an empty heading" % i)
-            _placeholder("discuss[%d].question" % i, b.question)
-            if "?" not in b.question:
-                raise ValidationError("discuss[%d].question must be a question" % i)
-            _open_ended("discuss[%d].question" % i, b.question)
-            _not_lifted("discuss[%d].question" % i, b.question)
-            if not plo <= len(b.probes) <= phi:
-                raise ValidationError(
-                    "discuss[%d] has %d probes, expected %d-%d" % (i, len(b.probes), plo, phi))
-            for p in b.probes:
-                _placeholder("discuss[%d].probes" % i, p)
+                "expected %d-%d discussion questions in total, got %d"
+                % (tlo, thi, self.question_count))
+
+        _count("key_themes", self.key_themes, *KEY_THEMES)
+        for t in self.key_themes:
+            _text("key_themes", t)
+        _count("cheat_sheet", self.cheat_sheet, *CHEAT_ROWS)
+        for row in self.cheat_sheet:
+            _text("cheat_sheet.dynamic", row.dynamic)
+            _text("cheat_sheet.response", row.response)
         return self
 
 
-def _words(name: str, value: str, lo: int, hi: int) -> None:
-    _placeholder(name, value)
-    n = len(value.split())
-    if not lo <= n <= hi:
-        raise ValidationError("%s is %d words, expected %d-%d" % (name, n, lo, hi))
+def _count(name, items, lo, hi) -> None:
+    if not lo <= len(items) <= hi:
+        raise ValidationError("expected %d-%d %s, got %d" % (lo, hi, name, len(items)))
 
 
-def _not_lifted(name: str, value: str) -> None:
-    """Reject wording copied from the prompt's examples."""
-    low = value.lower()
-    for frag in _LIFTED:
-        if frag in low:
-            raise ValidationError(
-                "%s reuses an example from the instructions (%r); write a "
-                "question from this week's sermon" % (name, frag))
-
-
-def _open_ended(name: str, value: str) -> None:
-    """Reject yes/no openers -- they are answerable in one word."""
-    if _CLOSED_OPENER.match(value):
-        raise ValidationError(
-            "%s opens closed (%r); ask When/Where/What/Who instead"
-            % (name, value.split()[0]))
-
-
-def _placeholder(name: str, value: str) -> None:
+def _text(name: str, value: str) -> None:
     if not value or not value.strip():
         raise ValidationError("%s is empty" % name)
     m = _PLACEHOLDER.search(value) or _BRACKET_STUB.search(value)
     if m:
         raise ValidationError("%s contains placeholder text: %r" % (name, m.group(0)))
+    if _EM_DASH.search(value):
+        raise ValidationError(
+            "%s contains an em or en dash; the house style forbids them" % name)

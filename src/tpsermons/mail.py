@@ -74,11 +74,9 @@ def _label(text, color=CLAY) -> str:
             "padding-bottom:6px\">%s</p>" % (_SERIF, color, RULE, _e(text)))
 
 
-def render_email(guide, url: str):
-    """Return (subject, html, plain_text) for one guide."""
-    refs = " · ".join(guide.read_refs)
-    subject = "%s — %s" % (guide.title, refs)
-
+def render_email(guide, url: str, sheet_url: str = ""):
+    """Return (subject, html, plain_text) for the leader guide."""
+    subject = "%s%s" % (guide.title, " — %s" % guide.passage if guide.passage else "")
     meta = " · ".join(b for b in (guide.series, guide.passage, guide.speaker) if b)
 
     parts = [
@@ -89,63 +87,70 @@ def render_email(guide, url: str):
         "<h1 style=\"margin:0 0 8px;font:400 30px/1.15 %s;color:%s\">%s</h1>"
         % (_SERIF, INK, _e(guide.title)),
         _p(meta, "14px", FAINT),
+        _p(guide.goal, "16px", SOFT, "font-style:italic;"),
     ]
 
-    parts.append(_label("Before you start"))
-    for n in guide.leader_notes:
-        parts.append(_p("— " + n, "15px", SOFT))
+    parts.append(_label("Before you begin"))
+    for note in guide.leader_notes:
+        parts.append(_p(note, "15px", SOFT))
 
-    parts.append(_label("Open"))
-    parts.append(_p(guide.opener, "19px"))
+    parts.append(_label("Opening"))
+    parts.append(_p(guide.scripture_instructions, "16px"))
+    for ice in guide.icebreakers:
+        parts.append(_p("%s. %s" % (ice.label, ice.question), "16px"))
+        parts.append(_p(ice.fits, "13px", FAINT, "margin:-8px 0 12px 14px;"))
 
-    parts.append(_label("Read"))
-    parts.append(_p(guide.context, "16px", SOFT))
-    parts.append("<p style=\"margin:0 0 14px;font:400 18px/1.5 %s;color:%s;"
-                 "border-left:3px solid %s;padding-left:12px\">%s</p>"
-                 % (_SERIF, SAGE, SAGE, _e(refs)))
-    parts.append(_p(guide.read_aloud, "16px", SOFT, "font-style:italic;"))
-    parts.append(_p(guide.observation, "19px"))
+    n = 0
+    for sec in guide.sections:
+        parts.append(_label(sec.title))
+        parts.append(_p(sec.setup, "15px", SOFT))
+        for q in sec.questions:
+            n += 1
+            parts.append("<p style=\"margin:0 0 12px;font:600 18px/1.45 %s;color:%s\">"
+                         "<span style=\"color:%s\">%d.</span> %s</p>"
+                         % (_SERIF, INK, CLAY, n, _e(q)))
 
-    parts.append(_label("Discuss"))
-    for i, b in enumerate(guide.discuss, 1):
-        parts.append("<p style=\"margin:22px 0 6px;font:600 12px/1.4 %s;"
-                     "letter-spacing:.1em;text-transform:uppercase;color:%s\">%d. %s</p>"
-                     % (_SERIF, FAINT, i, _e(b.heading)))
-        parts.append(_p(b.question, "19px"))
-        # Probes render open: <details> is unsupported in most mail clients.
-        for probe in b.probes:
-            parts.append(_p("· " + probe, "15px", SOFT, "margin-left:14px;"))
+    parts.append(_label("Closing", SAGE))
+    parts.append(_p(guide.closing_go_around, "16px"))
+    parts.append(_p(guide.prayer, "15px", SOFT))
 
-    parts.append(_label("Get honest", "#8A3822"))
-    parts.append(_p(guide.obstacle, "20px"))
+    parts.append(_label("Cheat sheet", FAINT))
+    for row in guide.cheat_sheet:
+        parts.append(_p("%s: %s" % (row.dynamic, row.response), "14px", SOFT))
 
-    parts.append(_label("Commit", SAGE))
-    parts.append(_p(guide.commit, "17px"))
-    parts.append(_p("Next week we ask: " + guide.carry, "15px", SOFT))
+    parts.append(_label("Key themes", FAINT))
+    for theme in guide.key_themes:
+        parts.append(_p("· " + theme, "14px", SOFT))
 
+    links = "<a href=\"%s\" style=\"color:%s\">Open the guide</a>" % (_e(url), CLAY)
+    if sheet_url:
+        links += " &nbsp;·&nbsp; <a href=\"%s\" style=\"color:%s\">Reflection sheet</a>" \
+                 % (_e(sheet_url), CLAY)
     parts.append("<p style=\"margin:30px 0 0;padding-top:16px;border-top:1px solid %s;"
-                 "font:400 14px/1.6 %s\"><a href=\"%s\" style=\"color:%s\">"
-                 "Open this guide on the web</a></p>" % (RULE, _SERIF, _e(url), CLAY))
+                 "font:400 14px/1.6 %s\">%s</p>" % (RULE, _SERIF, links))
     parts.append(_p("Generated from the sermon. Sermon content belongs to Traders "
                     "Point Christian Church; this is a study aid, not a transcript.",
                     "12px", FAINT))
     parts.append("</div></div>")
 
-    text_lines = [
-        guide.title, meta, "", "BEFORE YOU START",
-        *["- %s" % n for n in guide.leader_notes],
-        "", "OPEN", guide.opener,
-        "", "READ", guide.context, refs, guide.read_aloud, guide.observation,
-        "", "DISCUSS",
-    ]
-    for i, b in enumerate(guide.discuss, 1):
-        text_lines += ["", "%d. %s" % (i, b.heading), b.question]
-        text_lines += ["   - %s" % p for p in b.probes]
-    text_lines += ["", "GET HONEST", guide.obstacle,
-                   "", "COMMIT", guide.commit,
-                   "Next week we ask: " + guide.carry, "", url]
-
-    return subject, "".join(parts), "\n".join(text_lines)
+    text = [guide.title, meta, "", guide.goal, "", "BEFORE YOU BEGIN"]
+    text += guide.leader_notes
+    text += ["", "OPENING", guide.scripture_instructions]
+    text += ["%s. %s (%s)" % (i.label, i.question, i.fits) for i in guide.icebreakers]
+    n = 0
+    for sec in guide.sections:
+        text += ["", sec.title.upper(), sec.setup]
+        for q in sec.questions:
+            n += 1
+            text.append("%d. %s" % (n, q))
+    text += ["", "CLOSING", guide.closing_go_around, guide.prayer]
+    text += ["", "CHEAT SHEET"]
+    text += ["%s: %s" % (r.dynamic, r.response) for r in guide.cheat_sheet]
+    text += ["", "KEY THEMES"] + ["- %s" % t for t in guide.key_themes]
+    text += ["", url]
+    if sheet_url:
+        text.append(sheet_url)
+    return subject, "".join(parts), "\n".join(text)
 
 
 def send(subject: str, body_html: str, body_text: str, cfg: MailConfig) -> None:

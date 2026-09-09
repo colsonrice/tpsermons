@@ -1,114 +1,74 @@
 import pytest
-from tpsermons.models import (SEGMENTS, DiscussBlock, Guide, ValidationError)
 
-
-def blocks(n=3, probes=2):
-    return [DiscussBlock(heading="Heading %d" % i,
-                         question="What did that look like for you?",
-                         probes=["Probe %d" % j for j in range(probes)])
-            for i in range(n)]
-
-
-def guide(**kw):
-    base = dict(
-        title="T", series="S", speaker=None, date="2026-08-30", passage="Mark 9:30-50",
-        links={"tpcc": "https://tpcc.org/messages/x"},
-        leader_notes=["Keep your own talking under a quarter of the night.",
-                      "This one may be raw for a couple of guys."],
-        opener="When did you last change your mind about something important?",
-        context=" ".join(["word"] * 30),
-        read_refs=["Mark 9:33-37"],
-        read_aloud="Listen for what the disciples argue about on the road.",
-        observation="What did Jesus actually say when he caught them arguing?",
-        discuss=blocks(),
-        obstacle="What is most likely to stop you doing that by next Thursday?",
-        commit=" ".join(["word"] * 40),
-        carry="Next week we ask each other how that conversation went.",
-        source="whisper",
-    )
-    base.update(kw)
-    return Guide(**base)
+from tests.fixtures import make_guide, sections
+from tpsermons.models import TOTAL_QUESTIONS, ValidationError
 
 
 def test_valid_guide_passes():
-    guide().validate()
+    make_guide().validate()
 
 
-def test_segments_carry_no_clock_and_no_breakouts():
-    # The group stays together and takes as long as a question deserves.
-    assert SEGMENTS == ("Open", "Read", "Discuss", "Get Honest", "Commit")
-
-
-def test_reading_must_be_verses_not_a_whole_chapter():
+def test_question_count_lands_in_the_hour_window():
+    lo, hi = TOTAL_QUESTIONS
+    assert (lo, hi) == (12, 15)          # 12 to 14 ideal for 60 minutes
+    make_guide(sections=sections(3, 4)).validate()      # 12
+    make_guide(sections=sections(4, 3)).validate()      # 12
     with pytest.raises(ValidationError):
-        guide(read_refs=["Mark 10"]).validate()
-    guide(read_refs=["Mark 10:2-9"]).validate()
-
-
-def test_at_most_two_reading_sections():
-    guide(read_refs=["Mark 10:2-9", "Mark 10:13-16"]).validate()
+        make_guide(sections=sections(3, 2)).validate()  # 6, too thin
     with pytest.raises(ValidationError):
-        guide(read_refs=["Mark 10:2-9", "Mark 10:13-16", "Mark 10:17-22"]).validate()
+        make_guide(sections=sections(4, 4)).validate()  # 16, too many
 
 
-@pytest.mark.parametrize("kw", [
-    dict(discuss=blocks(n=2)),
-    dict(discuss=blocks(n=4)),
-    dict(discuss=blocks(probes=1)),
-    dict(discuss=blocks(probes=4)),
-    dict(leader_notes=["only one"]),
-    dict(leader_notes=["a", "b", "c", "d", "e"]),
-    dict(context="too short"),
-])
-def test_invalid_shapes_rejected(kw):
+def test_never_more_than_four_sections():
+    make_guide(sections=sections(4, 3)).validate()
     with pytest.raises(ValidationError):
-        guide(**kw).validate()
+        make_guide(sections=sections(5, 3)).validate()
 
 
-@pytest.mark.parametrize("field", ["opener", "observation", "obstacle"])
-def test_prompts_must_actually_be_questions(field):
+def test_em_dashes_are_rejected_by_house_style():
     with pytest.raises(ValidationError):
-        guide(**{field: "This is a statement."}).validate()
-
-
-def test_placeholder_tokens_rejected():
+        make_guide(goal="Move the room — quickly — to honesty.").validate()
     with pytest.raises(ValidationError):
-        guide(opener="TODO write the opener?").validate()
+        make_guide(prayer="Pray – briefly.").validate()
 
 
-def test_ellipsis_and_asr_markers_are_not_placeholders():
-    guide(carry="We will ask how it went ... [inaudible] and follow up.").validate()
+def test_have_you_ever_questions_are_allowed():
+    # The group's spec explicitly prefers these over abstract prompts.
+    secs = sections()
+    assert secs[0].questions[0].startswith("Have you ever")
+    make_guide(sections=secs).validate()
+
+
+def test_exactly_three_icebreakers_labelled_in_order():
+    g = make_guide()
+    assert [i.label for i in g.icebreakers] == ["A", "B", "C"]
+    with pytest.raises(ValidationError):
+        make_guide(icebreakers=g.icebreakers[:2]).validate()
+
+
+def test_reflection_questions_mirror_the_guide_questions():
+    secs = sections()
+    broken = list(secs)
+    broken[0] = type(secs[0])(secs[0].title, secs[0].setup, secs[0].questions,
+                              secs[0].reflection_questions[:1])
+    with pytest.raises(ValidationError):
+        make_guide(sections=broken).validate()
+
+
+def test_leader_notes_are_three_to_five_paragraphs():
+    make_guide(leader_notes=["a b c", "d e f", "g h i"]).validate()
+    with pytest.raises(ValidationError):
+        make_guide(leader_notes=["only", "two"]).validate()
+
+
+def test_key_themes_and_cheat_sheet_bounds():
+    g = make_guide()
+    with pytest.raises(ValidationError):
+        make_guide(key_themes=g.key_themes[:2]).validate()
+    with pytest.raises(ValidationError):
+        make_guide(cheat_sheet=g.cheat_sheet[:2]).validate()
 
 
 def test_tpcc_link_is_required():
     with pytest.raises(ValidationError):
-        guide(links={"youtube": "https://youtu.be/x"}).validate()
-
-
-@pytest.mark.parametrize("bad", [
-    "Have you ever thought about this?",
-    "Do you struggle with pride?",
-    "Is there something you would change?",
-    "Can you see how that applies?",
-])
-def test_closed_questions_are_rejected(bad):
-    # One-word answers stall a room of twelve. Ask When/Where/What/Who.
-    with pytest.raises(ValidationError):
-        guide(opener=bad).validate()
-
-
-def test_obstacle_must_be_about_the_man_not_the_world():
-    with pytest.raises(ValidationError):
-        guide(obstacle="What makes this hard in our culture today?").validate()
-    guide(obstacle="What will realistically stop you before next Thursday?").validate()
-
-
-def test_questions_copied_from_the_prompt_examples_are_rejected():
-    # The model lifted three example questions verbatim on a real run. A guide
-    # must come from this week's sermon, not from the instructions.
-    lifted = "Where has keeping a promise cost you more than you expected?"
-    with pytest.raises(ValidationError):
-        guide(discuss=[DiscussBlock("H", lifted, ["a", "b"])] + blocks(n=2)).validate()
-    with pytest.raises(ValidationError):
-        guide(obstacle="What is the honest reason you have not had that "
-                       "conversation with you yet?").validate()
+        make_guide(links={"youtube": "https://youtu.be/x"}).validate()

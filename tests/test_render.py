@@ -1,99 +1,86 @@
 import json
 
-from tpsermons.models import SEGMENTS, DiscussBlock, Guide
+from tests.fixtures import make_guide
 from tpsermons.render import (guide_filename, guide_from_dict, guide_to_dict,
-                              render_guide_page, render_markdown, render_site)
-
-
-def guide(**kw):
-    base = dict(
-        title="Presence Over Position", series="The Urgent Kingdom",
-        speaker="Aaron Brockett", date="2026-08-30", passage="Mark 9:30-50",
-        links={"tpcc": "https://tpcc.org/messages/presence-over-position",
-               "youtube": "https://youtu.be/-F6w9h2Jpg8"},
-        leader_notes=["Keep your own talking under a quarter of the night.",
-                      "This may land hard for a couple of guys."],
-        opener="When did you last want a title more than the work?",
-        context=" ".join(["word"] * 30),
-        read_refs=["Mark 9:33-37"],
-        read_aloud="Listen for what they argue about on the road.",
-        observation="What did Jesus say when he caught them arguing?",
-        discuss=[DiscussBlock("Heading %d" % i, "Where has that shown up for you?",
-                              ["Probe A", "Probe B"]) for i in range(3)],
-        obstacle="What will realistically stop you this week?",
-        commit=" ".join(["word"] * 40),
-        carry="Next week we ask how that conversation went.",
-        source="whisper",
-    )
-    base.update(kw)
-    return Guide(**base)
+                              render_guide_page, render_markdown,
+                              render_reflection_markdown, render_reflection_page,
+                              render_site)
 
 
 def test_roundtrips_through_json():
-    d = guide_to_dict(guide())
-    back = guide_from_dict(json.loads(json.dumps(d)))
-    assert back.opener == guide().opener
-    assert len(back.discuss) == 3
-    assert back.discuss[0].probes == ["Probe A", "Probe B"]
+    back = guide_from_dict(json.loads(json.dumps(guide_to_dict(make_guide()))))
     back.validate()
+    assert back.question_count == make_guide().question_count
+    assert [i.label for i in back.icebreakers] == ["A", "B", "C"]
 
 
-def test_page_shows_every_movement():
-    page = render_guide_page(guide())
-    for label in SEGMENTS:
-        assert label in page
+def test_leader_guide_carries_all_the_scaffolding():
+    page = render_guide_page(make_guide())
+    for needed in ("Before you begin", "Opening", "Closing and application",
+                   "Facilitator cheat sheet", "Key themes to reinforce",
+                   "About 60 minutes"):
+        assert needed in page, needed
 
 
-def test_page_carries_no_clock_and_no_breakouts():
-    page = render_guide_page(guide())
-    for banned in ("min", "minutes", "groups of four", "Break into", "breakout"):
-        assert banned not in page.replace("administ", ""), banned
+def test_pastoral_flags_never_reach_the_participant_sheet():
+    # Leader notes mention that divorce may be raw. That must not be handed out.
+    g = make_guide()
+    sheet = render_reflection_page(g)
+    assert "Someone here has lived it" not in sheet
+    assert "Before you begin" not in sheet
+    assert "cheat sheet" not in sheet.lower()
 
 
-def test_scripture_sections_are_shown_as_short_ranges():
-    page = render_guide_page(guide(read_refs=["Mark 9:33-37", "Mark 9:42-48"]))
-    assert "Mark 9:33-37" in page and "Mark 9:42-48" in page
-    assert "ref-chip" in page
+def test_participant_sheet_uses_first_person_questions():
+    g = make_guide()
+    sheet = render_reflection_page(g)
+    assert g.sections[0].reflection_questions[0] in sheet
+    assert g.sections[0].questions[0] not in sheet
 
 
-def test_probes_are_tucked_behind_a_disclosure():
-    page = render_guide_page(guide())
-    assert "<details" in page and "If it stalls" in page
-    assert "Probe A" in page
+def test_participant_sheet_has_space_to_write():
+    sheet = render_reflection_page(make_guide())
+    assert "write" in sheet
+    assert make_guide().commitment_prompt in sheet
 
 
-def test_leader_notes_render_as_an_aside():
-    page = render_guide_page(guide())
-    assert "leader-notes" in page
-    assert "quarter of the night" in page
+def test_questions_are_numbered_continuously_across_sections():
+    page = render_guide_page(make_guide())
+    for n in (1, 5, 12):
+        assert ">%d</span>" % n in page
 
 
-def test_speaker_omitted_when_unknown():
-    assert "Aaron Brockett" not in render_guide_page(guide(speaker=None))
+def test_cheat_sheet_renders_as_a_table():
+    page = render_guide_page(make_guide())
+    assert "<table" in page and "<th>If this happens</th>" in page
 
 
-def test_carry_closes_the_accountability_loop():
-    assert "Next week we ask" in render_guide_page(guide())
+def test_guide_links_to_the_reflection_sheet():
+    page = render_guide_page(make_guide())
+    assert guide_filename(make_guide(), "html", "reflection") in page
 
 
-def test_markdown_contains_the_full_script():
-    md = render_markdown(guide())
-    assert "## Leader Notes" in md
-    assert "## Discuss" in md
-    assert "## Get Honest" in md
-    assert "Mark 9:33-37" in md
-    assert "**Next week:**" in md
-    assert "Probe A" in md
+def test_filenames_distinguish_the_two_documents():
+    g = make_guide()
+    assert guide_filename(g, "md") == "2026-08-30-presence-over-position.md"
+    assert guide_filename(g, "html", "reflection") == \
+        "2026-08-30-presence-over-position-reflection.html"
 
 
-def test_filenames_are_date_prefixed():
-    assert guide_filename(guide()) == "2026-08-30-presence-over-position.md"
-    assert guide_filename(guide(), "html") == "2026-08-30-presence-over-position.html"
+def test_markdown_bolds_questions_and_tables_the_cheat_sheet():
+    md = render_markdown(make_guide())
+    assert "**Have you ever" in md
+    assert "| If this happens | Try this |" in md
+    assert "## Key Themes to Reinforce" in md
+
+
+def test_reflection_markdown_is_stripped_down():
+    md = render_reflection_markdown(make_guide())
+    assert "Before You Begin" not in md
+    assert "Cheat Sheet" not in md
+    assert "## This Week" in md
 
 
 def test_index_features_newest_and_archives_the_rest():
-    a, b = guide(), guide(title="Older One", date="2026-08-23")
-    site = render_site([b, a])
-    assert "This week" in site
-    assert "Presence Over Position" in site
-    assert "Older One" in site
+    site = render_site([make_guide(title="Older", date="2026-08-23"), make_guide()])
+    assert "This week" in site and "Presence Over Position" in site and "Older" in site

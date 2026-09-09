@@ -73,6 +73,8 @@ def run(deps: Deps, out_dir: Path, state_path: Path,
 
         out_dir.mkdir(parents=True, exist_ok=True)
         path.write_text(render.render_markdown(guide), encoding="utf-8")
+        (out_dir / render.guide_filename(guide, "md", "reflection")).write_text(
+            render.render_reflection_markdown(guide), encoding="utf-8")
         # JSON is the durable render source: it lets the site rebuild every
         # guide's HTML when the design changes, with no regeneration spend.
         path.with_suffix(".json").write_text(
@@ -181,14 +183,17 @@ def _write_site() -> None:  # pragma: no cover
     guides without re-running the model.
     """
     guides = []
-    for path in sorted(GUIDES.glob("*.json")):
+    for path in sorted(p for p in GUIDES.glob("*.json")
+                       if not p.stem.endswith("-reflection")):
         try:
             g = render.guide_from_dict(json.loads(path.read_text(encoding="utf-8")))
         except (KeyError, ValueError) as exc:
             print("skipping %s: %s" % (path.name, exc), file=sys.stderr)
             continue
-        (GUIDES / render.guide_filename(g, "html")).write_text(
+        (GUIDES / render.guide_filename(g, "html", "guide")).write_text(
             render.render_guide_page(g), encoding="utf-8")
+        (GUIDES / render.guide_filename(g, "html", "reflection")).write_text(
+            render.render_reflection_page(g), encoding="utf-8")
         guides.append(g)
     (ROOT / "index.html").write_text(render.render_site(guides), encoding="utf-8")
     print("site rebuilt: %d guides" % len(guides))
