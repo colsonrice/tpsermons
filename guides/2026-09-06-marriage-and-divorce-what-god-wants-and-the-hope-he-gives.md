@@ -15,56 +15,56 @@ The Urgent Kingdom · Mark 10 · Aaron Brockett
 
 ## Leader Notes
 
-- Sensitive topic alert: Divorce and marriage can be raw for some.
-- Facilitation reminder: Encourage open sharing, not debates.
-- Ensure everyone has a Bible or can share for the reading.
+- Be sensitive; divorce and marriage can be raw topics for some.
+- Encourage honesty but keep the environment respectful.
+- Guide the conversation but let it breathe; not every question needs rushing.
 
 ## Open
 
-What's one promise you made years ago that still shapes your life today?
+When you hear the word 'marriage,' what comes to mind first?
 
 ## Read
 
-In Mark 10, Jesus addresses the Pharisees on marriage and divorce, revisiting God's original design for marriage.
+Jesus responds to the Pharisees' trap question about divorce to showcase God’s original intent for marriage.
 
 **Mark 10:2-9**
 
-Listen for how Jesus differentiates between what is permitted and what was intended.
+Watch how Jesus redirects a trap question about divorce to point towards God's design for marriage.
 
-What is the core reason Jesus gives for God's design of marriage?
+What does Jesus highlight about the purpose of marriage in his response to the Pharisees?
 
 ## Discuss
 
-### Marriage's Original Intent
+### God's Design for Marriage
 
-Where have you settled for what is allowed instead of what was intended in your relationships?
+When has marriage felt more like a covenant than a contract for you?
 
-- What did you notice about Jesus' response to the Pharisees?
-- How does 'hard hearts' play into this passage?
+- What sacrifices have you made that strengthened your marriage?
+- Where have you seen resilience in your or others’ marriages?
 
-### The Cost of Covenant
+### Divorce and Personal Experience
 
-Where has keeping a promise cost you more than you expected?
+Where have you seen the impact of divorce up close?
 
-- What makes marriage feel like a covenant more than a contract?
-- How have you experienced grace in your relationships?
+- How did it affect your view on relationships?
+- What support helped or would have helped during that time?
 
-### Hope in Brokenness
+### Grace and Redemption
 
-When have you seen redemption in a broken relationship?
+When have you experienced grace in a broken relationship?
 
-- What was the turning point?
-- How did forgiveness play a role?
+- Who showed you unexpected support or forgiveness?
+- What changed in you because of that experience?
 
 ## Get Honest
 
-What is the honest reason you have not had that conversation yet?
+What's the honest reason you might avoid confronting issues in your relationship?
 
 ## Commit
 
-Name one relationship where you will pursue God's intention this week.
+Share one specific action you will take this week to strengthen a relationship in your life.
 
-**Next week:** Next week, we'll ask how you acted on your commitment.
+**Next week:** Next week, we'll ask about the action you took to strengthen a relationship.
 
 ---
 

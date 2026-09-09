@@ -14,55 +14,56 @@ The Urgent Kingdom · Mark 9:30-50
 
 ## Leader Notes
 
-- Expect range of spiritual maturity in responses.
-- Be gentle if anyone appears defensive or withdrawn.
+- Topic of position may touch on insecurities.
+- Facilitate with an awareness of diverse backgrounds.
+- Be patient, some may need time to share deeply.
 
 ## Open
 
-What's a time you competed for something important, and how did it go?
+When was the last time you saw someone put others first in an unexpected way?
 
 ## Read
 
-Jesus taught his disciples privately while traveling through Galilee, revealing his future betrayal and death.
+Jesus is teaching his disciples privately, preparing them for his death and emphasizing true greatness through service.
 
-**Mark 9:33-37 · Mark 9:42-50**
+**Mark 9:33-37 · Mark 9:42-48**
 
-Listen for how Jesus redefines what greatness means.
+Listen for what Jesus says about being first and how to deal with sin.
 
-What does Jesus say is required to be considered first or great in his kingdom?
+What were the disciples arguing about, and how did Jesus respond?
 
 ## Discuss
 
-### Redefining Greatness
+### Redirecting Ambition
 
-When have you experienced a shift in understanding what true greatness means?
+When have you focused on a personal ambition, and how did it impact those around you?
 
-- What led to that realization?
-- How did it change your actions or priorities?
+- Was the ambition achieved, and at what cost?
+- How did God use that time to teach you something?
 
-### Impact of Presence Over Position
+### Serving Without Recognition
 
-Where in your life have you noticed a focus on position overshadowing genuine presence or relationships?
+Think of a time you served without expecting anything in return. How did it feel?
 
-- How did you respond in that situation?
-- What did you learn from it?
+- Did anyone notice or did it remain between you and God?
+- How did it change your perspective on true greatness?
 
-### Handling Sin Seriously
+### Confronting Personal Sin
 
-When have you had to make a tough decision to remove a harmful influence from your life?
+What is one behavior or habit that you've realized needs to change?
 
-- What prompted that decision?
-- How did it affect your life afterward?
+- What steps have you taken to address it?
+- Who can support you in this change?
 
 ## Get Honest
 
-What's the honest reason you might resist taking action on this in the coming week?
+What is the real reason you might hesitate to prioritize presence with God over your position?
 
 ## Commit
 
-This week, I'll choose one relationship or situation to prioritize presence over achieving a position.
+This week, identify one way to serve someone who cannot return the favor.
 
-**Next week:** Next week, we'll ask each other how we chose presence over position in one situation.
+**Next week:** Next week, we'll ask each other about the specific way we chose to serve.
 
 ---
 
