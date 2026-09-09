@@ -16,6 +16,11 @@ on:
     # posts, and a delayed or dropped run costs at most one 2-hour slot.
     # Idle runs exit before any install or API call, so they are ~free.
     - cron: '0 */2 * * *'
+    # Sunday late-afternoon and all day Monday, poll every 30 minutes: most
+    # episodes land Sunday, and the Monday stragglers have arrived as late as
+    # 17:44 ET against an 18:00 deadline. Idle runs cost nothing.
+    - cron: '*/30 20-23 * * 0'
+    - cron: '*/30 11-23 * * 1'
   workflow_dispatch:
     inputs:
       episode:
@@ -82,6 +87,33 @@ jobs:
           else
             echo "No new guide; nothing to commit."
           fi
+
+      - name: Announce the new guide
+        if: steps.check.outputs.found == 'true' || inputs.episode != ''
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const dir = 'guides';
+            const latest = fs.readdirSync(dir).filter(f => f.endsWith('.json')).sort().pop();
+            if (!latest) return;
+            const g = JSON.parse(fs.readFileSync(`${dir}/${latest}`, 'utf8'));
+            const url = `https://colsonrice.github.io/tpsermons/guides/${latest.replace('.json','.html')}`;
+            await github.rest.issues.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: `Guide ready: ${g.title}`,
+              body: [
+                `**${g.title}**`,
+                g.series ? `_${g.series} — ${(g.read_refs||[]).join(' · ')}_` : '',
+                '',
+                `→ ${url}`,
+                '',
+                `**Open:** ${g.opener}`,
+                `**Get honest:** ${g.obstacle}`,
+              ].filter(Boolean).join('\n'),
+              labels: ['guide'],
+            });
 
       - name: Upload site
         uses: actions/upload-pages-artifact@v3
