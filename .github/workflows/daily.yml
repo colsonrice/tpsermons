@@ -102,7 +102,7 @@ jobs:
       - name: Commit new guides
         # always(): a run where one week failed must still commit the weeks
         # that succeeded. Nothing is written when generation produced nothing.
-        if: always() && (steps.check.outputs.found == 'true' || inputs.episode != '')'
+        if: always() && (steps.check.outputs.found == 'true' || inputs.episode != '')
         run: |
           if [ -n "$(git status --porcelain guides index.html state.json transcripts)" ]; then
             git config user.name  "github-actions[bot]"
