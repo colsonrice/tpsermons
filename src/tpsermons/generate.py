@@ -13,7 +13,7 @@ from pathlib import Path
 from typing import Dict, Optional
 
 from .models import (CheatRow, Episode, Guide, Icebreaker, Section,
-                     ValidationError)
+                     ValidationError, normalize_guide)
 
 MODEL = "gpt-4o"
 FORMAT_DOC = Path(__file__).resolve().parents[2] / "prompts" / "guide_format.md"
@@ -74,7 +74,7 @@ def build_guide(episode: Episode, payload: Dict, links: Dict[str, str],
         )
     except (KeyError, TypeError) as exc:
         raise ValidationError("model output missing or malformed: %s" % exc)
-    return guide.validate()
+    return normalize_guide(guide).validate()
 
 
 def build_prompt(episode: Episode, transcript: str, speaker=None) -> str:

@@ -72,7 +72,8 @@ def test_missing_key_raises_validation_error():
         build_guide(EP, broken, links=LINKS, speaker=None, source="whisper")
 
 
-def test_em_dash_from_the_model_is_rejected():
-    with pytest.raises(ValidationError):
-        build_guide(EP, payload(goal="Move the room — fast."), links=LINKS,
+def test_em_dash_from_the_model_is_repaired_not_fatal():
+    # Three Monday runs were lost to em dashes. Repair, don't reject.
+    g = build_guide(EP, payload(goal="Move the room — fast."), links=LINKS,
                     speaker=None, source="whisper")
+    assert "—" not in g.goal

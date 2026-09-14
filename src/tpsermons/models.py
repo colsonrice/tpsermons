@@ -113,62 +113,128 @@ class Guide:
     def question_count(self) -> int:
         return sum(len(s.questions) for s in self.sections)
 
-    def validate(self) -> "Guide":
+    def problems(self) -> List[str]:
+        """Every validation problem, so a retry can fix them all at once.
+
+        Reporting one error at a time made the retry chase its tail: it fixed
+        an em dash, introduced a double question, and ran out of attempts.
+        """
+        found: List[str] = []
+
+        def check(fn, *args):
+            try:
+                fn(*args)
+            except ValidationError as exc:
+                found.append(str(exc))
+
         if "tpcc" not in self.links or not self.links["tpcc"]:
-            raise ValidationError("links.tpcc is required and is never omitted")
+            found.append("links.tpcc is required and is never omitted")
 
-        _text("goal", self.goal)
-        _text("scripture_instructions", self.scripture_instructions)
-        _text("closing_go_around", self.closing_go_around)
-        _text("prayer", self.prayer)
-        _text("commitment_prompt", self.commitment_prompt)
+        for name in ("goal", "scripture_instructions", "closing_go_around",
+                     "prayer", "commitment_prompt"):
+            check(_text, name, getattr(self, name))
 
-        _count("leader_notes", self.leader_notes, *LEADER_NOTE_PARAS)
+        check(_count, "leader_notes", self.leader_notes, *LEADER_NOTE_PARAS)
         for n in self.leader_notes:
-            _text("leader_notes", n)
+            check(_text, "leader_notes", n)
 
         if len(self.icebreakers) != ICEBREAKERS:
-            raise ValidationError(
-                "expected %d icebreakers, got %d" % (ICEBREAKERS, len(self.icebreakers)))
+            found.append("expected %d icebreakers, got %d"
+                         % (ICEBREAKERS, len(self.icebreakers)))
         for want, ice in zip("ABC", self.icebreakers):
             if ice.label.strip().upper() != want:
-                raise ValidationError("icebreakers must be labelled A, B, C in order")
-            _text("icebreaker %s" % want, ice.question)
-            _single_question("icebreaker %s" % want, ice.question)
-            _text("icebreaker %s fits" % want, ice.fits)
+                found.append("icebreakers must be labelled A, B, C in order")
+            check(_text, "icebreaker %s" % want, ice.question)
+            check(_single_question, "icebreaker %s" % want, ice.question)
+            check(_text, "icebreaker %s fits" % want, ice.fits)
 
-        _count("sections", self.sections, *SECTIONS)
+        check(_count, "sections", self.sections, *SECTIONS)
         qlo, qhi = QUESTIONS_PER_SECTION
         for i, sec in enumerate(self.sections):
-            _text("sections[%d].title" % i, sec.title)
-            _text("sections[%d].setup" % i, sec.setup)
-            _count("sections[%d].questions" % i, sec.questions, qlo, qhi)
+            check(_text, "sections[%d].title" % i, sec.title)
+            check(_text, "sections[%d].setup" % i, sec.setup)
+            check(_count, "sections[%d].questions" % i, sec.questions, qlo, qhi)
             for q in sec.questions:
-                _text("sections[%d].question" % i, q)
-                _single_question("sections[%d].question" % i, q)
+                check(_text, "sections[%d].question" % i, q)
+                check(_single_question, "sections[%d].question" % i, q)
             if len(sec.reflection_questions) != len(sec.questions):
-                raise ValidationError(
+                found.append(
                     "sections[%d] has %d questions but %d reflection questions; "
                     "the sheet mirrors the guide"
                     % (i, len(sec.questions), len(sec.reflection_questions)))
             for q in sec.reflection_questions:
-                _text("sections[%d].reflection" % i, q)
-                _single_question("sections[%d].reflection" % i, q)
+                check(_text, "sections[%d].reflection" % i, q)
+                check(_single_question, "sections[%d].reflection" % i, q)
 
         tlo, thi = TOTAL_QUESTIONS
         if not tlo <= self.question_count <= thi:
-            raise ValidationError(
-                "expected %d-%d discussion questions in total, got %d"
-                % (tlo, thi, self.question_count))
+            found.append("expected %d-%d discussion questions in total, got %d"
+                         % (tlo, thi, self.question_count))
 
-        _count("key_themes", self.key_themes, *KEY_THEMES)
+        check(_count, "key_themes", self.key_themes, *KEY_THEMES)
         for t in self.key_themes:
-            _text("key_themes", t)
-        _count("cheat_sheet", self.cheat_sheet, *CHEAT_ROWS)
+            check(_text, "key_themes", t)
+        check(_count, "cheat_sheet", self.cheat_sheet, *CHEAT_ROWS)
         for row in self.cheat_sheet:
-            _text("cheat_sheet.dynamic", row.dynamic)
-            _text("cheat_sheet.response", row.response)
+            check(_text, "cheat_sheet.dynamic", row.dynamic)
+            check(_text, "cheat_sheet.response", row.response)
+        return found
+
+    def validate(self) -> "Guide":
+        found = self.problems()
+        if found:
+            raise ValidationError("; ".join(found))
         return self
+
+
+# --- repair ------------------------------------------------------------------
+#
+# Punctuation-level house style is fixed mechanically rather than enforced by
+# rejection. Three consecutive Monday runs were lost to em dashes and a
+# double-barrelled icebreaker; none of those are worth losing the week's guide.
+
+_DIGIT_DASH = re.compile(r"(?<=\d)\s*[—–]\s*(?=\d)")
+_PROSE_DASH = re.compile(r"\s*[—–]\s*")
+
+
+def _fix_dashes(text: str) -> str:
+    if not text:
+        return text
+    text = _DIGIT_DASH.sub("-", text)          # Mark 9:30–37 -> Mark 9:30-37
+    text = _PROSE_DASH.sub(", ", text)         # clause — clause -> clause, clause
+    text = re.sub(r",\s*([,.;:?!])", r"\1", text)
+    return re.sub(r"\s{2,}", " ", text).strip()
+
+
+def _first_question(text: str) -> str:
+    """Keep a prompt up to its first question mark if it asks more than one."""
+    text = _fix_dashes(text)
+    if text.count("?") > 1:
+        text = text[:text.index("?") + 1]
+    return text
+
+
+def normalize_guide(g: "Guide") -> "Guide":
+    """Return a copy with punctuation-level style problems repaired."""
+    return Guide(
+        title=g.title, series=g.series, speaker=g.speaker, date=g.date,
+        passage=g.passage, links=g.links, source=g.source,
+        goal=_fix_dashes(g.goal),
+        leader_notes=[_fix_dashes(n) for n in g.leader_notes],
+        scripture_instructions=_fix_dashes(g.scripture_instructions),
+        icebreakers=[Icebreaker(i.label, _first_question(i.question), _fix_dashes(i.fits))
+                     for i in g.icebreakers],
+        sections=[Section(_fix_dashes(x.title), _fix_dashes(x.setup),
+                          [_first_question(q) for q in x.questions],
+                          [_first_question(q) for q in x.reflection_questions])
+                  for x in g.sections],
+        closing_go_around=_fix_dashes(g.closing_go_around),
+        prayer=_fix_dashes(g.prayer),
+        cheat_sheet=[CheatRow(_fix_dashes(c.dynamic), _fix_dashes(c.response))
+                     for c in g.cheat_sheet],
+        key_themes=[_fix_dashes(t) for t in g.key_themes],
+        commitment_prompt=_fix_dashes(g.commitment_prompt),
+    )
 
 
 def _count(name, items, lo, hi) -> None:

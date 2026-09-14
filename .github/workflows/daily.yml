@@ -81,6 +81,18 @@ jobs:
             ${{ inputs.episode && format('--episode {0}', inputs.episode) || '' }} \
             ${{ inputs.force && '--force' || '' }}
 
+      - name: Save transcript cache even if generation failed
+        if: always() && (steps.check.outputs.found == 'true' || inputs.episode != '')
+        run: |
+          if [ -n "$(git status --porcelain transcripts)" ]; then
+            git config user.name  "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add transcripts
+            git commit -m "transcript cache: $(date -u +%Y-%m-%d)"
+            git pull --rebase --autostash origin master
+            git push
+          fi
+
       - name: Commit new guides
         if: steps.check.outputs.found == 'true' || inputs.episode != ''
         run: |
