@@ -11,7 +11,7 @@ sermon's central tension, distinct from the sermon's own title.
 specific personal outcome for this week.
 
 **leader_notes**: five substantial paragraphs, roughly 500 to 700 words in
-total and never fewer than 400, for the leader alone. Each paragraph is five
+total, for the leader alone. Each paragraph is five
 to eight full sentences with concrete detail from the sermon. Build them in this order:
 1. The sermon's opening illustration or story, told with enough detail that a
    leader who missed Sunday can retell it, and why it frames the passage.

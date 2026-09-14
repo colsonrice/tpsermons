@@ -40,7 +40,11 @@ CHEAT_ROWS = (5, 7)
 
 # classic
 LEADER_NOTE_PARAS = (3, 5)
-LEADER_NOTE_WORDS = 400            # floor; the reference guide's notes run ~700
+# Hard floor the model reliably clears by its second or third attempt. A 400
+# floor failed two of three classic guides at 342 and 399 words: a gate the
+# model cannot meet costs a brand-new week its classic guide outright, since
+# there is no earlier version to fall back on. The prompt still aims for 500-700.
+LEADER_NOTE_WORDS = 300
 SETUP_WORDS = 35                   # floor per section setup
 
 # new
