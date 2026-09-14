@@ -56,3 +56,20 @@ def make_guide(**kw):
     )
     base.update(kw)
     return Guide(**base)
+
+
+def make_modern_guide(**kw):
+    """A modern-edition guide: the classic base plus the four additions."""
+    base = make_guide()
+    secs = [Section(s.title, s.setup, s.questions, s.reflection_questions,
+                    probes=("Which week was that, specifically?",))
+            for s in base.sections]
+    extra = dict(
+        mode="modern",
+        sections=secs,
+        read_refs=["Mark 9:33-37", "Mark 9:42-48"],
+        obstacle="What will realistically stop you before next Monday?",
+        carry="Next week we ask each other whether that conversation happened.",
+    )
+    extra.update(kw)
+    return make_guide(**extra)

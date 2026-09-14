@@ -11,7 +11,7 @@ carrying the same questions in the first person.
 from __future__ import annotations
 
 import re
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from datetime import datetime
 from typing import Dict, List, Optional
 
@@ -38,6 +38,14 @@ ICEBREAKERS = 3              # labelled A / B / C
 LEADER_NOTE_PARAS = (3, 5)
 KEY_THEMES = (5, 7)
 CHEAT_ROWS = (5, 7)
+
+# Two editions of every guide. Classic mirrors the group's original guide.
+# Modern keeps that base and adds a few things: a Get Honest question, a
+# carry question for next week, follow-up probes, and short verse ranges.
+MODES = ("classic", "modern")
+DEFAULT_MODE = "modern"
+PROBES_PER_SECTION = (1, 2)
+READ_REFS = (1, 2)
 
 
 class ValidationError(Exception):
@@ -79,6 +87,7 @@ class Section:
     setup: str                        # 3-5 sentences grounding the section
     questions: List[str]              # 2-4, leader guide
     reflection_questions: List[str]   # same, rewritten first person
+    probes: tuple = ()                # modern only: follow-ups if it stalls
 
 
 @dataclass(frozen=True)
@@ -108,6 +117,11 @@ class Guide:
     key_themes: List[str]
     commitment_prompt: str
     source: str = ""
+    # --- modern edition only ------------------------------------------------
+    mode: str = "classic"
+    obstacle: Optional[str] = None          # Get Honest
+    carry: Optional[str] = None             # Next week we ask
+    read_refs: List[str] = field(default_factory=list)
 
     @property
     def question_count(self) -> int:
@@ -178,6 +192,23 @@ class Guide:
         for row in self.cheat_sheet:
             check(_text, "cheat_sheet.dynamic", row.dynamic)
             check(_text, "cheat_sheet.response", row.response)
+
+        if self.mode not in MODES:
+            found.append("mode must be one of %s, got %r" % (MODES, self.mode))
+        if self.mode == "modern":
+            check(_text, "obstacle", self.obstacle or "")
+            check(_single_question, "obstacle", self.obstacle or "")
+            check(_text, "carry", self.carry or "")
+            check(_count, "read_refs", self.read_refs, *READ_REFS)
+            for r in self.read_refs:
+                if not re.search(r"\d+:\d+", r or ""):
+                    found.append("read_refs entry %r must name verses, not a whole "
+                                 "chapter" % r)
+            plo, phi = PROBES_PER_SECTION
+            for i, sec in enumerate(self.sections):
+                check(_count, "sections[%d].probes" % i, list(sec.probes), plo, phi)
+                for pr in sec.probes:
+                    check(_text, "sections[%d].probe" % i, pr)
         return found
 
     def validate(self) -> "Guide":
@@ -226,7 +257,8 @@ def normalize_guide(g: "Guide") -> "Guide":
                      for i in g.icebreakers],
         sections=[Section(_fix_dashes(x.title), _fix_dashes(x.setup),
                           [_first_question(q) for q in x.questions],
-                          [_first_question(q) for q in x.reflection_questions])
+                          [_first_question(q) for q in x.reflection_questions],
+                          tuple(_first_question(pr) for pr in x.probes))
                   for x in g.sections],
         closing_go_around=_fix_dashes(g.closing_go_around),
         prayer=_fix_dashes(g.prayer),
@@ -234,6 +266,10 @@ def normalize_guide(g: "Guide") -> "Guide":
                      for c in g.cheat_sheet],
         key_themes=[_fix_dashes(t) for t in g.key_themes],
         commitment_prompt=_fix_dashes(g.commitment_prompt),
+        mode=g.mode,
+        obstacle=_first_question(g.obstacle) if g.obstacle else g.obstacle,
+        carry=_fix_dashes(g.carry) if g.carry else g.carry,
+        read_refs=[_fix_dashes(r) for r in g.read_refs],
     )
 
 

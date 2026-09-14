@@ -30,6 +30,11 @@ on:
         description: 'Overwrite an existing guide'
         type: boolean
         default: false
+      mode:
+        description: 'Which edition(s) to generate'
+        type: choice
+        options: [both, classic, modern]
+        default: both
 
 permissions:
   contents: write
@@ -79,7 +84,8 @@ jobs:
         run: |
           python -m tpsermons.cli run \
             ${{ inputs.episode && format('--episode {0}', inputs.episode) || '' }} \
-            ${{ inputs.force && '--force' || '' }}
+            ${{ inputs.force && '--force' || '' }} \
+            --mode ${{ inputs.mode || 'both' }}
 
       - name: Save transcript cache even if generation failed
         if: always() && (steps.check.outputs.found == 'true' || inputs.episode != '')
@@ -113,8 +119,12 @@ jobs:
           script: |
             const fs = require('fs');
             const dir = 'guides';
-            const latest = fs.readdirSync(dir).filter(f => f.endsWith('.json')).sort().pop();
-            if (!latest) return;
+            const all = fs.readdirSync(dir).filter(f => f.endsWith('.json')).sort();
+            if (!all.length) return;
+            // Newest week; link its modern edition when there is one.
+            const newestDate = all[all.length - 1].slice(0, 10);
+            const week = all.filter(f => f.startsWith(newestDate));
+            const latest = week.find(f => f.endsWith('-modern.json')) || week[week.length - 1];
             const g = JSON.parse(fs.readFileSync(`${dir}/${latest}`, 'utf8'));
             const url = `https://colsonrice.github.io/tpsermons/guides/${latest.replace('.json','.html')}`;
             await github.rest.issues.create({

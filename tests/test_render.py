@@ -84,3 +84,71 @@ def test_reflection_markdown_is_stripped_down():
 def test_index_features_newest_and_archives_the_rest():
     site = render_site([make_guide(title="Older", date="2026-08-23"), make_guide()])
     assert "This week" in site and "Presence Over Position" in site and "Older" in site
+
+
+# --- editions --------------------------------------------------------------
+
+from tests.fixtures import make_modern_guide
+
+
+def test_modern_filenames_carry_a_suffix_and_classic_keeps_the_original():
+    assert guide_filename(make_guide(), "html") == "2026-08-30-presence-over-position.html"
+    assert guide_filename(make_modern_guide(), "html") == \
+        "2026-08-30-presence-over-position-modern.html"
+    assert guide_filename(make_modern_guide(), "html", "reflection") == \
+        "2026-08-30-presence-over-position-modern-reflection.html"
+
+
+def test_modern_page_adds_the_four_extras():
+    page = render_guide_page(make_modern_guide())
+    assert "Get honest" in page and "Next week we ask" in page
+    assert "If it stalls" in page and "Mark 9:33-37" in page
+
+
+def test_classic_page_has_none_of_the_modern_extras():
+    page = render_guide_page(make_guide())
+    for extra in ("Get honest", "Next week we ask", "If it stalls", "ref-chip"):
+        assert extra not in page, extra
+
+
+def test_toggle_appears_only_when_the_other_edition_exists():
+    assert "mode-toggle" not in render_guide_page(make_guide())
+    page = render_guide_page(make_guide(), alt_href="x-modern.html")
+    assert "mode-toggle" in page and "x-modern.html" in page
+
+
+def test_modern_edition_roundtrips_through_json():
+    back = guide_from_dict(json.loads(json.dumps(guide_to_dict(make_modern_guide()))))
+    back.validate()
+    assert back.mode == "modern" and back.obstacle and back.carry
+    assert back.sections[0].probes
+
+
+def test_old_single_edition_json_still_loads_as_classic():
+    d = guide_to_dict(make_guide())
+    for k in ("mode", "obstacle", "carry", "read_refs"):
+        d.pop(k)
+    for sec in d["sections"]:
+        sec.pop("probes")
+    assert guide_from_dict(d).mode == "classic"
+
+
+def test_index_lists_each_week_once_and_defaults_to_modern():
+    site = render_site([make_guide(), make_modern_guide()])
+    assert site.count("Presence Over Position</h2>") == 1
+    assert "href='guides/2026-08-30-presence-over-position-modern.html'" in site
+    assert "data-classic='guides/2026-08-30-presence-over-position.html'" in site
+
+
+def test_index_falls_back_to_classic_when_no_modern_edition_exists():
+    site = render_site([make_guide()])
+    assert "href='guides/2026-08-30-presence-over-position.html'" in site
+
+
+def test_modern_edition_requires_its_extras():
+    import pytest
+    from tpsermons.models import ValidationError
+    with pytest.raises(ValidationError):
+        make_modern_guide(obstacle=None).validate()
+    with pytest.raises(ValidationError):
+        make_modern_guide(read_refs=["Mark 9"]).validate()

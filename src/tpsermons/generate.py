@@ -16,7 +16,17 @@ from .models import (CheatRow, Episode, Guide, Icebreaker, Section,
                      ValidationError, normalize_guide)
 
 MODEL = "gpt-4o"
-FORMAT_DOC = Path(__file__).resolve().parents[2] / "prompts" / "guide_format.md"
+PROMPTS = Path(__file__).resolve().parents[2] / "prompts"
+FORMAT_DOC = PROMPTS / "guide_format.md"
+MODERN_DOC = PROMPTS / "modern_additions.md"
+
+_MODERN_HINT = """
+
+Modern edition. Also include these keys:
+ "read_refs": [str] (one or two short verse ranges with verse numbers),
+ "obstacle": str (one Get Honest question containing "you"),
+ "carry": str (what the group asks each other next week),
+and give every section a "probes": [str] list of one or two follow-ups."""
 
 _SCHEMA_HINT = """Return JSON with exactly these keys:
 {"goal": str,
@@ -42,12 +52,14 @@ five to seven cheat_sheet rows. No em dashes anywhere."""
 
 
 def build_guide(episode: Episode, payload: Dict, links: Dict[str, str],
-                speaker: Optional[str], source: str) -> Guide:
+                speaker: Optional[str], source: str, mode: str = "classic") -> Guide:
     """Merge model prose with code-supplied metadata, then validate."""
     try:
+        modern = mode == "modern"
         sections = [Section(title=x["title"], setup=x["setup"],
                             questions=list(x["questions"]),
-                            reflection_questions=list(x["reflection_questions"]))
+                            reflection_questions=list(x["reflection_questions"]),
+                            probes=tuple(x.get("probes", ())) if modern else ())
                     for x in payload["sections"]]
         ice = [Icebreaker(label=x["label"], question=x["question"], fits=x["fits"])
                for x in payload["icebreakers"]]
@@ -71,14 +83,24 @@ def build_guide(episode: Episode, payload: Dict, links: Dict[str, str],
             key_themes=list(payload["key_themes"]),
             commitment_prompt=payload["commitment_prompt"],
             source=source,
+            mode=mode,
+            obstacle=payload.get("obstacle") if modern else None,
+            carry=payload.get("carry") if modern else None,
+            read_refs=list(payload.get("read_refs", [])) if modern else [],
         )
     except (KeyError, TypeError) as exc:
         raise ValidationError("model output missing or malformed: %s" % exc)
     return normalize_guide(guide).validate()
 
 
-def build_prompt(episode: Episode, transcript: str, speaker=None) -> str:
+def build_prompt(episode: Episode, transcript: str, speaker=None,
+                 mode: str = "classic") -> str:
     fmt = FORMAT_DOC.read_text(encoding="utf-8") if FORMAT_DOC.exists() else ""
+    hint = _SCHEMA_HINT
+    if mode == "modern":
+        if MODERN_DOC.exists():
+            fmt += "\n\n" + MODERN_DOC.read_text(encoding="utf-8")
+        hint += _MODERN_HINT
     passage = episode.passage or "(not identified)"
     return (
         "%s\n\n%s\n\n"
@@ -86,14 +108,15 @@ def build_prompt(episode: Episode, transcript: str, speaker=None) -> str:
         "The metadata above is authoritative; prefer it over anything the "
         "transcript seems to say, since the transcript may be machine-generated.\n\n"
         "Transcript:\n%s\n"
-    ) % (fmt, _SCHEMA_HINT, episode.title, episode.series or "(unknown)", passage,
+    ) % (fmt, hint, episode.title, episode.series or "(unknown)", passage,
          speaker or "(unknown)", transcript)
 
 
 def generate(episode: Episode, transcript: str, links: Dict[str, str],
-             speaker: Optional[str], source: str, client) -> Guide:  # pragma: no cover
+             speaker: Optional[str], source: str, client,
+             mode: str = "classic") -> Guide:  # pragma: no cover
     """Call the model, retrying once when the shape is wrong."""
-    prompt = build_prompt(episode, transcript, speaker)
+    prompt = build_prompt(episode, transcript, speaker, mode)
     messages = [{"role": "user", "content": prompt}]
     last, raw = None, "{}"
     for attempt in range(3):
@@ -105,7 +128,7 @@ def generate(episode: Episode, transcript: str, links: Dict[str, str],
             )
             raw = resp.choices[0].message.content
             payload = json.loads(raw)
-            return build_guide(episode, payload, links, speaker, source)
+            return build_guide(episode, payload, links, speaker, source, mode)
         except (ValidationError, ValueError) as exc:
             last = exc
             # Tell the model what was wrong. Re-sending an identical prompt

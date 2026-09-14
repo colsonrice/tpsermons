@@ -543,3 +543,50 @@ table.cheat td:first-child { color: var(--ink); font-weight: 500; white-space: n
   .colophon { margin: 14pt 0 0; font-size: 8pt; }
   a { color: #000; text-decoration: none; }
 }
+
+/* --- edition toggle (Modern / Classic) ------------------------------------ */
+
+.mode-toggle {
+  display: inline-flex;
+  border: 1px solid var(--rule-firm);
+  border-radius: 999px;
+  padding: 3px;
+  margin: 0 0 1.1rem;
+  background: var(--paper-card);
+}
+.mode-toggle a {
+  display: inline-flex; align-items: center; justify-content: center;
+  min-height: 38px; min-width: 5.5rem; padding: 0 1rem;
+  border-radius: 999px;
+  font-size: var(--step--1); letter-spacing: .08em; text-transform: uppercase;
+  font-weight: 600; text-decoration: none; color: var(--ink-faint);
+  transition: background .2s, color .2s;
+}
+.mode-toggle a.on { background: var(--clay); color: var(--paper); }
+.mode-toggle a:not(.on):hover { color: var(--clay); }
+
+/* --- modern additions ------------------------------------------------------ */
+
+.probes { margin: .4rem 0 0 2.9rem; }
+.probes summary {
+  cursor: pointer; list-style: none;
+  font-size: var(--step--1); letter-spacing: .06em; text-transform: uppercase;
+  color: var(--ink-faint); min-height: 44px;
+  display: flex; align-items: center; gap: .45rem;
+}
+.probes summary::-webkit-details-marker { display: none; }
+.probes summary::before { content: "+"; color: var(--clay-soft); font-weight: 700; }
+.probes[open] summary::before { content: "\2212"; }
+.probes ul { margin: .1rem 0 .6rem; padding-left: 1.1rem; }
+.probes li { margin: .35rem 0; color: var(--ink-soft); }
+
+.seg-honest .seg-head h2 { color: var(--clay-deep, #8A3822); }
+.seg-honest .ask { font-size: var(--step-2); line-height: 1.25; }
+
+@media (max-width: 30rem) { .probes { margin-left: 0; } }
+
+@media print {
+  .mode-toggle { display: none !important; }
+  .probes summary { min-height: 0; }
+  .probes summary::before { content: ""; }
+}

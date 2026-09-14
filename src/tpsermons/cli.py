@@ -17,7 +17,7 @@ import json
 from . import feed, mail, render, tpcc, transcribe, youtube
 from .generate import generate as real_generate
 from .http import get_bytes, get_text
-from .models import Episode
+from .models import DEFAULT_MODE, MODES, Episode, ValidationError
 from .source import resolve_text
 from .state import State
 
@@ -38,8 +38,9 @@ class Deps:
 
 
 def run(deps: Deps, out_dir: Path, state_path: Path,
-        episode: Optional[str] = None, force: bool = False) -> List[Path]:
-    """Process pending episodes. Returns the guide files written."""
+        episode: Optional[str] = None, force: bool = False,
+        modes=MODES) -> List[Path]:
+    """Process pending episodes, one guide per edition. Returns files written."""
     out_dir = Path(out_dir)
     state = State(state_path)
     episodes = deps.episodes()
@@ -63,26 +64,44 @@ def run(deps: Deps, out_dir: Path, state_path: Path,
         text, source = resolved
         links, speaker = deps.links(ep)
 
-        guide = deps.generate(ep, transcript=text, links=links, speaker=speaker, source=source)
-        path = out_dir / render.guide_filename(guide)
-        if path.exists() and not force:
-            # Decision 2: a published guide is never silently regenerated.
-            print("guide already exists: %s (use --force to overwrite)" % path.name,
-                  file=sys.stderr)
-            continue
+        done, failures = 0, []
+        for mode in modes:
+            try:
+                guide = deps.generate(ep, transcript=text, links=links,
+                                      speaker=speaker, source=source, mode=mode)
+            except ValidationError as exc:
+                # One edition failing must never cost the week the other one.
+                failures.append(exc)
+                print("%s edition failed for %s: %s" % (mode, ep.title, exc),
+                      file=sys.stderr)
+                continue
 
-        out_dir.mkdir(parents=True, exist_ok=True)
-        path.write_text(render.render_markdown(guide), encoding="utf-8")
-        (out_dir / render.guide_filename(guide, "md", "reflection")).write_text(
-            render.render_reflection_markdown(guide), encoding="utf-8")
-        # JSON is the durable render source: it lets the site rebuild every
-        # guide's HTML when the design changes, with no regeneration spend.
-        path.with_suffix(".json").write_text(
-            json.dumps(render.guide_to_dict(guide), indent=1, ensure_ascii=False) + "\n",
-            encoding="utf-8")
-        state.mark(ep.guid)
-        written.append(path)
-        print("wrote %s (source: %s)" % (path.name, source))
+            path = out_dir / render.guide_filename(guide)
+            if path.exists() and not force:
+                # A published guide is never silently regenerated.
+                print("guide already exists: %s (use --force to overwrite)" % path.name,
+                      file=sys.stderr)
+                done += 1
+                continue
+
+            out_dir.mkdir(parents=True, exist_ok=True)
+            path.write_text(render.render_markdown(guide), encoding="utf-8")
+            (out_dir / render.guide_filename(guide, "md", "reflection")).write_text(
+                render.render_reflection_markdown(guide), encoding="utf-8")
+            # JSON is the durable render source: it lets the site rebuild every
+            # guide's HTML when the design changes, with no regeneration spend.
+            path.with_suffix(".json").write_text(
+                json.dumps(render.guide_to_dict(guide), indent=1, ensure_ascii=False)
+                + "\n", encoding="utf-8")
+            written.append(path)
+            done += 1
+            print("wrote %s (%s edition, source: %s)" % (path.name, mode, source))
+
+        if done:
+            state.mark(ep.guid)
+        elif failures:
+            # Every edition failed: fail the run loudly so the alert fires.
+            raise failures[-1]
 
     return written
 
@@ -166,8 +185,8 @@ def _live_deps() -> Deps:  # pragma: no cover - network
             speaker = tpcc.find_speaker(page)
         return out, speaker
 
-    def gen(ep, transcript, links, speaker, source):
-        return real_generate(ep, transcript, links, speaker, source, client)
+    def gen(ep, transcript, links, speaker, source, mode="classic"):
+        return real_generate(ep, transcript, links, speaker, source, client, mode)
 
     return Deps(
         episodes=lambda: feed.parse_feed(get_text(PODCAST_FEED)),
@@ -190,13 +209,17 @@ def _write_site() -> None:  # pragma: no cover
         except (KeyError, ValueError) as exc:
             print("skipping %s: %s" % (path.name, exc), file=sys.stderr)
             continue
+        other = "modern" if g.mode == "classic" else "classic"
+        alt = GUIDES / render.guide_filename(g, "html", "guide", mode=other)
+        alt_json = alt.with_suffix(".json")
         (GUIDES / render.guide_filename(g, "html", "guide")).write_text(
-            render.render_guide_page(g), encoding="utf-8")
+            render.render_guide_page(g, alt.name if alt_json.exists() else None),
+            encoding="utf-8")
         (GUIDES / render.guide_filename(g, "html", "reflection")).write_text(
             render.render_reflection_page(g), encoding="utf-8")
         guides.append(g)
     (ROOT / "index.html").write_text(render.render_site(guides), encoding="utf-8")
-    print("site rebuilt: %d guides" % len(guides))
+    print("site rebuilt: %d guide editions" % len(guides))
 
 
 def diagnose() -> int:  # pragma: no cover - network
@@ -233,6 +256,8 @@ def main(argv=None) -> int:  # pragma: no cover
     ap.add_argument("command", choices=["run", "seed", "diagnose", "pending"])
     ap.add_argument("--episode", help="episode GUID to process, bypassing state")
     ap.add_argument("--force", action="store_true", help="overwrite an existing guide")
+    ap.add_argument("--mode", choices=["both", "classic", "modern"], default="both",
+                    help="which edition(s) to generate")
     ap.add_argument("--quiet", action="store_true", help="suppress output (for pending)")
     args = ap.parse_args(argv)
 
@@ -254,7 +279,9 @@ def main(argv=None) -> int:  # pragma: no cover
         print("seeded %d episodes; %d pending" % (len(eps), min(1, len(eps))))
         return 0
 
-    written = run(_live_deps(), GUIDES, STATE, episode=args.episode, force=args.force)
+    modes = MODES if args.mode == "both" else (args.mode,)
+    written = run(_live_deps(), GUIDES, STATE, episode=args.episode,
+                  force=args.force, modes=modes)
     if not written:
         print("no new episodes")
         return 0
@@ -274,7 +301,12 @@ def _email(written) -> None:  # pragma: no cover - network
     if cfg is None:
         print("mail not configured (set SMTP_USER, SMTP_PASSWORD, MAIL_TO); skipping")
         return
+    by_week = {}
     for path in written:
+        key = path.name.replace("-modern.md", ".md")
+        if key not in by_week or path.name.endswith("-modern.md") == (DEFAULT_MODE == "modern"):
+            by_week[key] = path
+    for path in by_week.values():
         try:
             g = render.guide_from_dict(json.loads(
                 path.with_suffix(".json").read_text(encoding="utf-8")))
