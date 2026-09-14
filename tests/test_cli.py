@@ -96,3 +96,23 @@ def test_every_edition_failing_fails_the_run_loudly(tmp_path):
     d.generate = broken
     with pytest.raises(ValidationError):
         run(d, out_dir=tmp_path / "g", state_path=tmp_path / "s.json")
+
+
+def test_one_failed_week_does_not_discard_the_other_weeks(tmp_path):
+    # A backfill lost two good modern guides because the third week failed.
+    from tpsermons.cli import PartialFailure
+
+    def picky(episode, mode="classic", **kw):
+        if episode.guid == "mid":
+            raise ValidationError("mid week broke")
+        return fake_guide(episode, mode=mode, **kw)
+
+    d = deps([ep("new", 30), ep("mid", 23), ep("old", 16)])
+    d.generate = picky
+    st = tmp_path / "s.json"
+    with pytest.raises(PartialFailure) as exc:
+        run(d, out_dir=tmp_path / "g", state_path=st, modes=("classic",))
+    names = sorted(p.name[:10] for p in exc.value.written)
+    assert names == ["2026-08-16", "2026-08-30"]
+    processed = json.loads(st.read_text())["processed"]
+    assert "old" in processed and "new" in processed and "mid" not in processed

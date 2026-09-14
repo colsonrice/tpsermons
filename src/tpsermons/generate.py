@@ -45,9 +45,10 @@ _SCHEMA_HINT = """Return JSON with exactly these keys:
  "commitment_prompt": str}
 
 Three to five leader_notes paragraphs. Exactly three icebreakers, labelled
-A, B, C in order. Three or four sections, each with two to four questions and
-exactly one first-person reflection_question per question, in the same order.
-Twelve to fifteen questions across all sections. Five to seven key_themes and
+A, B, C in order. Either three sections with exactly four questions each, or
+four sections with three or four questions each: at least twelve questions in
+total, never more than fifteen. Exactly one first-person reflection_question
+per question, in the same order. Five to seven key_themes and
 five to seven cheat_sheet rows. No em dashes anywhere."""
 
 

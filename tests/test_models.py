@@ -103,3 +103,10 @@ def test_imperative_prompts_are_allowed():
                          ["Describe a time you were overlooked."] * 4,
                          ["Describe a time I was overlooked."] * 4)
     make_guide(sections=[good] + secs[1:]).validate()
+
+
+def test_count_rejection_says_how_many_to_add():
+    with pytest.raises(ValidationError) as exc:
+        make_guide(sections=sections(3, 3)).validate()   # 9 questions
+    msg = str(exc.value)
+    assert "add 3 more" in msg and "exactly 4" in msg

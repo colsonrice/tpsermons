@@ -79,8 +79,13 @@ the passage and weaving in the preacher's language sparingly, then two to four
 discussion questions. Weight identity and dependence sections most heavily and
 keep the last section tighter.
 
-**Across all sections, write twelve to fifteen questions in total. Twelve to
-fourteen is ideal.**
+**Question count is the rule most often broken, so do the arithmetic:**
+
+- Three sections: exactly **four** questions in every section (12 total).
+- Four sections: **three or four** questions in every section (12 to 15 total).
+
+Never write a section with only two questions. Count them before you answer;
+fewer than twelve questions in total is a failed guide.
 
 For every question also supply a first-person rewrite for the reflection sheet:
 "Where have you settled..." becomes "Where have I settled...". Same substance,

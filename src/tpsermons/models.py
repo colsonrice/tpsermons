@@ -182,8 +182,14 @@ class Guide:
 
         tlo, thi = TOTAL_QUESTIONS
         if not tlo <= self.question_count <= thi:
-            found.append("expected %d-%d discussion questions in total, got %d"
-                         % (tlo, thi, self.question_count))
+            n, secs = self.question_count, len(self.sections)
+            if n < tlo:
+                how = ("add %d more; with %d sections every section needs %s questions"
+                       % (tlo - n, secs, "exactly 4" if secs <= 3 else "3 or 4"))
+            else:
+                how = "remove %d" % (n - thi)
+            found.append("expected %d-%d discussion questions in total, got %d: %s"
+                         % (tlo, thi, n, how))
 
         check(_count, "key_themes", self.key_themes, *KEY_THEMES)
         for t in self.key_themes:

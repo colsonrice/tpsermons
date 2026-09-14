@@ -100,7 +100,9 @@ jobs:
           fi
 
       - name: Commit new guides
-        if: steps.check.outputs.found == 'true' || inputs.episode != ''
+        # always(): a run where one week failed must still commit the weeks
+        # that succeeded. Nothing is written when generation produced nothing.
+        if: always() && (steps.check.outputs.found == 'true' || inputs.episode != '')'
         run: |
           if [ -n "$(git status --porcelain guides index.html state.json transcripts)" ]; then
             git config user.name  "github-actions[bot]"
@@ -144,12 +146,14 @@ jobs:
             });
 
       - name: Upload site
+        if: ${{ !cancelled() }}
         uses: actions/upload-pages-artifact@v3
         with:
           path: .
 
   deploy:
     needs: generate
+    if: ${{ !cancelled() }}
     runs-on: ubuntu-latest
     environment:
       name: github-pages

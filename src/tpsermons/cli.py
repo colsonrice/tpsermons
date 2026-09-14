@@ -29,6 +29,17 @@ PODCAST_FEED = "https://feeds.captivate.fm/traders-point/"
 SITE_URL = "https://colsonrice.github.io/tpsermons"
 
 
+class PartialFailure(ValidationError):
+    """Some episodes produced no edition at all. Carries what did succeed,
+    so the caller still publishes it: one bad week must never discard the
+    good ones processed in the same run."""
+
+    def __init__(self, failures, written):
+        super().__init__("; ".join("%s: %s" % (t, e) for t, e in failures))
+        self.failures = failures
+        self.written = written
+
+
 @dataclass
 class Deps:
     episodes: Callable[[], List[Episode]]
@@ -55,7 +66,7 @@ def run(deps: Deps, out_dir: Path, state_path: Path,
         pending = state.pending([e.guid for e in episodes])
         targets = [by_guid[g] for g in pending]
 
-    written = []
+    written, failed = [], []
     for ep in targets:
         resolved = deps.resolve(ep)
         if not resolved:
@@ -100,9 +111,12 @@ def run(deps: Deps, out_dir: Path, state_path: Path,
         if done:
             state.mark(ep.guid)
         elif failures:
-            # Every edition failed: fail the run loudly so the alert fires.
-            raise failures[-1]
+            # Every edition failed for this week. Keep going so later weeks
+            # still publish, then fail loudly once the batch is done.
+            failed.append((ep.title, failures[-1]))
 
+    if failed:
+        raise PartialFailure(failed, written)
     return written
 
 
@@ -280,15 +294,23 @@ def main(argv=None) -> int:  # pragma: no cover
         return 0
 
     modes = MODES if args.mode == "both" else (args.mode,)
-    written = run(_live_deps(), GUIDES, STATE, episode=args.episode,
-                  force=args.force, modes=modes)
+    try:
+        written = run(_live_deps(), GUIDES, STATE, episode=args.episode,
+                      force=args.force, modes=modes)
+        status = 0
+    except PartialFailure as exc:
+        # Publish what worked, then exit non-zero so the failure alert fires.
+        print("some guides failed: %s" % exc, file=sys.stderr)
+        written, status = exc.written, 1
+
     if not written:
-        print("no new episodes")
-        return 0
+        if status == 0:
+            print("no new episodes")
+        return status
 
     _write_site()
     _email(written)
-    return 0
+    return status
 
 
 def _email(written) -> None:  # pragma: no cover - network
