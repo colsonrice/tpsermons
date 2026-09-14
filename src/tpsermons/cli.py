@@ -73,13 +73,16 @@ def run(deps: Deps, out_dir: Path, state_path: Path,
             print("no text source for %s; skipping" % ep.title, file=sys.stderr)
             continue
         text, source = resolved
-        links, speaker = deps.links(ep)
+        got = deps.links(ep)
+        links, speaker = got[0], got[1]
+        role = got[2] if len(got) > 2 else None
 
         done, failures = 0, []
         for mode in modes:
             try:
                 guide = deps.generate(ep, transcript=text, links=links,
-                                      speaker=speaker, source=source, mode=mode)
+                                      speaker=speaker, source=source, mode=mode,
+                                      speaker_role=role)
             except ValidationError as exc:
                 # One edition failing must never cost the week the other one.
                 failures.append(exc)
@@ -184,7 +187,7 @@ def _live_deps() -> Deps:  # pragma: no cover - network
     def links(ep):
         page = html_for(ep)
         out = {"tpcc": "https://tpcc.org/messages", "podcast": ep.mp3_url}
-        speaker = None
+        speaker = role = None
         if ep.series:
             try:
                 slug = tpcc.lookup_slug(get_text(tpcc.series_url(ep.series)), ep.title)
@@ -197,10 +200,12 @@ def _live_deps() -> Deps:  # pragma: no cover - network
             if vid:
                 out["youtube"] = "https://youtu.be/%s" % vid
             speaker = tpcc.find_speaker(page)
-        return out, speaker
+            role = tpcc.find_speaker_role(page)
+        return out, speaker, role
 
-    def gen(ep, transcript, links, speaker, source, mode="classic"):
-        return real_generate(ep, transcript, links, speaker, source, client, mode)
+    def gen(ep, transcript, links, speaker, source, mode="classic", speaker_role=None):
+        return real_generate(ep, transcript, links, speaker, source, client, mode,
+                             speaker_role)
 
     return Deps(
         episodes=lambda: feed.parse_feed(get_text(PODCAST_FEED)),
@@ -223,7 +228,7 @@ def _write_site() -> None:  # pragma: no cover
         except (KeyError, ValueError) as exc:
             print("skipping %s: %s" % (path.name, exc), file=sys.stderr)
             continue
-        other = "modern" if g.mode == "classic" else "classic"
+        other = "new" if g.mode == "classic" else "classic"
         alt = GUIDES / render.guide_filename(g, "html", "guide", mode=other)
         alt_json = alt.with_suffix(".json")
         (GUIDES / render.guide_filename(g, "html", "guide")).write_text(
@@ -254,8 +259,8 @@ def diagnose() -> int:  # pragma: no cover - network
 
     vid = tpcc.find_video_id(page)
     has_pdf = bool(tpcc.find_transcript_url(page))
-    print("tpcc page ok | video=%s | transcript posted=%s | speaker=%s"
-          % (vid, has_pdf, tpcc.find_speaker(page)))
+    print("tpcc page ok | video=%s | transcript posted=%s | preacher=%s (%s)"
+          % (vid, has_pdf, tpcc.find_speaker(page), tpcc.find_speaker_role(page)))
 
     caps = youtube.fetch_captions(vid) if vid else None
     if caps:
@@ -270,7 +275,7 @@ def main(argv=None) -> int:  # pragma: no cover
     ap.add_argument("command", choices=["run", "seed", "diagnose", "pending"])
     ap.add_argument("--episode", help="episode GUID to process, bypassing state")
     ap.add_argument("--force", action="store_true", help="overwrite an existing guide")
-    ap.add_argument("--mode", choices=["both", "classic", "modern"], default="both",
+    ap.add_argument("--mode", choices=["both", "classic", "new"], default="both",
                     help="which edition(s) to generate")
     ap.add_argument("--quiet", action="store_true", help="suppress output (for pending)")
     args = ap.parse_args(argv)
@@ -325,15 +330,16 @@ def _email(written) -> None:  # pragma: no cover - network
         return
     by_week = {}
     for path in written:
-        key = path.name.replace("-modern.md", ".md")
-        if key not in by_week or path.name.endswith("-modern.md") == (DEFAULT_MODE == "modern"):
+        key = path.name.replace("-new.md", ".md")
+        if key not in by_week or path.name.endswith("-new.md") == (DEFAULT_MODE == "new"):
             by_week[key] = path
     for path in by_week.values():
         try:
             g = render.guide_from_dict(json.loads(
                 path.with_suffix(".json").read_text(encoding="utf-8")))
             url = "%s/guides/%s" % (SITE_URL, render.guide_filename(g, "html"))
-            subject, body_html, body_text = mail.render_email(g, url)
+            sheet = "%s/guides/%s" % (SITE_URL, render.guide_filename(g, "html", "reflection"))
+            subject, body_html, body_text = mail.render_email(g, url, sheet)
             mail.send(subject, body_html, body_text, cfg)
             print("emailed %r to %s" % (subject, ", ".join(cfg.to)))
         except Exception as exc:

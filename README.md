@@ -52,14 +52,27 @@ Re-run a specific episode (bypasses the processed-state gate):
 
 Requires `ffmpeg` and `pdftotext` (poppler) only for the fallback paths.
 
-## Structure of a guide
+## Two editions of every guide
 
-The group stays together throughout — no breakouts, no time limits on
-questions. Five movements: **Open** (one low-stakes question), **Read** (one or
-two short verse ranges, never a whole chapter, plus one observation question),
-**Discuss** (three questions with follow-up probes), **Get Honest** (what will
-actually get in the way), and **Commit** (one specific action, plus what the
-group will ask each other next week).
+Each sermon is published twice, with a New / Classic switch on every guide page
+that remembers your choice. The home page opens New by default.
+
+**Classic** mirrors the group's own reference guide section for section:
+header block with the preacher's role, At a Glance, rich leader notes, an
+Opening with split reading and three icebreaker options, timed discussion
+sections where each question has a lead-in and a bold ask, Closing and
+Application with prayer, a Facilitator Cheat Sheet, and Key Themes to
+Reinforce. The spec lives in `prompts/classic.md`.
+
+**New** is laid out for leading live from a phone: a tappable run of show, a
+"know before you walk in" brief (the one sentence, the sermon's moves, what to
+handle with care), a line to say at each section, one must-ask question per
+section, a follow-up under every question, Get Honest, and what the group asks
+next week. No clock. The spec lives in `prompts/new.md`.
+
+Both share the rules in `prompts/common.md` and come with a participant
+reflection sheet in the first person. Nobody is assumed to have a pen; the men
+read their Bibles on their phones.
 
 ## What is and isn't published
 

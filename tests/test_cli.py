@@ -4,7 +4,7 @@ from datetime import datetime, timezone
 from tpsermons.cli import Deps, run
 import pytest
 
-from tests.fixtures import make_guide, make_modern_guide
+from tests.fixtures import make_guide, make_new_guide
 from tpsermons.models import Episode, ValidationError
 
 def ep(guid, day, title="Sermon %s"):
@@ -14,7 +14,7 @@ def ep(guid, day, title="Sermon %s"):
 
 
 def fake_guide(episode, mode="classic", **_):
-    build = make_modern_guide if mode == "modern" else make_guide
+    build = make_new_guide if mode == "new" else make_guide
     return build(title=episode.title, date=episode.pub_date.strftime("%Y-%m-%d"))
 
 
@@ -71,13 +71,13 @@ def test_both_editions_are_written_by_default(tmp_path):
     written = run(deps([ep("a", 30)]), out_dir=tmp_path / "g",
                   state_path=tmp_path / "s.json")
     names = sorted(p.name for p in written)
-    assert names == ["2026-08-30-sermon-a-modern.md", "2026-08-30-sermon-a.md"]
+    assert names == ["2026-08-30-sermon-a-new.md", "2026-08-30-sermon-a.md"]
 
 
 def test_one_edition_failing_still_publishes_the_other(tmp_path):
     def flaky(episode, mode="classic", **kw):
-        if mode == "modern":
-            raise ValidationError("modern edition broke")
+        if mode == "new":
+            raise ValidationError("new edition broke")
         return fake_guide(episode, mode=mode, **kw)
 
     d = deps([ep("a", 30)])
@@ -99,7 +99,7 @@ def test_every_edition_failing_fails_the_run_loudly(tmp_path):
 
 
 def test_one_failed_week_does_not_discard_the_other_weeks(tmp_path):
-    # A backfill lost two good modern guides because the third week failed.
+    # A backfill once lost two good guides because the third week failed.
     from tpsermons.cli import PartialFailure
 
     def picky(episode, mode="classic", **kw):
@@ -116,3 +116,18 @@ def test_one_failed_week_does_not_discard_the_other_weeks(tmp_path):
     assert names == ["2026-08-16", "2026-08-30"]
     processed = json.loads(st.read_text())["processed"]
     assert "old" in processed and "new" in processed and "mid" not in processed
+
+
+
+def test_preacher_role_flows_from_links_into_generation(tmp_path):
+    seen = {}
+
+    def spy(episode, mode="classic", speaker_role=None, **kw):
+        seen[mode] = speaker_role
+        return fake_guide(episode, mode=mode)
+
+    d = deps([ep("a", 30)])
+    d.links = lambda e: ({"tpcc": "https://tpcc.org/messages/x"}, "Aaron Brockett", "Lead Pastor")
+    d.generate = spy
+    run(d, out_dir=tmp_path / "g", state_path=tmp_path / "s.json")
+    assert seen == {"classic": "Lead Pastor", "new": "Lead Pastor"}

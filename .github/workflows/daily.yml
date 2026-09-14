@@ -33,7 +33,7 @@ on:
       mode:
         description: 'Which edition(s) to generate'
         type: choice
-        options: [both, classic, modern]
+        options: [both, classic, new]
         default: both
 
 permissions:
@@ -124,24 +124,29 @@ jobs:
             const dir = 'guides';
             const all = fs.readdirSync(dir).filter(f => f.endsWith('.json')).sort();
             if (!all.length) return;
-            // Newest week; link its modern edition when there is one.
+            // Newest week; link its New edition when there is one.
             const newestDate = all[all.length - 1].slice(0, 10);
             const week = all.filter(f => f.startsWith(newestDate));
-            const latest = week.find(f => f.endsWith('-modern.json')) || week[week.length - 1];
+            const latest = week.find(f => f.endsWith('-new.json')) || week[week.length - 1];
             const g = JSON.parse(fs.readFileSync(`${dir}/${latest}`, 'utf8'));
-            const url = `https://colsonrice.github.io/tpsermons/guides/${latest.replace('.json','.html')}`;
+            const base = 'https://colsonrice.github.io/tpsermons/guides/';
+            const page = latest.replace('.json', '.html');
+            const classic = page.replace('-new.html', '.html');
+            const preacher = g.speaker ? (g.speaker_role ? `${g.speaker}, ${g.speaker_role}` : g.speaker) : '';
+            const firstAsk = ((g.sections || [])[0] || {}).questions || [];
             await github.rest.issues.create({
               owner: context.repo.owner,
               repo: context.repo.repo,
-              title: `Guide ready: ${g.title}`,
+              title: `Guide ready: ${g.guide_title || g.title}`,
               body: [
-                `**${g.title}**`,
-                g.series ? `_${g.series} — ${(g.read_refs||[]).join(' · ')}_` : '',
+                `**${g.guide_title || g.title}**`,
+                [g.title, g.passage, preacher].filter(Boolean).join(' · '),
                 '',
-                `→ ${url}`,
+                `New: ${base}${page}`,
+                page !== classic ? `Classic: ${base}${classic}` : '',
                 '',
-                `**Open:** ${g.opener}`,
-                `**Get honest:** ${g.obstacle}`,
+                g.goal ? `**Goal:** ${g.goal}` : '',
+                firstAsk.length ? `**First question:** ${firstAsk[0].ask}` : '',
               ].filter(Boolean).join('\n'),
               labels: ['guide'],
             });

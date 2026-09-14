@@ -29,10 +29,16 @@ _VIDEO_ID = re.compile(r'(?:youtube\.com/(?:embed/|watch\?v=)|youtu\.be/)([A-Za-
 _FIRST_P = re.compile(r"<p[^>]*>(.*?)</p>", re.S | re.I)
 _TRANSCRIPT = re.compile(r'Transcript:\s*<a[^>]*href="([^"]+)"', re.I)
 _SPEAKER = re.compile(
-    r'In this message,\s*(?:[A-Z][A-Za-z\'\-]*\s+){0,4}?'
-    r'(?:Pastor|Minister|Director)\s+([A-Z][A-Za-z\'\-]+(?:\s+[A-Z][A-Za-z\'\-]+){1,2})'
+    r'In this message,\s*((?:[A-Z][A-Za-z\'\-]*\s+){0,4}?'
+    r'(?:Pastor|Minister|Director))\s+([A-Z][A-Za-z\'\-]+(?:\s+[A-Z][A-Za-z\'\-]+){1,2})'
     r'\s+(?:teaches|preaches|shares|walks|unpacks|explains)',
 )
+
+# The group's spec names these roles explicitly; they win over page wording.
+ROLES = {
+    "Aaron Brockett": "Lead Pastor",
+    "Ryan Bramlett": "Lead Discipleship Pastor",
+}
 
 
 def _strip(markup: str) -> str:
@@ -105,4 +111,13 @@ def find_transcript_url(html_text: str) -> Optional[str]:
 def find_speaker(html_text: str) -> Optional[str]:
     """Best-effort speaker name. Never fatal -- the header simply omits it."""
     m = _SPEAKER.search(_strip(html_text))
-    return m.group(1).strip() if m else None
+    return m.group(2).strip() if m else None
+
+
+def find_speaker_role(html_text: str) -> Optional[str]:
+    """The preacher's role, e.g. 'Lead Pastor'. Best-effort, never fatal."""
+    m = _SPEAKER.search(_strip(html_text))
+    if not m:
+        return None
+    name, role = m.group(2).strip(), re.sub(r"\s+", " ", m.group(1)).strip()
+    return ROLES.get(name) or role or None

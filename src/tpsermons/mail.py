@@ -75,82 +75,84 @@ def _label(text, color=CLAY) -> str:
 
 
 def render_email(guide, url: str, sheet_url: str = ""):
-    """Return (subject, html, plain_text) for the leader guide."""
-    subject = "%s%s" % (guide.title, " — %s" % guide.passage if guide.passage else "")
-    meta = " · ".join(b for b in (guide.series, guide.passage, guide.speaker) if b)
+    """Return (subject, html, plain_text) for one edition of the guide."""
+    from .render import preacher_line
+    subject = "%s: %s%s" % (guide.guide_title, guide.title,
+                            " (%s)" % guide.passage if guide.passage else "")
+    meta = " · ".join(b for b in (guide.series, guide.passage, preacher_line(guide)) if b)
+    new = guide.mode == "new"
 
-    parts = [
-        "<div style=\"background:%s;padding:26px 20px\">" % PAPER,
-        "<div style=\"max-width:600px;margin:0 auto\">",
-        "<p style=\"margin:0 0 6px;font:600 12px/1.4 %s;letter-spacing:.16em;"
-        "text-transform:uppercase;color:%s\">This week's guide</p>" % (_SERIF, CLAY),
-        "<h1 style=\"margin:0 0 8px;font:400 30px/1.15 %s;color:%s\">%s</h1>"
-        % (_SERIF, INK, _e(guide.title)),
-        _p(meta, "14px", FAINT),
-        _p(guide.goal, "16px", SOFT, "font-style:italic;"),
-    ]
+    P = ["<div style=\"background:%s;padding:26px 20px\">" % PAPER,
+         "<div style=\"max-width:600px;margin:0 auto\">",
+         "<p style=\"margin:0 0 6px;font:600 12px/1.4 %s;letter-spacing:.16em;"
+         "text-transform:uppercase;color:%s\">This week's guide</p>" % (_SERIF, CLAY),
+         "<h1 style=\"margin:0 0 6px;font:400 30px/1.15 %s;color:%s\">%s</h1>"
+         % (_SERIF, INK, _e(guide.guide_title)),
+         _p(guide.title, "16px", SOFT), _p(meta, "14px", FAINT),
+         _p(guide.goal, "16px", SOFT, "font-style:italic;")]
+    T = [guide.guide_title, guide.title, meta, "", guide.goal]
 
-    parts.append(_label("Before you begin"))
-    for note in guide.leader_notes:
-        parts.append(_p(note, "15px", SOFT))
+    if new:
+        P += [_label("The one sentence"), _p(guide.thesis, "18px")]
+        P += [_label("The sermon's moves")] + [_p("%d. %s" % (i, o), "15px", SOFT)
+                                               for i, o in enumerate(guide.outline, 1)]
+        if guide.sensitivities:
+            P += [_label("Handle with care")] + [_p(x, "15px", SOFT)
+                                                 for x in guide.sensitivities]
+        T += ["", "THE ONE SENTENCE", guide.thesis, "", "MOVES"] + guide.outline
+    else:
+        P += [_label("Before you begin")] + [_p(x, "15px", SOFT) for x in guide.leader_notes]
+        T += ["", "BEFORE YOU BEGIN"] + guide.leader_notes
 
-    parts.append(_label("Opening"))
-    parts.append(_p(guide.scripture_instructions, "16px"))
-    for ice in guide.icebreakers:
-        parts.append(_p("%s. %s" % (ice.label, ice.question), "16px"))
-        parts.append(_p(ice.fits, "13px", FAINT, "margin:-8px 0 12px 14px;"))
+    P += [_label("Opening")]
+    if new and guide.read_refs:
+        P.append(_p("Read: " + " · ".join(guide.read_refs), "16px", SAGE))
+    P.append(_p(guide.scripture_instructions, "16px"))
+    T += ["", "OPENING", guide.scripture_instructions]
+    for i in guide.icebreakers:
+        P.append(_p("%s (%s). %s" % (i.label, i.fits, i.question), "16px"))
+        T.append("%s (%s). %s" % (i.label, i.fits, i.question))
 
     n = 0
     for sec in guide.sections:
-        parts.append(_label(sec.title))
-        parts.append(_p(sec.setup, "15px", SOFT))
+        P.append(_label(sec.title))
+        T += ["", sec.title.upper()]
+        if new and sec.say:
+            P.append(_p("Say: " + sec.say, "15px", SAGE))
+        else:
+            P.append(_p(sec.setup, "15px", SOFT))
         for q in sec.questions:
             n += 1
-            parts.append("<p style=\"margin:0 0 12px;font:600 18px/1.45 %s;color:%s\">"
-                         "<span style=\"color:%s\">%d.</span> %s</p>"
-                         % (_SERIF, INK, CLAY, n, _e(q)))
+            if q.lead:
+                P.append(_p(q.lead, "14px", SOFT, "margin:0 0 4px;"))
+            P.append("<p style=\"margin:0 0 14px;font:600 18px/1.45 %s;color:%s\">"
+                     "<span style=\"color:%s\">%d.</span> %s%s</p>"
+                     % (_SERIF, INK, CLAY, n, _e(q.ask),
+                        " <span style=\"color:%s;font-size:12px\">MUST ASK</span>" % CLAY
+                        if q.star else ""))
+            T.append("%d. %s" % (n, q.ask))
 
-    parts.append(_label("Closing", SAGE))
-    parts.append(_p(guide.closing_go_around, "16px"))
-    parts.append(_p(guide.prayer, "15px", SOFT))
-
-    parts.append(_label("Cheat sheet", FAINT))
-    for row in guide.cheat_sheet:
-        parts.append(_p("%s: %s" % (row.dynamic, row.response), "14px", SOFT))
-
-    parts.append(_label("Key themes", FAINT))
-    for theme in guide.key_themes:
-        parts.append(_p("· " + theme, "14px", SOFT))
+    if new and guide.obstacle:
+        P += [_label("Get honest"), _p(guide.obstacle, "19px")]
+        T += ["", "GET HONEST", guide.obstacle]
+    P += [_label("Closing", SAGE), _p(guide.closing_go_around, "16px"),
+          _p("Prayer: " + guide.prayer, "15px", SOFT)]
+    T += ["", "CLOSING", guide.closing_go_around, "Prayer: " + guide.prayer]
+    if new and guide.carry:
+        P.append(_p("Next week we ask: " + guide.carry, "15px", SOFT))
+        T.append("Next week we ask: " + guide.carry)
 
     links = "<a href=\"%s\" style=\"color:%s\">Open the guide</a>" % (_e(url), CLAY)
     if sheet_url:
-        links += " &nbsp;·&nbsp; <a href=\"%s\" style=\"color:%s\">Reflection sheet</a>" \
-                 % (_e(sheet_url), CLAY)
-    parts.append("<p style=\"margin:30px 0 0;padding-top:16px;border-top:1px solid %s;"
-                 "font:400 14px/1.6 %s\">%s</p>" % (RULE, _SERIF, links))
-    parts.append(_p("Generated from the sermon. Sermon content belongs to Traders "
-                    "Point Christian Church; this is a study aid, not a transcript.",
-                    "12px", FAINT))
-    parts.append("</div></div>")
-
-    text = [guide.title, meta, "", guide.goal, "", "BEFORE YOU BEGIN"]
-    text += guide.leader_notes
-    text += ["", "OPENING", guide.scripture_instructions]
-    text += ["%s. %s (%s)" % (i.label, i.question, i.fits) for i in guide.icebreakers]
-    n = 0
-    for sec in guide.sections:
-        text += ["", sec.title.upper(), sec.setup]
-        for q in sec.questions:
-            n += 1
-            text.append("%d. %s" % (n, q))
-    text += ["", "CLOSING", guide.closing_go_around, guide.prayer]
-    text += ["", "CHEAT SHEET"]
-    text += ["%s: %s" % (r.dynamic, r.response) for r in guide.cheat_sheet]
-    text += ["", "KEY THEMES"] + ["- %s" % t for t in guide.key_themes]
-    text += ["", url]
-    if sheet_url:
-        text.append(sheet_url)
-    return subject, "".join(parts), "\n".join(text)
+        links += (" &nbsp;·&nbsp; <a href=\"%s\" style=\"color:%s\">Reflection sheet"
+                  "</a>" % (_e(sheet_url), CLAY))
+    P.append("<p style=\"margin:30px 0 0;padding-top:16px;border-top:1px solid %s;"
+             "font:400 14px/1.6 %s\">%s</p>" % (RULE, _SERIF, links))
+    P.append(_p("Generated from the sermon. Sermon content belongs to Traders Point "
+                "Christian Church; this is a study aid, not a transcript.", "12px", FAINT))
+    P.append("</div></div>")
+    T += ["", url] + ([sheet_url] if sheet_url else [])
+    return subject, "".join(P), "\n".join(T)
 
 
 def send(subject: str, body_html: str, body_text: str, cfg: MailConfig) -> None:

@@ -2,78 +2,63 @@ from datetime import datetime, timezone
 
 import pytest
 
-from tests.fixtures import make_guide
-from tpsermons.generate import build_guide
+from tests.fixtures import make_guide, make_new_guide
+from tpsermons.generate import build_guide, build_prompt
 from tpsermons.models import Episode, ValidationError
+from tpsermons.render import guide_to_dict
 
 EP = Episode(guid="g", title="Presence Over Position",
              pub_date=datetime(2026, 8, 30, tzinfo=timezone.utc),
-             mp3_url="https://x/y.mp3", series="The Urgent Kingdom",
-             passage="Mark 9:30-50")
+             mp3_url="https://x/y.mp3", series="The Urgent Kingdom", passage="Mark 9:30-50")
+LINKS = {"tpcc": "https://tpcc.org/messages/presence-over-position"}
+_META = ("title", "series", "speaker", "speaker_role", "date", "passage", "links",
+         "source", "mode")
 
-LINKS = {"tpcc": "https://tpcc.org/messages/presence-over-position",
-         "youtube": "https://youtu.be/-F6w9h2Jpg8"}
 
-
-def payload(**kw):
-    g = make_guide()
-    base = {
-        "goal": g.goal,
-        "leader_notes": list(g.leader_notes),
-        "scripture_instructions": g.scripture_instructions,
-        "icebreakers": [{"label": i.label, "question": i.question, "fits": i.fits}
-                        for i in g.icebreakers],
-        "sections": [{"title": s.title, "setup": s.setup,
-                      "questions": list(s.questions),
-                      "reflection_questions": list(s.reflection_questions)}
-                     for s in g.sections],
-        "closing_go_around": g.closing_go_around,
-        "prayer": g.prayer,
-        "cheat_sheet": [{"dynamic": c.dynamic, "response": c.response}
-                        for c in g.cheat_sheet],
-        "key_themes": list(g.key_themes),
-        "commitment_prompt": g.commitment_prompt,
-    }
-    base.update(kw)
-    return base
+def payload(g, **kw):
+    d = {k: v for k, v in guide_to_dict(g).items() if k not in _META}
+    d.update(kw)
+    return d
 
 
 def test_metadata_comes_from_code_not_the_model():
-    g = build_guide(EP, payload(), links=LINKS, speaker="Aaron Brockett",
-                    source="whisper")
-    assert g.title == "Presence Over Position"
-    assert g.series == "The Urgent Kingdom"
-    assert g.speaker == "Aaron Brockett"
-    assert g.date == "2026-08-30"
+    g = build_guide(EP, payload(make_guide(), title="Hallucinated",
+                                links={"tpcc": "https://evil.example"}),
+                    LINKS, "Aaron Brockett", "whisper", "classic", "Lead Pastor")
+    assert g.title == "Presence Over Position" and g.links == LINKS
+    assert g.speaker == "Aaron Brockett" and g.speaker_role == "Lead Pastor"
 
 
-def test_model_supplied_links_and_title_are_discarded():
-    g = build_guide(EP, payload(links={"tpcc": "https://evil.example"},
-                                title="Hallucinated"),
-                    links=LINKS, speaker=None, source="whisper")
-    assert g.links["tpcc"] == LINKS["tpcc"]
-    assert "evil" not in str(g.links)
-    assert g.title == "Presence Over Position"
+def test_classic_build_ignores_new_only_fields():
+    g = build_guide(EP, dict(payload(make_new_guide()), **payload(make_guide())), LINKS,
+                    None, "whisper", "classic")
+    assert g.thesis == "" and g.obstacle == "" and not g.read_refs
+    assert not any(q.star or q.probe for s in g.sections for q in s.questions)
 
 
-def test_wrong_question_count_is_rejected():
-    thin = payload()
-    for s in thin["sections"]:
-        s["questions"] = s["questions"][:2]
-        s["reflection_questions"] = s["reflection_questions"][:2]
+def test_new_build_keeps_its_aids():
+    g = build_guide(EP, payload(make_new_guide()), LINKS, None, "whisper", "new")
+    assert g.mode == "new" and g.thesis and g.carry and g.sections[0].say
+
+
+def test_bare_string_questions_are_tolerated():
+    d = payload(make_guide())
+    for s in d["sections"]:
+        s["questions"] = [q["ask"] for q in s["questions"]]
+    build_guide(EP, d, LINKS, None, "whisper", "classic")
+
+
+def test_malformed_output_is_a_validation_error():
+    d = payload(make_guide())
+    del d["cheat_sheet"]
     with pytest.raises(ValidationError):
-        build_guide(EP, thin, links=LINKS, speaker=None, source="whisper")
+        build_guide(EP, d, LINKS, None, "whisper", "classic")
 
 
-def test_missing_key_raises_validation_error():
-    broken = payload()
-    del broken["cheat_sheet"]
-    with pytest.raises(ValidationError):
-        build_guide(EP, broken, links=LINKS, speaker=None, source="whisper")
-
-
-def test_em_dash_from_the_model_is_repaired_not_fatal():
-    # Three Monday runs were lost to em dashes. Repair, don't reject.
-    g = build_guide(EP, payload(goal="Move the room — fast."), links=LINKS,
-                    speaker=None, source="whisper")
-    assert "—" not in g.goal
+def test_prompt_layers_shared_rules_with_the_edition_spec():
+    classic = build_prompt(EP, "transcript", "Aaron Brockett", "classic", "Lead Pastor")
+    new = build_prompt(EP, "transcript", "Aaron Brockett", "new", "Lead Pastor")
+    assert "Never assume anyone has a pen" in classic and "Never assume anyone has a pen" in new
+    assert "Classic edition" in classic and "New edition" not in classic
+    assert "New edition" in new and "led live from a phone" in new
+    assert "Preacher: Aaron Brockett, Lead Pastor" in classic

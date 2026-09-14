@@ -1,6 +1,7 @@
 import pathlib
 
-from tpsermons.tpcc import (find_speaker, find_transcript_url, find_video_id,
+from tpsermons.tpcc import (find_speaker, find_speaker_role, find_transcript_url,
+                            find_video_id,
                             parse_series_page, series_slug)
 
 FIX = pathlib.Path(__file__).parent / "fixtures"
@@ -50,3 +51,18 @@ def test_extracts_speaker_from_description_prose():
 
 def test_speaker_is_none_when_absent_rather_than_raising():
     assert find_speaker(NO_TRANSCRIPT) is None
+
+
+
+def test_extracts_the_preachers_role_from_the_page():
+    assert find_speaker_role(MESSAGE) == "Executive Ministries Pastor"
+
+
+def test_spec_named_roles_win_over_page_wording():
+    html = ("<p>In this message, Pastor Ryan Bramlett teaches on trust.</p>")
+    assert find_speaker(html) == "Ryan Bramlett"
+    assert find_speaker_role(html) == "Lead Discipleship Pastor"
+
+
+def test_role_is_none_when_absent():
+    assert find_speaker_role(NO_TRANSCRIPT) is None
