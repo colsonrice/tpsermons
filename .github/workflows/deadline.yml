@@ -23,8 +23,8 @@ jobs:
       - name: Is this week's guide published?
         id: check
         run: |
-          NEWEST=$(ls guides/*.json 2>/dev/null | sort | tail -1)
-          if [ -z "$NEWEST" ]; then
+          NEWEST=$(printf '%s\n' guides/*.json | sort | tail -1)
+          if [ ! -e "$NEWEST" ]; then
             echo "fresh=false" >> "$GITHUB_OUTPUT"; echo "age=none" >> "$GITHUB_OUTPUT"; exit 0
           fi
           GUIDE_DATE=$(basename "$NEWEST" | cut -d- -f1-3)

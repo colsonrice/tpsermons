@@ -6,6 +6,18 @@ on:
   workflow_dispatch:
 
 jobs:
+  workflows:
+    # A stray quote once made daily.yml unparseable on GitHub. PyYAML accepted
+    # it, so nothing flagged it, and every scheduled run silently stopped.
+    # actionlint checks GitHub's expression syntax, which PyYAML cannot.
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Lint workflow files
+        run: |
+          bash <(curl -sSL https://raw.githubusercontent.com/rhysd/actionlint/main/scripts/download-actionlint.bash)
+          ./actionlint -color
+
   tests:
     runs-on: ubuntu-latest
     steps:
