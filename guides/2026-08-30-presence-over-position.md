@@ -1,6 +1,8 @@
 ---
 title: Presence Over Position
+sermon: Presence Over Position
 date: 2026-08-30
+edition: classic
 kind: guide
 series: The Urgent Kingdom
 passage: Mark 9:30-50
@@ -9,123 +11,121 @@ source: whisper
 
 # Presence Over Position
 
-The Urgent Kingdom · Mark 9:30-50
+**Series:** The Urgent Kingdom  
+**Message:** Presence Over Position (Mark 9:30-50)  
+**Church:** Traders Point Christian Church  
+**Sermon link:** [Message page](https://tpcc.org/messages/presence-over-position) · [Watch](https://youtu.be/-F6w9h2Jpg8) · [Listen](https://episodes.captivate.fm/episode/0eb08548-738f-4add-aada-4483d1fe12d9.mp3)
 
-[Message page](https://tpcc.org/messages/presence-over-position) · [Watch](https://youtu.be/-F6w9h2Jpg8) · [Listen](https://episodes.captivate.fm/episode/0eb08548-738f-4add-aada-4483d1fe12d9.mp3)
+---
 
-**At a glance.** About 60 minutes, 10 to 12 men, Bibles and a pen. Encourage the men to embrace presence with God over striving for position, reflecting on how serving without an agenda can lead to true greatness.
+## At a Glance
+
+**Time:** About 60 minutes  
+**Group:** About 10 to 12 men  
+**Materials:** A Bible (your phone works) and this guide  
+**Goal:** Identify where our pursuit of position overshadows our pursuit of presence with God and take steps to realign our focus this week.
 
 ---
 
 ## Before You Begin
 
-Today's sermon in Mark 9:30-50 addresses how Jesus redefines greatness by focusing on presence and servant leadership rather than striving for positions of power or recognition. The passage shows Jesus teaching His disciples about the kingdom of God through a young child, symbolizing humility and the willingness to serve without expecting anything in return.
+*Leader notes. Read these ahead of time. They are for you, not to be read aloud.*
 
-The speaker uses Teddy Roosevelt's story to illustrate that true growth often occurs through facing unexpected trials or 'badlands.' In these challenging moments, one's character is refined for future roles, not through positions immediately won or titles held.
+The sermon began with an illustration of Theodore Roosevelt, a man of power and position, who was transformed by his experience in the Badlands. This period of hardship and isolation reshaped him into a courageous leader, ready for the responsibilities of the presidency. It frames our passage because it mirrors the kind of formation Jesus calls His followers to, prioritizing presence and character over status.
 
-Pastorally, the themes of struggle, sin, and ambition are explored. The sermon also highlights the human tendency to compare and compete, often leading to division. The speaker advises focusing on serving with pure intentions and maintaining community integrity by reducing internal criticism.
+In Mark 9:30-50, Jesus shares a deep truth about His coming suffering, yet the disciples are caught up in arguments about greatness. The preacher highlighted this contradiction: Jesus is on His way to the cross, shedding position, while the disciples grasp for it. This irony underpins the passage, where Jesus uses the moment to teach lessons on humility, using a child to symbolize true greatness as serving others selflessly.
 
-The message also emphasizes dealing seriously with sin, as Jesus uses strong metaphors to highlight the destructive nature of unchecked sins. Men are encouraged to be 'salty' in preserving the Christian community through purity and not conforming to external pressures of achieving greatness.
+The thesis worth keeping at the forefront: True greatness comes not from earthly positions but from the presence with God and serving others. The preacher's outline follows Jesus’ teachings: Serve without an agenda, surrender the impulse to be territorial, stop tolerating sin, and stay salty as a preservative in the world. This outline is the spine of our discussion guide.
 
----
+Given the group's makeup, anticipate that some men will confidently offer polished answers about servanthood and sin management. However, the 'True Greatness' section is designed to push beyond surface-level reflections and call for tangible admissions of where position-seeking diverts them from God's presence.
 
-## Opening
-
-Read Mark 9:30-37 aloud, sparking conversation about what it means to serve without seeking recognition.
-
-Pick one icebreaker:
-
-**A. Share about a time you aimed for a particular position. What did you learn from either achieving or not achieving it?**
-
-*newer group*
-
-**B. Describe a moment when serving someone else unexpectedly impacted you. What made it meaningful?**
-
-*group of storytellers*
-
-**C. Think of someone you admire for their servant leadership. How does their example challenge you?**
-
-*high-trust group*
+First, we should be mindful that discussing personal sin can touch on sensitive areas, so approach with care. Second, there are those currently struggling in 'Badlands' who may lack perspective; empathy is needed here. Third, those presenting a 'showroom faith' may need encouragement to be authentic rather than keeping up appearances. Handle these with pastoral sensitivity.
 
 ---
 
-## Presence over Position
+## Opening (10 minutes)
 
-The disciples argued about who among them was the greatest, but Jesus redirected them to understand that true greatness involves presence with God and serving others without a personal agenda. Jesus illustrated this with a child, representing humility and selflessness.
+Split the reading of Mark 9:30-50 between two people. Have the first reader cover verses 30-41, and the second reader finish with verses 42-50. Allow each section to sink in after reading.
 
-**Where in your life have you pursued recognition over presence?**
+Then pick one icebreaker based on your group.
 
-**Think about a time you served someone with no expectation of return. What did that reveal about your motives?**
+**Option A (newer group):** Share an experience where you found yourself striving for recognition or position. Helps introduce the theme of pursuing position versus recognizing presence.
 
-**How do you balance ambition with the call to serve humbly?**
+**Option B (storytellers):** Think about a time when unexpected circumstances reshaped your outlook on life. Encourages storytelling and reflection on personal growth through adversity.
 
----
-
-## Surrendering Control
-
-The disciples struggled with the idea of others casting out demons in Jesus's name because they weren't part of their group. Jesus corrected their territorial impulse, teaching them that the kingdom of God is bigger than personal affiliations or control.
-
-**When have you felt the need to control or judge someone's spiritual journey?**
-
-**How do you handle feelings of jealousy or competition in your spiritual life?**
-
-**What steps can you take to be more inclusive in your faith community?**
+**Option C (high-trust group):** Describe a situation where you felt God's presence during a challenging time. Directly connects personal faith experiences to the sermon's message on presence.
 
 ---
 
-## Dealing with Sin Seriously
+## Section 1: Arguing Greatness (12-15 minutes)
 
-Jesus uses strong images to instruct the disciples to cut off sin ruthlessly. This isn't literal but stresses the seriousness with which they should handle sin in their lives, recognizing its potential to derail their relationship with God and others.
+The disciples argue about their greatness right after Jesus predicts His suffering. This discussion highlights a common tendency to seek security and worth through position rather than presence. Jesus uses this moment to teach the values of servanthood and humility as pathways to true greatness, countering societal norms of status.
 
-**What 'small sins' have you been tolerating that could grow into larger issues?**
+The disciples missed Jesus' presence while clinging to their positions. **When have you found yourself seeking position over experiencing presence, and what was the impact?**
 
-**Think about a temptation you face. How can you address it in a constructive way?**
+Jesus uses a child to illustrate true greatness as serving others. **Identify a recent instance where you served without seeking recognition. How did it affect you?**
 
-**In what ways has ignoring sin affected your personal or spiritual growth?**
+Recognizing and welcoming those with no status is key to Jesus' teaching. **Think of a time you welcomed someone who could offer you nothing in return. What did you learn from it?**
 
----
-
-## Staying Salty
-
-Being 'salty' as Christians means being distinctive and preserving moral integrity in a corrupt environment. Jesus encourages His followers to influence positively and remain committed without losing their core values.
-
-**In what environments do you find it hardest to maintain your Christian identity?**
-
-**How do you remain 'salty' in situations that challenge your values?**
-
-**What practices help reinforce your faith when external pressures mount?**
+Position often promises security but distracts from trust in Jesus' presence. **What current pursuit of position might be distracting you from truly trusting Jesus now?**
 
 ---
 
-## Closing and Application
+## Section 2: Handling Sin and Temptation (10-12 minutes)
 
-Each man shares one practical way to serve someone this week without expecting anything in return, noting who will encourage them in this.
+In this passage, Jesus addresses the serious nature of sin, urging His followers to deal with it directly, despite the potential difficulty. Through strong metaphors, He emphasizes that personal and communal holiness cannot be taken lightly. The hyperbolic language is meant to wake us up to the urgency of cutting sin out of our lives rather than managing or overlooking it.
 
-Invite the men to ask God to reveal areas where they need to prioritize presence over position and to give them courage to serve selflessly.
+Jesus uses harsh images to convey the seriousness of dealing with sin. **Reflect on a sin you’ve been managing instead of addressing directly. What step can you take to 'cut it off'?**
+
+Sin often disguises itself as manageable but is destructive in nature. **Where have you underestimated the impact of a 'manageable' sin in your life, and what has been the cost?**
+
+Jesus speaks about the reality of hell to emphasize the consequences of unchecked sin. **How does understanding the consequences of sin challenge you to examine your life differently?**
+
+The urgency in Jesus' message is clear: act now to address sin. **What immediate steps can you take today to remove a sin or influence that diverges you from God?**
+
+---
+
+## Section 3: True Greatness (12-15 minutes)
+
+Jesus challenges cultural norms by redefining greatness as a life of service and humility. He encourages the disciples to live for an audience of one and to find significance through their devotion to God, not through societal recognition. This section calls us to examine our ambitions, highlighting that true success lies in prioritizing God’s kingdom over earthly respect.
+
+Jesus calls us to serve with no agenda and to be humble. **In what area of your life can you serve without expectation of return this week?**
+
+Avoid being territorial as John was, recognizing and celebrating God’s work beyond personal teams. **How can you begin to shift your mindset from competition to partnership in your ministry or work environment?**
+
+Jesus suggested to stay salty as a preservative in society, retaining distinctive attributes of the kingdom. **Where is God calling you to be a distinctive preservative, influencing without watering down your faith?**
+
+Jesus redefined ambition by focusing on Godly fulfillment over personal praise. **When are you most tempted to pursue personal success over God's calling, and what can you do to shift this?**
+
+---
+
+## Closing and Application (5 minutes)
+
+Each man names one area where he will prioritize presence over position this week and one step he’ll take to ensure that.
+
+**Prayer:** Have each man pray for the man to his right, focusing on the courage to prioritize Jesus' presence. The leader will close by reading 1 Peter 1:6-7, highlighting how trials refine faith.
 
 ---
 
 ## Facilitator Cheat Sheet
 
-| If this happens | Try this |
+| Dynamic | What to do |
 | --- | --- |
-| silence | Ask someone to share how they felt about a specific point. |
-| tangents | Refocus by asking the current discussion question directly. |
-| one voice dominating | Create space by inviting someone else to share their perspective. |
-| surface answers | Encourage deeper reflection by asking 'How has this impacted your life?'. |
-| emotional moment | Acknowledge the emotion and offer a gentle question or prayer support. |
-| theological rabbit trail | Redirect to personal application by asking how it relates to day-to-day life. |
+| Silence after a deep question | Allow it to sit, then gently rephrase or redirect. |
+| Tangents | Acknowledge the point but steer back to how it relates to presence vs. position. |
+| One voice dominating | Draw in quieter members by asking directly for their thoughts. |
+| Sunday-school answers | Prompt for specific life examples or personal stories. |
+| Emotional moment | Pause the discussion, acknowledge the emotion, and ask if the speaker would like to share more. |
+| Theological rabbit trail | Re-center on practical outcomes related to personal presence over public position. |
 
 ---
 
 ## Key Themes to Reinforce
 
-- Redefining greatness
-- Serving selflessly
-- Preserving community
-- Handling sin seriously
-- Staying distinctive as believers
+*These are for you to steer by if the discussion drifts. Do not read them aloud.*
 
----
-
-*Generated from the sermon (whisper). Sermon content belongs to Traders Point Christian Church; this is a study aid, not a transcript.*
+- Presence vs. Position: Value God's presence over earthly status to find true greatness.
+- Servanthood: Serve others without expecting anything in return.
+- Sin's Deception: Recognize and address sin as a serious threat to your spiritual life.
+- Formation through Trials: See trials as God's way to refine your character.
+- Staying Salty: Maintain your distinctiveness and preserve the kingdom qualities in your environment.

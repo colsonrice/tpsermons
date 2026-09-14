@@ -1,77 +1,49 @@
 ---
-title: Marriage and Divorce: What God Wants and the Hope He Gives
+title: Marriage and Redemption
+sermon: Marriage and Divorce: What God Wants and the Hope He Gives
 date: 2026-09-06
+edition: classic
 kind: reflection
 series: The Urgent Kingdom
 passage: Mark 10
-speaker: Aaron Brockett
+preacher: Aaron Brockett, Lead Pastor
 source: whisper
 ---
 
-# Marriage and Divorce: What God Wants and the Hope He Gives
+# Marriage and Redemption
 
-The Urgent Kingdom · Mark 10 · Aaron Brockett
+*Reflection sheet*
+
+The Urgent Kingdom · Mark 10 · Aaron Brockett, Lead Pastor
 
 ---
 
-## The Design of Marriage
+## The Pharisee Trap
 
-**Where have I treated commitments lightly, and what was the result?**
+1. **When have I found myself asking questions with an agenda rather than a desire to understand?**
+2. **Where have I prioritized winning an argument over seeking truth in my relationships?**
+3. **How do I identify and address heart issues in my own life when faced with conflicts?**
+4. **Reflect on a time when I chose grace over strict rules in my interactions. What was the outcome?**
 
+## God's Vision for Marriage
 
+5. **How have my expectations of marriage been influenced by societal norms rather than God's design?**
+6. **In what ways does my current marriage or significant relationship depict the covenantal love God shows me?**
+7. **Where am I currently struggling to become 'one' with my spouse or significant other, and what's one step I can take to address it?**
+8. **Consider a time when I realigned my understanding or practice of marriage with what God intends. What prompted this change?**
 
-**In what ways does my marriage or significant relationship reflect the idea of two becoming one?**
+## Hope Beyond Brokenness
 
-
-
-**How does the notion of marriage as a covenant rather than a contract challenge my current thinking?**
-
-
-
-**What aspects of God's design for marriage have I found most challenging to live out?**
-
-
-
-## Facing the Challenges
-
-**Recall a time when societal expectations influenced my relationship choices. What did I learn?**
-
-
-
-**When have I felt tempted to walk away from a commitment, and how did I respond?**
-
-
-
-**How does cultural pressure affect my view or practice of marriage?**
-
-
-
-**What specific cultural pressures have tested the strength of my commitments recently?**
-
-
-
-## Grace and Redemption
-
-**Identify a moment when I experienced or witnessed grace in a relationship. What impact did it have?**
-
-
-
-**Where have I needed to forgive or ask for forgiveness, and what was the outcome?**
-
-
-
-**What steps can I take this week to embody grace more fully in my relationships?**
-
-
-
-**Reflect on a time when I saw reconciliation change a situation once thought hopeless. What did it teach me?**
-
-
+9. **Where in my life or family history have I seen redemption transform brokenness into hope?**
+10. **How have I experienced grace covering my failures, and what does that teach me about God's view on redemption?**
+11. **When have I witnessed a relationship mend in unexpected ways?**
+12. **Where do I need to embrace God's forgiveness in the context of broken relationships?**
+13. **Reflect on a challenging situation that required me to lean into grace. What did I learn from it?**
 
 ---
 
 ## This Week
 
-This week, address one area where you have not fully embodied grace in a relationship. Share this with someone who can hold you accountable.
+Identify one area in your marriage or relationships where you'll practice covenantal commitment, and choose a brother here to discuss it with next week.
 
-
+Put it in a note on your phone, then text it to the man who will ask you about it next week.

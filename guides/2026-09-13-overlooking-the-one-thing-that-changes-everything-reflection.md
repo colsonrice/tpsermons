@@ -1,83 +1,49 @@
 ---
-title: Overlooking the One Thing That Changes Everything
+title: The One Thing You Hold
+sermon: Overlooking the One Thing That Changes Everything
 date: 2026-09-13
+edition: classic
 kind: reflection
 series: The Urgent Kingdom
 passage: Mark 10:13-31
-speaker: Aaron Brockett
+preacher: Aaron Brockett, Lead Pastor
 source: whisper
 ---
 
-# Overlooking the One Thing That Changes Everything
+# The One Thing You Hold
 
-The Urgent Kingdom · Mark 10:13-31 · Aaron Brockett
+*Reflection sheet*
+
+The Urgent Kingdom · Mark 10:13-31 · Aaron Brockett, Lead Pastor
 
 ---
 
-## Receiving Like a Child
+## The Rich Young Ruler
 
-**Have I ever struggled to accept help because I wanted to do it all myself?**
+1. **When have I relied on accomplishments or rule-following for identity rather than my relationship with God?**
+2. **Who am I reluctant to confront truthfully due to comfort or fear of conflict?**
+3. **What have I chosen over a deeper commitment to Christ?**
+4. **When have I tried to achieve something that should have been received freely?**
+5. **What is the most difficult thing I need to let go of to follow Jesus more fully?**
 
+## Jesus' Hard Teachings
 
+6. **Where am I attempting to earn God's favor rather than relying on His grace?**
+7. **Which teachings of Jesus have I found most challenging to accept or implement in my life?**
+8. **How have I witnessed God making the impossible possible in my life?**
+9. **What does my attitude towards money reveal about my heart's priorities?**
 
-**When was my self-reliance recently challenged, and what did I learn?**
+## Surrender and Reward
 
-
-
-**When have I needed to let go of control to fully receive something valuable?**
-
-
-
-## The One Thing
-
-**Where have I settled for less because holding on seemed safer?**
-
-
-
-**What one thing today, if Jesus asked for it, would be hard for me to release?**
-
-
-
-**How have my possessions or desires shaped my identity more than my faith?**
-
-
-
-**When have I found joy in letting something go that was once precious to me?**
-
-
-
-## Possible Through God
-
-**Recall a time when I attempted the impossible. What role did faith play?**
-
-
-
-**What area in my life needs a fresh reminder that 'with God, all things are possible'?**
-
-
-
-**How can I rely on God's strength in an area I feel weak this week?**
-
-
-
-## True Surrender
-
-**Where do I find it hardest to submit to God’s lead in my life?**
-
-
-
-**What small step might I take this week to practice surrender?**
-
-
-
-**How has past surrender led to unexpected blessings in my life?**
-
-
+10. **What sacrifices have I made for my faith, and what have been the personal costs and rewards?**
+11. **Can I recall a time when giving up something for God led to unexpected blessings?**
+12. **How do I navigate the tensions between sacrifice and the persecutions that may follow?**
+13. **Where might I be clinging to status or recognition, and how can I shift those priorities?**
 
 ---
 
 ## This Week
 
-This week, identify one thing you will release to God and ask a group member to hold you accountable.
+Identify the 'one thing' to surrender this week, and commit to sharing your progress with your accountability partner, stating their name and how they'll help keep you on track.
 
-
+Put it in a note on your phone, then text it to the man who will ask you about it next week.
