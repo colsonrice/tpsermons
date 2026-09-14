@@ -18,34 +18,33 @@ The Urgent Kingdom · Mark 10 · Aaron Brockett, Lead Pastor
 
 ---
 
-## Beginning with Brokenness
+## Marriage: God’s Design
 
-1. **Where have I seen God redeem a situation that seemed hopeless?**
-2. **How have my family relationships shaped my views on marriage?**
-3. **How do I handle lingering guilt from past relationships?**
-4. **How has the pain of a past divorce affected me personally?**
+1. **How have I embraced or resisted God's design for marriage in my life?**
+2. **Where in my relationships can I improve my commitment?**
+3. **When have I felt my marriage or a close relationship under attack?**
+4. **How do I currently celebrate and cultivate joy in my marriage or key relationships?**
 
-## Understanding God's Design
+## Dealing with Hard Hearts
 
-5. **How do I view marriage differently when considering it a covenant?**
-6. **When have I chosen commitment over convenience in a relationship?**
-7. **Where have I felt cultural pressures against God's design for marriage?**
-8. **How does understanding marriage as Jesus' reflection affect my relationships?**
+5. **When have I allowed a hard heart to distance me from someone?**
+6. **Where have I used protection as an excuse to close myself off?**
+7. **Have I ever found myself trapped by cultural debates about relationships?**
+8. **How can past relationship pain inform my view of grace today?**
 
-## Grace and Redemption
+## Enduring Covenants
 
-9. **What steps have I taken to embrace grace in my life?**
-10. **Where am I most in need of Jesus' grace right now?**
-11. **Where might I be resisting alignment with God's design?**
-12. **How do I extend grace to myself and others regularly?**
-13. **When have I needed to turn from a past mistake and make amends?**
+9. **Have I approached a relationship transactionally instead of covenantally?**
+10. **When have I had to show or received unexpected grace?**
+11. **What's a relationship segment I believe is beyond repair?**
+12. **How does this understanding change my view of failure and forgiveness?**
 
 ---
 
 ## This Week
 
-Invite one friend to ask you next week about how you applied today’s discussions in your relationships.
+Identify one area of your marriage or key relationship to address this week, and commit to asking a friend for accountability in prayer.
 
 Put it in a note on your phone, then text it to the man who will ask you about it next week.
 
-*Next week the group asks: Ask each other about one specific step you took to align with God's design for relationships.*
+*Next week the group asks: Next week, ask each other what you learned from aligning your relationships with God's intentions.*

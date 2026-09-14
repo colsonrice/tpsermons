@@ -12,190 +12,190 @@
  },
  "source": "whisper",
  "mode": "classic",
- "guide_title": "Marriage and Redemption",
- "goal": "Reflect on your marriage or personal relationships, recognizing both covenantal commitments and the ways God can bring hope and healing.",
- "scripture_instructions": "Read Mark 10:1-12, pausing after verse 9 to let the significance of covenant sink in.",
+ "guide_title": "The Fragile Covenant",
+ "goal": "Men will understand God's covenantal view of marriage and find a personal step to honor it in their lives this week.",
+ "scripture_instructions": "Assign two readers: the first reads Mark 10:1-5, and the second finishes with verses 6-12. Encourage pauses at verses 5 and 12 to reflect on their weight.",
  "icebreakers": [
   {
    "label": "A",
-   "fits": "newer group with lower trust",
-   "question": "What's one family tradition you grew up with that you'd like to carry on or have carried on?",
-   "note": "Connects family dynamics to the sermon theme; safe topic for new groups."
+   "fits": "Newer groups with lower trust.",
+   "question": "What is one value you think is essential to any strong relationship?",
+   "note": "Helps the group ease into the topic by discussing relationships broadly before focusing on marriage."
   },
   {
    "label": "B",
-   "fits": "storytellers",
-   "question": "Describe an unexpected change that had a positive impact on your life.",
-   "note": "Encourages storytelling and reflection on change, linking to redemption themes."
+   "fits": "Groups that enjoy storytelling.",
+   "question": "Share about a time when you saw a relationship restored against the odds.",
+   "note": "This allows the group to recognize and celebrate real-life redemption stories, setting a hopeful tone."
   },
   {
    "label": "C",
-   "fits": "high-trust group",
-   "question": "Share a personal experience where you've seen grace bring healing.",
-   "note": "Invites vulnerability in high-trust settings, connecting to sermon themes of healing and redemption."
+   "fits": "High-trust groups.",
+   "question": "What fears do you bring into your own relationships, and where do you see God's grace in them?",
+   "note": "Encourages vulnerability and learning from God's faithfulness in personal journeys."
   }
  ],
  "sections": [
   {
-   "title": "The Pharisee Trap",
-   "setup": "In Mark 10:1-4, Pharisees attempt to trap Jesus with a question about divorce. Aaron referenced Rabbinical debates over Deuteronomy 24. Jesus redirects a trap aimed at discussing legal loopholes to a conversation about hardened hearts.",
-   "minutes": "12-15",
-   "say": "",
-   "questions": [
-    {
-     "ask": "When have you found yourself asking questions with an agenda rather than a desire to understand?",
-     "lead": "The sermon highlighted the Pharisees' loaded question, not asked in sincerity but to trap.",
-     "probe": "",
-     "star": false
-    },
-    {
-     "ask": "Where have you prioritized winning an argument over seeking truth in your relationships?",
-     "lead": "Aaron mentioned how debates were less about genuine concern and more about winning points.",
-     "probe": "",
-     "star": false
-    },
-    {
-     "ask": "How do you identify and address heart issues in your own life when faced with conflicts?",
-     "lead": "Jesus engaged the Pharisees by focusing on underlying heart issues rather than their legalistic approach.",
-     "probe": "",
-     "star": false
-    },
-    {
-     "ask": "Reflect on a time when you chose grace over strict rules in your interactions. What was the outcome?",
-     "lead": "Aaron noted that Jesus' response shifted the focus from law to grace.",
-     "probe": "",
-     "star": false
-    }
-   ],
-   "reflection_questions": [
-    "When have I found myself asking questions with an agenda rather than a desire to understand?",
-    "Where have I prioritized winning an argument over seeking truth in my relationships?",
-    "How do I identify and address heart issues in my own life when faced with conflicts?",
-    "Reflect on a time when I chose grace over strict rules in my interactions. What was the outcome?"
-   ]
-  },
-  {
-   "title": "God's Vision for Marriage",
-   "setup": "In Mark 10:5-9, Jesus points to God's original intent for marriage. Aaron emphasized that marriage is God's invention and is covenantal, not contractual. Marriage reflects the unity and commitment seen in God's relationship with us.",
-   "minutes": "12-15",
-   "say": "",
-   "questions": [
-    {
-     "ask": "How have your expectations of marriage been influenced by societal norms rather than God's design?",
-     "lead": "The sermon stated that marriage is God's idea and a covenant, not a contract.",
-     "probe": "",
-     "star": false
-    },
-    {
-     "ask": "In what ways does your current marriage or significant relationship depict the covenantal love God shows you?",
-     "lead": "Aaron pointed out that marriage reflects a deeper spiritual reality.",
-     "probe": "",
-     "star": false
-    },
-    {
-     "ask": "Where are you currently struggling to become 'one' with your spouse or significant other, and what's one step you can take to address it?",
-     "lead": "The idea of two becoming one highlights the difficulty and beauty of true unity.",
-     "probe": "",
-     "star": false
-    },
-    {
-     "ask": "Consider a time when you realigned your understanding or practice of marriage with what God intends. What prompted this change?",
-     "lead": "Jesus elevated the conversation to emphasize the divine purpose of marriage.",
-     "probe": "",
-     "star": false
-    }
-   ],
-   "reflection_questions": [
-    "How have my expectations of marriage been influenced by societal norms rather than God's design?",
-    "In what ways does my current marriage or significant relationship depict the covenantal love God shows me?",
-    "Where am I currently struggling to become 'one' with my spouse or significant other, and what's one step I can take to address it?",
-    "Consider a time when I realigned my understanding or practice of marriage with what God intends. What prompted this change?"
-   ]
-  },
-  {
-   "title": "Hope Beyond Brokenness",
-   "setup": "In Mark 10:10-12, Jesus speaks on the aftermath of divorce, touching on brokenness and redemption. Aaron shared family stories illustrating God's ability to bring beauty from ashes. This section offers hope and reassurance that grace abounds.",
+   "title": "Questioning Marriage",
+   "setup": "In Mark 10:1-5, the Pharisees question Jesus to trap Him regarding divorce. Jesus deflects with wisdom, pointing back to Moses' concessions due to hard hearts. Aaron used a family story to illustrate how broken beginnings can lead to God's redemptive work.",
    "minutes": "10-12",
    "say": "",
    "questions": [
     {
-     "ask": "Where in your life or family history have you seen redemption transform brokenness into hope?",
-     "lead": "Aaron's story of family redemption shows that God works even in brokenness.",
+     "ask": "How has your family's story shaped your view of marriage, and how have you seen God's grace in that?",
+     "lead": "Aaron shared how his family lineage, marked by marriage brokenness, still led to redemption through God's grace.",
      "probe": "",
      "star": false
     },
     {
-     "ask": "How have you experienced grace covering your failures, and what does that teach you about God's view on redemption?",
-     "lead": "Jesus acknowledges the possibility of broken covenants, yet points towards grace.",
+     "ask": "Reflect on a time someone questioned your faith or values with mixed motives. How did you handle it?",
+     "lead": "The Pharisees' question in verse 2 wasn’t sincere but was meant to trap Jesus.",
      "probe": "",
      "star": false
     },
     {
-     "ask": "When have you witnessed a relationship mend in unexpected ways?",
-     "lead": "The pain of broken relationships resonates deeply, yet redemption is offered freely.",
+     "ask": "Where have you seen hard-heartedness impact your relationships, and what steps are you taking to soften your heart?",
+     "lead": "Jesus refers back to Moses to counter the Pharisees, stating Moses allowed divorce due to hard hearts.",
      "probe": "",
      "star": false
     },
     {
-     "ask": "Where do you need to embrace God's forgiveness in the context of broken relationships?",
-     "lead": "Aaron assured us that divorce isn't the unforgivable sin; grace abounds.",
-     "probe": "",
-     "star": false
-    },
-    {
-     "ask": "Reflect on a challenging situation that required you to lean into grace. What did you learn from it?",
-     "lead": "Understanding redemption involves recognizing our need for grace.",
+     "ask": "Have you ever felt overwhelmed by relational failure?",
+     "lead": "Aaron used the story of Harry Bailey to show the reality of relational failure and grace.",
      "probe": "",
      "star": false
     }
    ],
    "reflection_questions": [
-    "Where in my life or family history have I seen redemption transform brokenness into hope?",
-    "How have I experienced grace covering my failures, and what does that teach me about God's view on redemption?",
-    "When have I witnessed a relationship mend in unexpected ways?",
-    "Where do I need to embrace God's forgiveness in the context of broken relationships?",
-    "Reflect on a challenging situation that required me to lean into grace. What did I learn from it?"
+    "How has my family's story shaped my view of marriage, and how have I seen God's grace in that?",
+    "When have I faced questions about my faith with mixed motives, and how did I respond?",
+    "Where have I seen hard-heartedness impact my relationships, and what steps am I taking to soften my heart?",
+    "Have I felt overwhelmed by relational failure, and how did I hold onto hope?"
+   ]
+  },
+  {
+   "title": "Marriage's Purpose",
+   "setup": "In verses 6-9, Jesus elevates the discussion to God’s original design for marriage, a covenant reflecting His relationship with the Church. Aaron emphasized that marriage is not a contract but a covenant designed by God. Marriage is shown as a picture of the relationship between Jesus and the Church, meant to reflect divine love.",
+   "minutes": "12-15",
+   "say": "",
+   "questions": [
+    {
+     "ask": "Where in your life do you see marriage as a covenant, not a contract, despite societal messages?",
+     "lead": "Jesus reaffirms marriage as God's creation, intended as a covenant between man and woman.",
+     "probe": "",
+     "star": false
+    },
+    {
+     "ask": "How does seeing marriage as a reflection of Christ's commitment challenge how you invest in relationships?",
+     "lead": "Aaron explained how marriage reflects Jesus's commitment to the Church.",
+     "probe": "",
+     "star": false
+    },
+    {
+     "ask": "Where have you felt spiritual opposition in your relationships, and how are you fighting it?",
+     "lead": "The sermon reminded us that Satan opposes marriages because they mirror divine commitment.",
+     "probe": "",
+     "star": false
+    },
+    {
+     "ask": "Reflect on a time you settled for less in a relationship. What did you learn about God's designs?",
+     "lead": "Aaron discussed the counterfeits Satan presents to God’s designs.",
+     "probe": "",
+     "star": false
+    },
+    {
+     "ask": "How are you nurturing oneness in your relationships, or where might you need to grow?",
+     "lead": "Emphasizing Jesus's description of becoming one flesh, making marriage a profound union.",
+     "probe": "",
+     "star": false
+    }
+   ],
+   "reflection_questions": [
+    "Where do I see marriage as a covenant, not a contract, despite societal messages?",
+    "How does seeing marriage as a reflection of Christ's commitment challenge how I invest in relationships?",
+    "Where have I felt spiritual opposition in my relationships, and how am I fighting it?",
+    "Reflect on a time I settled for less in a relationship. What did I learn about God's designs?",
+    "How am I nurturing oneness in my relationships, or where might I need to grow?"
+   ]
+  },
+  {
+   "title": "Hope for the Broken",
+   "setup": "In verses 10-12, Jesus speaks about the sanctity of marriage, acknowledging forgiveness and grace for past failures. Aaron noted that God can bring redemption even from relational ashes. This reflects His grace and purpose to restore. Jesus's words highlight marriage's sacredness while offering redemption.",
+   "minutes": "12-15",
+   "say": "",
+   "questions": [
+    {
+     "ask": "What past failures haunt you, and where do you need to see God's grace bringing redemption?",
+     "lead": "Jesus acknowledges the seriousness of divorce but extends grace to broken pasts.",
+     "probe": "",
+     "star": false
+    },
+    {
+     "ask": "Have you experienced God's grace rewriting your story, and what impact has that had on your relationships?",
+     "lead": "Aaron shared how grace transformed his family's broken history.",
+     "probe": "",
+     "star": false
+    },
+    {
+     "ask": "How can you uphold the value of marriage in your current or future relationships despite cultural pressures?",
+     "lead": "Grace doesn't nullify marriage's sacredness but upholds its value.",
+     "probe": "",
+     "star": false
+    },
+    {
+     "ask": "Where are you currently struggling to see hope, and how does Jesus's example challenge that view?",
+     "lead": "Reflecting on Jesus's immense grace, which offers hope for every situation.",
+     "probe": "",
+     "star": false
+    }
+   ],
+   "reflection_questions": [
+    "What past failures haunt me, and where do I need to see God's grace bringing redemption?",
+    "Have I experienced God's grace rewriting my story, and what impact has that had on my relationships?",
+    "How can I uphold the value of marriage in my current or future relationships despite cultural pressures?",
+    "Where am I currently struggling to see hope, and how does Jesus's example challenge that view?"
    ]
   }
  ],
- "closing_go_around": "Name the point that resonated most and one specific action you will take this week to live out the covenant you have or wish to build.",
- "prayer": "Each man prays one sentence for the man next to him, focusing on seeking God's guidance in relationship commitments, and close with the prayer for mutual support as found in Ephesians 5:31-32.",
+ "closing_go_around": "Share the point or phrase that stood out the most for you and one specific step you will take this week to honor God's covenantal view of marriage.",
+ "prayer": "Each man prays for the man on his left, focusing on courage to take the step he mentioned, and the leader will close by reading Matthew 19:4-6, reinforcing the commitment to God's original design.",
  "cheat_sheet": [
   {
-   "dynamic": "Silence after hard question",
-   "response": "Give it a moment, then ask the group about a time when a silence spoke volumes in their own lives."
+   "dynamic": "Silence after a hard question.",
+   "response": "Rephrase the question in a personal way to prompt reflection."
   },
   {
-   "dynamic": "Tangents",
-   "response": "Gently steer back by asking how the current story connects to personal application."
+   "dynamic": "Tangents about cultural marriage myths.",
+   "response": "Acknowledge the myth, then bring it back to God's design as mentioned in the sermon."
   },
   {
-   "dynamic": "One voice dominating",
-   "response": "Redirect by inviting others to share how the topic personally affects them."
+   "dynamic": "One voice dominating.",
+   "response": "Specifically ask quieter group members to share their thoughts."
   },
   {
-   "dynamic": "Surface answers",
-   "response": "Ask follow-up questions that dig into real-life situations or examples."
+   "dynamic": "Surface or Sunday-school answers.",
+   "response": "Probe deeper by asking, 'What does that look like in your life this week?'."
   },
   {
-   "dynamic": "Emotional moment",
-   "response": "Acknowledge the emotion and ask the group how it relates to their own experiences."
+   "dynamic": "An emotional moment.",
+   "response": "Allow space for the emotion, then gently steer to how God offers restoration and grace."
   }
  ],
  "key_themes": [
-  "Covenantal Marriage: Understanding marriage as intended by God as a covenant.",
-  "Pharisee Debate: Recognizing when questions come with an agenda.",
-  "Redemption and Hope: Seeing potential for healing through grace.",
-  "God's Original Intent: Focus on God's design instead of societal norms.",
-  "Personal Application: Turning biblical teachings into real-life actions."
+  "Covenantal marriage: Marriage is a covenant, reflecting God's unwavering commitment to us.",
+  "Redemption: God's grace can transform even the most broken relationships.",
+  "Spiritual opposition: Awareness of how relationship attacks are a tactic to undermine God's design.",
+  "Biblical grounds for divorce: Understanding biblical allowances while emphasizing reconciliation.",
+  "Reflecting Christ: Marriage as a tangible representation of Christ's love for the Church."
  ],
- "commitment_prompt": "Identify one area in your marriage or relationships where you'll practice covenantal commitment, and choose a brother here to discuss it with next week.",
+ "commitment_prompt": "Identify one step you'll take this week to strengthen your covenantal commitment, and name the man you'll ask to keep you accountable.",
  "leader_notes": [
-  "Aaron Brockett opened with a story about his ancestors, Harry and Nellie. Their broken marriage, filled with betrayal and regret, eventually led to redemption and transformation through grace. This narrative sets the groundwork for understanding how God can bring beauty from ashes, emphasizing hope amidst seeming finality. Sharing his family's past not only builds a bridge to the topic but personalizes the abstract concepts in the text.",
-  "In Mark 10, the Pharisees attempt to trap Jesus into a legalistic debate about divorce, pressing for a simple 'yes' or 'no' answer. Instead, Jesus reframes the discussion from a legal perspective to a heart condition one, pointing out that Moses made concessions due to hard hearts, not as encouragement for divorce. Jesus then elevates the conversation to God's original intention for marriage, quoting from Genesis, demonstrating how He turns traps into teaching moments, focusing on grace over law.",
-  "Tonight’s thesis is simple yet profound: 'Marriage is God's covenant, not man's contract.' Jesus' rebuke of the Pharisees and elevation of marriage shows this clearly. The guide follows Jesus’ structure by moving through our attempts to escape commitment, understanding marriage's divine design, and embracing grace amidst brokenness. This spine will guide our discussions, bringing clarity to personal applications.",
-  "The group comprises capable men who often default to practical or polished answers when discussing hard topics like marriage and divorce. This conversation drills into the need for authentic reflection, moving beyond automatic responses. Particularly in the fourth and third sections, where questions dissect personal shortcomings and the nature of commitment, is where real growth emerges. This guide expects honest engagement and vulnerable admissions.",
-  "Sensitivity is necessary as first, many carry wounds from past divorces or parental splits, so the guide leaves room for grace without delving into painful specifics. Second, it avoids equating divorce with unforgivable sin, tethering everything to redemptive possibilities. Third, should any private struggle surface, guide them to pastoral support trained to handle deeper marital concerns with wisdom and discretion, ensuring no one faces such challenges alone."
+  "The opening story of Aaron Brockett’s own family background sets a relatable stage for discussing marriage and divorce. Aaron traced back through the generations of his family, beginning with his great-grandparents, who experienced betrayal and painful separation. Despite the heartache, God's redeeming work was evident over time, reshaping brokenness into testimony. This underscores the sermon's premise that no situation is beyond the reach of God’s grace. When sharing this example, emphasize how God works endlessly to redeem the broken parts of our stories.",
+  "The passage in Mark 10 reveals a sharp exchange between Jesus and the Pharisees designed to trap Him with questions about divorce. Jesus responds not with a direct answer but by elevating the conversation to consider God's original intent for marriage. He highlights the concept of marriage as a union where two become one, intricately connected. Aaron pointed out that Jesus’s wisdom reframes what could have been a doctrinal debate into a reflection of divine truth. This interchange reminds us that answers are not found in legalistic interpretations but in understanding God's heart for relationships.",
+  "Aaron’s key thesis for the sermon was that marriage is inherently a covenant, a sacred bond that reflects God’s unwavering faithfulness to us. His outline articulated three critical points: marriage as God's creation, as a divine reflection, and an institution under spiritual attack. The guide walks through these layers, with each section encouraging men to see where they align their personal experiences with divine intention. Keeping the thesis clear is vital for discussion, as it pushes past superficial understanding into deeper, personal reflection.",
+  "Given the nature of this group, composed of confident, self-managed men, it can be tempting to default to tried-and-true answers. However, this is precisely where the guide challenges each participant. The section on covenantal marriage demands honesty and real-life application, creating no space for theoretical debate. Notably, the material around the sanctity and struggle of living out marriage is where the real work of this discussion will occur. Invest time in wrestling with the concept of spiritual attacks on marriage, which might resonate with many.",
+  "Pastoral sensitivities are essential here, especially in discussing divorce, as it can trigger raw emotions tied to personal pain. First, be conscientious about those who might be sensitive to the topic of marital breakdown, aware that it could bring to the surface unresolved feelings or guilt. Second, recognize that some participants may be in the midst of relational challenges and are looking for hope. Third, offer a compassionate reminder that, while the discussion is sincere, there is space for grace and discretion, not every experience needs to be shared openly. Invite privacy for those who seek prayer or guidance separately."
  ],
  "thesis": "",
  "outline": [],

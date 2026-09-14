@@ -13,199 +13,192 @@
  "source": "whisper",
  "mode": "new",
  "guide_title": "Marriage and Redemption",
- "goal": "Facilitate honest conversations about how God redeems broken relationships, including marriage.",
- "scripture_instructions": "Have one person read Mark 10:1-12 aloud, then pause for quiet reflection before discussion starts.",
+ "goal": "Explore how God's design for marriage offers hope and redemption, even amidst brokenness.",
+ "scripture_instructions": "Read Mark 10:1-12 aloud together, then reflect silently before discussing.",
  "icebreakers": [
   {
    "label": "A",
    "fits": "newer group",
-   "question": "What did you want to be when you grew up?",
-   "note": "Use this to break the ice and build rapport."
+   "question": "What's a memorable or funny wedding moment you've experienced?",
+   "note": "Light-hearted stories break the ice in newer groups."
   },
   {
    "label": "B",
    "fits": "storytellers",
-   "question": "Describe a memorable wedding you've attended.",
-   "note": "This connects personal experiences with the topic."
+   "question": "Have you ever attended a wedding that felt especially significant or different?",
+   "note": "Encourages storytelling and deeper sharing."
   },
   {
    "label": "C",
    "fits": "high-trust group",
-   "question": "Share a challenging relationship moment and what it taught you.",
-   "note": "Encourages vulnerability and sets the tone for deeper discussion."
+   "question": "What's one lesson about relationships you've learned over time?",
+   "note": "Draws out personal growth and change in familiar groups."
   }
  ],
  "sections": [
   {
-   "title": "Beginning with Brokenness",
-   "setup": "The story of Harry and Nellie illustrates how God can bring beauty from the ashes of past mistakes. This sets the stage for understanding the redemptive power of God in our relationships.",
+   "title": "Marriage: God’s Design",
+   "setup": "Jesus responds to the Pharisees' question by emphasizing God’s original design for marriage, citing Genesis. He highlights marriage as a union created by God, beyond human redefinition. This counters the culture's casual view on divorce.",
    "minutes": "",
-   "say": "Let’s start by acknowledging that marriage can be messy and redemption stories remind us that God works in brokenness.",
+   "say": "Let's begin by looking at Jesus' teaching on marriage as God's original idea and intent.",
    "questions": [
     {
-     "ask": "Where have you seen God redeem a situation that seemed hopeless?",
-     "lead": "Harry's story shows redemption happens beyond initial failures.",
-     "probe": "What specific action can you take to invite God into your broken places?",
+     "ask": "How have you embraced or resisted God's design for marriage in your life?",
+     "lead": "Jesus affirms that marriage is God’s idea, designed for life.",
+     "probe": "What specific changes could align your life more closely with this view?",
      "star": true
     },
     {
-     "ask": "How have your family relationships shaped your views on marriage?",
-     "lead": "Aaron shared his own family history marked by broken marriages.",
-     "probe": "What beliefs from your upbringing still influence you today?",
+     "ask": "Where in your relationships can you improve your commitment?",
+     "lead": "Marriage is a picture of Jesus' covenant with the church.",
+     "probe": "What needs to change to reflect a covenantal approach with someone in your life?",
      "star": false
     },
     {
-     "ask": "How do you handle lingering guilt from past relationship failures?",
-     "lead": "Divorce often leaves scars, but is not the unforgivable sin, according to Aaron.",
-     "probe": "What steps can you take this week toward accepting grace in those areas?",
+     "ask": "When have you felt your marriage or a close relationship under attack?",
+     "lead": "Anything God creates, Satan counterfeits, aiming to distort marriage.",
+     "probe": "How did you respond, and what might you do differently next time?",
      "star": false
     },
     {
-     "ask": "How has the pain of a past divorce or separation affected you personally?",
-     "lead": "The sermon illustrated that God hates divorce but loves the people involved.",
-     "probe": "What forgiveness have you sought or should you offer?",
+     "ask": "How do you currently celebrate and cultivate joy in your marriage or key relationships?",
+     "lead": "Jesus points to marriage as a celebration of covenantal joy.",
+     "probe": "What's one thing you could do this week to nurture this joy?",
      "star": false
     }
    ],
    "reflection_questions": [
-    "Where have I seen God redeem a situation that seemed hopeless?",
-    "How have my family relationships shaped my views on marriage?",
-    "How do I handle lingering guilt from past relationships?",
-    "How has the pain of a past divorce affected me personally?"
+    "How have I embraced or resisted God's design for marriage in my life?",
+    "Where in my relationships can I improve my commitment?",
+    "When have I felt my marriage or a close relationship under attack?",
+    "How do I currently celebrate and cultivate joy in my marriage or key relationships?"
    ]
   },
   {
-   "title": "Understanding God's Design",
-   "setup": "In discussing marriage, Jesus emphasized unity and covenant, not just the legality of divorce. God’s design is about lifelong commitment and reflection of His love.",
+   "title": "Dealing with Hard Hearts",
+   "setup": "Jesus discusses divorce as a concession due to hard hearts, not God’s ideal. He stresses protection, especially for vulnerable parties. Divorce wasn't the original intent, but it illustrates human failure.",
    "minutes": "",
-   "say": "Jesus pointed to God's original intent for marriage, unity and covenant.",
+   "say": "Next, we’ll look at why Jesus mentions divorce as a concession and how it relates to hardened hearts.",
    "questions": [
     {
-     "ask": "How do you view marriage differently when you consider it a covenant, not a contract?",
-     "lead": "Jesus elevated the conversation to God's original intent for marriage.",
-     "probe": "What's one change you need to make to reflect this view in your own relationship?",
+     "ask": "When have you allowed a hard heart to distance you from someone?",
+     "lead": "Jesus mentions divorce as a concession due to hard hearts.",
+     "probe": "What specific step can you take this week to soften your heart towards them?",
      "star": true
     },
     {
-     "ask": "When did you have to choose commitment over convenience in a relationship?",
-     "lead": "Covenant relationships involve deeper commitment and sacrifice than contracts.",
-     "probe": "How does that choice impact your relationship with God or others today?",
+     "ask": "Where have you used protection as an excuse to close yourself off?",
+     "lead": "Divorce is permitted to protect, not punish; it's not commanded.",
+     "probe": "How can genuine protection look different from avoidance in your life?",
      "star": false
     },
     {
-     "ask": "Where have you felt cultural pressures against God's design for marriage?",
-     "lead": "The true purpose of marriage is often challenged in today's culture.",
-     "probe": "How can you guard your relationship against these influences?",
+     "ask": "Have you ever found yourself trapped by cultural debates about relationships?",
+     "lead": "The Pharisees sought to trap Jesus with divisive questions.",
+     "probe": "How can you focus on God’s truth rather than societal pressures?",
      "star": false
     },
     {
-     "ask": "How does understanding marriage in this way affect your current or future relationships?",
-     "lead": "Marriage was described as a reflection of Jesus' relationship with the church.",
-     "probe": "In what situation can you better model this relationship?",
+     "ask": "How can past relationship pain inform your view of grace today?",
+     "lead": "God hates divorce but loves the divorced. He seeks healing and restoration.",
+     "probe": "What's one step towards healing you could take this week?",
      "star": false
     }
    ],
    "reflection_questions": [
-    "How do I view marriage differently when considering it a covenant?",
-    "When have I chosen commitment over convenience in a relationship?",
-    "Where have I felt cultural pressures against God's design for marriage?",
-    "How does understanding marriage as Jesus' reflection affect my relationships?"
+    "When have I allowed a hard heart to distance me from someone?",
+    "Where have I used protection as an excuse to close myself off?",
+    "Have I ever found myself trapped by cultural debates about relationships?",
+    "How can past relationship pain inform my view of grace today?"
    ]
   },
   {
-   "title": "Grace and Redemption",
-   "setup": "Aaron reminded us that God's grace is abundant, even after relationship failures, and He offers redemption and hope for everyone.",
+   "title": "Enduring Covenants",
+   "setup": "Jesus contrasts marriage as a covenant, not a contract. It's unbreakable and rooted in mutual commitment and love, reflecting God’s enduring relationship with His people.",
    "minutes": "",
-   "say": "Grace allows for second chances. Jesus' interaction with the woman at the well illustrates this redemption.",
+   "say": "Finally, let's explore what enduring in covenant looks like, even amidst struggle.",
    "questions": [
     {
-     "ask": "What steps have you taken to embrace grace in your own life?",
-     "lead": "God offers grace and redemption no matter the past.",
-     "probe": "What's the next step you need to take in accepting grace?",
+     "ask": "Have you approached a relationship transactionally instead of covenantally?",
+     "lead": "Marriage is a covenant, not a contract; a mutual commitment based on relationship.",
+     "probe": "What shift can you make to reflect a covenant approach?",
      "star": true
     },
     {
-     "ask": "Where are you most in need of Jesus' redeeming grace right now?",
-     "lead": "The woman at the well encountered grace despite her marital history.",
-     "probe": "How can you actively seek that grace this week?",
+     "ask": "When have you had to show or received unexpected grace?",
+     "lead": "The biblical story of Hosea illustrates unconditional commitment.",
+     "probe": "How did it feel, and how did God reveal Himself through it?",
      "star": false
     },
     {
-     "ask": "Where might you be resisting aligning your life with God's design for relationships?",
-     "lead": "Jesus calls us to respond to His grace by aligning our lives with God's Word.",
-     "probe": "What's one specific change you can commit to making?",
+     "ask": "What's a relationship segment you believe is beyond repair?",
+     "lead": "Divorce is the result of sin, yet redemption remains possible.",
+     "probe": "What's one action of hope you can take regardless of your doubts?",
      "star": false
     },
     {
-     "ask": "How do you extend grace and forgiveness to yourself and others regularly?",
-     "lead": "Living in God's grace means embodying forgiveness and surrender.",
-     "probe": "Who in your life needs more grace from you?",
-     "star": false
-    },
-    {
-     "ask": "When have you experienced the need to turn from a past mistake and make amends?",
-     "lead": "Recognition of past mistakes calls for a response of repentance and action.",
-     "probe": "What immediate steps can you take to address any unresolved issues?",
+     "ask": "How does this understanding change your view of failure and forgiveness?",
+     "lead": "Jesus' covenant with us is not based on contracts but love.",
+     "probe": "What can you do this week to express forgiveness in a real way?",
      "star": false
     }
    ],
    "reflection_questions": [
-    "What steps have I taken to embrace grace in my life?",
-    "Where am I most in need of Jesus' grace right now?",
-    "Where might I be resisting alignment with God's design?",
-    "How do I extend grace to myself and others regularly?",
-    "When have I needed to turn from a past mistake and make amends?"
+    "Have I approached a relationship transactionally instead of covenantally?",
+    "When have I had to show or received unexpected grace?",
+    "What's a relationship segment I believe is beyond repair?",
+    "How does this understanding change my view of failure and forgiveness?"
    ]
   }
  ],
- "closing_go_around": "Share one way you're inviting God to work in your relationships this week.",
- "prayer": "Pray for strength to approach relationships with grace and for God to redeem the areas that need healing.",
+ "closing_go_around": "What is one tangible way you can honor God's design for marriage in your life this week?",
+ "prayer": "Pray for softened hearts, courage to confront sin, and strength to uphold covenant commitments.",
  "cheat_sheet": [
   {
-   "dynamic": "Someone shares past relationship pain.",
-   "response": "Affirm their vulnerability and discuss how God's grace operates in our brokenness."
+   "dynamic": "Defensive reactions to tough questions.",
+   "response": "Acknowledge their feelings, redirect to personal experiences rather than ideological debates."
   },
   {
-   "dynamic": "A question about cultural pressures.",
-   "response": "Facilitate a discussion about strategies to guard against negative influences."
+   "dynamic": "Men sharing past relationship regrets.",
+   "response": "Emphasize grace and steps towards redemption, not dwelling on past mistakes."
   },
   {
-   "dynamic": "Struggling with guilt and shame.",
-   "response": "Redistribute the focus to Jesus' offer of grace and forgiveness."
+   "dynamic": "Quiet participants.",
+   "response": "Invite them with personal, low-pressure questions. Encourage sharing at their comfort level."
   },
   {
-   "dynamic": "Talk turns to doctrine over personal stories.",
-   "response": "Redirect to personal application and lived experiences."
+   "dynamic": "Someone feels overwhelmed by the topic.",
+   "response": "Offer affirmation of God's grace and hope, invite them to listen without pressure to share."
   },
   {
-   "dynamic": "Questions on divorce validity.",
-   "response": "Steer back to the broader theme of grace and redemption."
+   "dynamic": "High emotion when discussing divorce.",
+   "response": "Allow space for expression, remind the group of God’s compassion and love for the broken."
   }
  ],
  "key_themes": [
-  "Marriage as a covenant, not a contract.",
-  "God’s redemptive power in relationships.",
-  "Understanding biblical grounds for divorce.",
-  "Overcoming religious contracts with covenant faith.",
-  "Counterintuitive approach to relationship challenges."
+  "Marriage is God's design, not man's.",
+  "Divorce is a concession to hard hearts.",
+  "Marriage reflects the covenant between Jesus and the Church.",
+  "Covenant, not contract, defines lasting relationships.",
+  "God's grace can redeem broken relationships.",
+  "Protecting the vulnerable in marriage is key.",
+  "The importance of humility and forgiveness in relationships."
  ],
- "commitment_prompt": "Invite one friend to ask you next week about how you applied today’s discussions in your relationships.",
+ "commitment_prompt": "Identify one area of your marriage or key relationship to address this week, and commit to asking a friend for accountability in prayer.",
  "leader_notes": [],
- "thesis": "Marriage is God's covenant, not a contract, and He provides hope and redemption in our brokenness.",
+ "thesis": "Jesus teaches that marriage is a divine covenant and not a mere human contract, reflecting God's relationship with us.",
  "outline": [
-  "Introduction with Harry's story",
-  "Jesus on marriage and divorce",
-  "God's original intent for marriage",
-  "Grace and redemption in relationships"
+  "Divorce as a concession to hard hearts",
+  "Marriage as God’s original design",
+  "The covenant nature of marriage"
  ],
  "sensitivities": [
-  "Divorce can be a painful subject; approach with empathy.",
-  "Some may feel guilt or shame about past relationships.",
-  "Not all may agree on biblical grounds for divorce."
+  "Be mindful of discussing divorce in a room with those who may have experienced it.",
+  "Approach cohabitation conversations with grace; some may be sensitive."
  ],
  "read_refs": [
-  "Mark 10:1-12"
+  "Mark 10:6-9"
  ],
- "obstacle": "What usually keeps you from acting in grace and humility towards others?",
- "carry": "Ask each other about one specific step you took to align with God's design for relationships."
+ "obstacle": "Get honest: What is the one thing that might stop you from addressing the heart issue identified this week?",
+ "carry": "Next week, ask each other what you learned from aligning your relationships with God's intentions."
 }

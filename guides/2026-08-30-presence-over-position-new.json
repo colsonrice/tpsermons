@@ -12,193 +12,194 @@
  },
  "source": "whisper",
  "mode": "new",
- "guide_title": "Presence Over Position: Navigating Leadership and Humility",
- "goal": "Challenge men to prioritize presence with God over ambition for Earthly positions, integrating lessons from journeying through life's 'Badlands'.",
- "scripture_instructions": "Choose one or two men to read Mark 9:30-50 aloud. Let the group absorb the call to servant leadership and enduring faithfulness before discussion.",
+ "guide_title": "Presence Over Position",
+ "goal": "Shift focus from seeking positions of power to embracing the power of presence with God and others.",
+ "scripture_instructions": "Read Mark 9:33-37 in pairs for reflection. Then read Mark 9:42-48 as a group, focusing on its implications for personal growth.",
  "icebreakers": [
   {
    "label": "A",
    "fits": "newer group",
-   "question": "What was your first big leadership moment?",
-   "note": "Get everyone comfortable sharing."
+   "question": "What's a surprising fact about your name or family history?",
+   "note": "A conversation starter for group bonding."
   },
   {
    "label": "B",
    "fits": "storytellers",
-   "question": "Tell us about a time when you thought you were in control but realized you weren't.",
-   "note": "Aim to spark relatable stories."
+   "question": "Think of a time you felt truly served by someone else. How did it impact you?",
+   "note": "Connects personally with the act of serving."
   },
   {
    "label": "C",
    "fits": "high-trust group",
-   "question": "What's a 'Badlands' season you've navigated, and what did it teach you?",
-   "note": "Prompts deeper, honest sharing."
+   "question": "Share a moment when you wished for more power or recognition.",
+   "note": "Encourages vulnerability in sharing personal ambition."
   }
  ],
  "sections": [
   {
-   "title": "Serve Without Agenda",
-   "setup": "In Mark 9, Jesus challenges His disciples' debates over greatness by placing a child, a symbol of humility and service, before them. Recognizing true greatness requires a redirection of ambition from self-serving to serving others.",
+   "title": "Serve Without an Agenda",
+   "setup": "Jesus emphasized serving others without seeking personal gain. He used a child, who can't repay, as the perfect illustration. Serving should be without expectation of return.",
    "minutes": "",
-   "say": "Jesus doesn't just compete for positions of power, he flips the script, calling us to serve without expectations.",
+   "say": "Let's talk about what it means to serve without looking for return or recognition.",
    "questions": [
     {
-     "ask": "Who in your life defines your concept of service without agenda?",
-     "lead": "Jesus used a child to illustrate ultimate humility and service.",
-     "probe": "How have they changed your approach to serving others?",
+     "ask": "When was the last time you gave or served without expecting anything in return?",
+     "lead": "Jesus highlighted serving with no expectation of return.",
+     "probe": "What did you feel at that moment, and was it different from serving with an agenda?",
      "star": true
     },
     {
-     "ask": "When have you chosen a less visible role and found it fulfilling?",
-     "lead": "Our culture often equates greatness with visibility.",
-     "probe": "What made the experience rewarding given low visibility?",
+     "ask": "Recall a time you chose to seek another's success over your own. How did it change you?",
+     "lead": "Being positioned last embraces countercultural service.",
+     "probe": "What did this reveal about your motives?",
      "star": false
     },
     {
-     "ask": "How do you treat people who hold no power over you?",
-     "lead": "A child in Jesus’ time had no legal standing.",
-     "probe": "What changes could you make to value them more intentionally?",
+     "ask": "Identify an area in your life where you resist being last. How can you change this?",
+     "lead": "The call to embrace serving others.",
+     "probe": "How does fear of losing position feed into this?",
      "star": false
     },
     {
-     "ask": "Where do you still find yourself expecting something in return?",
-     "lead": "The preacher noted those sacrificial actions without expectation.",
-     "probe": "What changes in your heart when things are given freely?",
+     "ask": "How can you transform personal ambition into godly ambition in everyday life?",
+     "lead": "Ambition redirected towards godly goals.",
+     "probe": "What is one ambition you can redirect this week?",
      "star": false
     }
    ],
    "reflection_questions": [
-    "Who in my life defines my concept of service without agenda?",
-    "When have I chosen a less visible role and found it fulfilling?",
-    "How do I treat people who hold no power over me?",
-    "Where do I still find myself expecting something in return?"
+    "When have I served without expecting anything in return?",
+    "How have I chosen others' successes over my own?",
+    "What area in my life resists being last?",
+    "How can I transform personal ambition into godly ambition?"
    ]
   },
   {
-   "title": "Surrender the Impulse to be Territorial",
-   "setup": "The sermon outlined territorial behavior that limits God's work. Jesus rebukes the disciples for trying to control who can operate in His name, indicating a call for unity and cooperation within the church.",
+   "title": "Surrender Territorial Impulses",
+   "setup": "Jesus spoke against being territorial, highlighting unity over division. He wants us to work in harmony, even across differences, without competing or claiming exclusive rights.",
    "minutes": "",
-   "say": "The disciples tried to shut down others who weren't in their 'group'. Jesus corrected them, pointing toward a broader kingdom vision.",
+   "say": "Now we'll consider the challenge of letting go of our need to control and dominate spaces.",
    "questions": [
     {
-     "ask": "When have you put up walls around your faith?",
-     "lead": "John wanted to stop others from using Jesus' name.",
-     "probe": "What drove you to guard rather than share your faith?",
+     "ask": "When have you felt threatened by someone crossing into your territory at work or home?",
+     "lead": "Jesus encouraged unity over division.",
+     "probe": "What did you do with those feelings?",
+     "star": false
+    },
+    {
+     "ask": "Think of a time when cooperation yielded better results than competition. How did it alter your approach?",
+     "lead": "Territorial thinking can divide us.",
+     "probe": "What was your biggest learning from that experience?",
      "star": true
     },
     {
-     "ask": "Where are you holding control that needs release?",
-     "lead": "Territorial attitudes limit our vision of God’s work.",
-     "probe": "What patterns do you notice when you're protective?",
+     "ask": "How do you typically respond to someone with a different approach or belief system?",
+     "lead": "Unity beyond our comfort zones.",
+     "probe": "Where does this response need to change?",
      "star": false
     },
     {
-     "ask": "Have you experienced unity bringing a breakthrough?",
-     "lead": "Jesus emphasized working together in unity.",
-     "probe": "What changed when you chose unity over division?",
-     "star": false
-    },
-    {
-     "ask": "When have you experienced jealousy over someone else's role?",
-     "lead": "The disciples feared losing their position.",
-     "probe": "What was the underlying fear or insecurity?",
+     "ask": "Reflect on a past incident where you guarded your group's 'insider' status. What motivated this?",
+     "lead": "John's defensive reaction to outsiders.",
+     "probe": "What would Jesus say to you about this boundary?",
      "star": false
     }
    ],
    "reflection_questions": [
-    "When have I put up walls around my faith?",
-    "Where am I holding control that needs release?",
-    "Have I experienced unity bringing a breakthrough?",
-    "When have I experienced jealousy over someone else's role?"
+    "When have I felt threatened by territorial encroachment?",
+    "How have I benefited from choosing cooperation?",
+    "How do I respond to those with different beliefs?",
+    "What motivates me to guard my group's insider status?"
    ]
   },
   {
-   "title": "Avoid Sin, Stay Salty",
-   "setup": "Through hyperbolic language, Jesus illustrates the drastic measures sometimes necessary to avoid sin, emphasizing personal integrity and a life that influences others imperatively and positively.",
+   "title": "Stop Tolerating Sin",
+   "setup": "Jesus uses stark imagery to convey the urgent need to deal with sin radically. He warns against complacency and emphasizes the severe consequences of unchecked sin, urging us towards purity.",
    "minutes": "",
-   "say": "Jesus calls us to purity and impact, avoiding sin but seasoning life with godly characteristics.",
+   "say": "Let's dig into the weighty matter of sin and how Jesus calls us to cut it off at the root.",
    "questions": [
     {
-     "ask": "Where are you tolerating a sin that needs to be addressed?",
-     "lead": "Cutting off sin is about drastic measures for purity.",
-     "probe": "What is the first small step you can take towards change?",
+     "ask": "What sin or bad habit have you been managing instead of removing?",
+     "lead": "Radical action against sin is necessary.",
+     "probe": "How does this management affect your spiritual life?",
+     "star": false
+    },
+    {
+     "ask": "Can you remember a slip into sin that seemed minor but escalated?",
+     "lead": "Sin always introduces itself as harmless.",
+     "probe": "What changes might prevent a repeat?",
      "star": true
     },
     {
-     "ask": "How have you maintained or lost your Christian influence?",
-     "lead": "Jesus warned of losing saltiness, meaning influence.",
-     "probe": "What factors helped you stay or lose effectiveness as salt during life's challenges?",
+     "ask": "Identify something in your life that might be a spiritual threat. How will you address it?",
+     "lead": "Sin's lurking danger beneath the surface.",
+     "probe": "What first step can you take this week to address it?",
      "star": false
     },
     {
-     "ask": "What prevents you from being a preservative in difficult environments?",
-     "lead": "Salt preserves, not just flavors our actions in society.",
-     "probe": "How can you lean more into showing up as a godly influence?",
-     "star": false
-    },
-    {
-     "ask": "When have you ignored a warning and faced consequences?",
-     "lead": "Jesus talked about avoiding anything that leads us astray.",
-     "probe": "How could awareness lead to a better response in the future?",
+     "ask": "Reflect on an area where you've compromised morality. How will you repent and redirect now?",
+     "lead": "The metaphor of cutting off sin highlights its seriousness.",
+     "probe": "What's the smallest step towards repentance you can make in the next few days?",
      "star": false
     }
    ],
    "reflection_questions": [
-    "Where am I tolerating a sin that needs to be addressed?",
-    "How have I maintained or lost my Christian influence?",
-    "What prevents me from being a preservative in difficult environments?",
-    "When have I ignored a warning and faced consequences?"
+    "What sin have I been managing instead of removing?",
+    "When have I slipped into seemingly minor sin, and what was the outcome?",
+    "What might be a spiritual threat I'm ignoring?",
+    "Where have I compromised morality and how will I redirect?"
    ]
   }
  ],
- "closing_go_around": "Go around and share one small action you’ll take this week to realign with God’s call to serve, unite, or be a positive influence.",
- "prayer": "Invite the group to pray for openness to find rest in God’s presence beyond the desire for strong positions or influences and trust in His timing.",
+ "closing_go_around": "Think of one way you'll prioritize presence over position this week. Let's go around and share our intentions.",
+ "prayer": "Pray for courage to serve selflessly and for the strength to overcome personal sin. Ask for open hearts towards community and unity.",
  "cheat_sheet": [
   {
-   "dynamic": "A man seems defensive.",
-   "response": "Gently remind that not all issues are about personal failure; sometimes it's about letting God work."
+   "dynamic": "Resentment toward others' success",
+   "response": "Affirm their achievements and reflect on your unique contributions."
   },
   {
-   "dynamic": "A story dominates sharing time.",
-   "response": "Thank them for their story, then guide to a related discussion question."
+   "dynamic": "Feeling territorial",
+   "response": "Pause and pray for humility and collaboration."
   },
   {
-   "dynamic": "Someone is silent.",
-   "response": "Invite them directly with a light variation of one question. Engage personally without pressure."
+   "dynamic": "Struggling with secret sin",
+   "response": "Confide in a trusted friend for support and accountability."
   },
   {
-   "dynamic": "Conversation drifts to theory.",
-   "response": "Guide back with a specific action ask linked to the sermon applications."
+   "dynamic": "Prioritizing position over presence",
+   "response": "Spend three minutes in silence, inviting God's presence."
   },
   {
-   "dynamic": "Someone is emotional.",
-   "response": "Let them share, affirm their openness, then pray for them if the moment is right."
+   "dynamic": "Self-doubt in one's spiritual journey",
+   "response": "Recall a recent moment of God's faithfulness in your life."
   }
  ],
  "key_themes": [
-  "Emphasize presence over position in our spiritual journey.",
-  "Genuine greatness is found in serving others selflessly.",
-  "Territorial impulses limit God's work; embrace unity.",
-  "Avoid sin passionately, illustrated through decisive, corrective action.",
-  "Live with kingdom influence, be salty and distinctive as Christ commands.",
-  "Personal and spiritual formation is prioritized over situation resolution.",
-  "Heeding the transformative lessons in life’s challenging 'Badlands'."
+  "Serving without seeking gain leads to true greatness.",
+  "God calls us to unity and collaboration, not division.",
+  "Unchecked sin poses a severe threat to spiritual health.",
+  "Jesus wants us to remove sin radically.",
+  "Presence with God holds more weight than worldly position."
  ],
- "commitment_prompt": "Pick one area you’ll trust God more with this week: serving, letting go of control, or purifying your actions, and share it with a partner.",
+ "commitment_prompt": "Prioritize one small act of service this week, and ask your accountability partner to follow up.",
  "leader_notes": [],
- "thesis": "God is more interested in the long-term formation of your soul than the short-term resolution of your circumstances.",
+ "thesis": "Jesus showed that true greatness comes from serving without seeking power, and embracing challenges as part of personal formation.",
  "outline": [
-  "Serve Without Agenda",
-  "Surrender Impulse for Territory",
-  "Avoid Sin and be Salty"
+  "Serve without an agenda",
+  "Surrender the impulse to be territorial",
+  "Stop tolerating your sin",
+  "Stay salty"
  ],
  "sensitivities": [
-  "Discussing badlands experiences may recall difficult personal trials for some men.",
-  "Emphasizing sin could trigger guilt or avoidance."
+  "Discussing personal sin may be sensitive; emphasize grace.",
+  "Position changes may be raw for those in career transitions.",
+  "Encourage reflection not competition on personal achievements."
  ],
  "read_refs": [
-  "Mark 9:30-50"
+  "Mark 9:33-37",
+  "Mark 9:42-48"
  ],
- "obstacle": "Get honest about the control you might lose and fear when letting go of certain positions or habits.",
- "carry": "Next week, ask each other how the steps toward being salt and light went and what adjustments are ongoing."
+ "obstacle": "Get honest about the comfort in routine over the discomfort of change initiated by faith.",
+ "carry": "Next week, ask someone how they noticed God's presence through their service."
 }

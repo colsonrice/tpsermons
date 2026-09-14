@@ -1,5 +1,5 @@
 ---
-title: One Thing That Changes Everything
+title: The One Thing Left
 sermon: Overlooking the One Thing That Changes Everything
 date: 2026-09-13
 edition: new
@@ -10,7 +10,7 @@ preacher: Aaron Brockett, Lead Pastor
 source: whisper
 ---
 
-# One Thing That Changes Everything
+# The One Thing Left
 
 Overlooking the One Thing That Changes Everything · Mark 10:13-31 · Aaron Brockett, Lead Pastor
 
@@ -19,125 +19,125 @@ Overlooking the One Thing That Changes Everything · Mark 10:13-31 · Aaron Broc
 ## Tonight
 
 1. Read and icebreaker
-2. The Rich Young Ruler
-3. Jesus' Challenge and Love
-4. The Call to Surrender
+2. Childlike Reception
+3. Encountering the Rich Young Ruler
+4. True Discipleship
 5. Get honest
 6. Go around and pray
 
 ## Know Before You Walk In
 
-By the end, men commit to identifying and surrendering their 'one thing' to Christ.
+Challenge each man to identify and surrender an idol that competes with Jesus in his life.
 
-> Overlooking the one thing that could change everything is costly.
+> Jesus is the rich ruler who gave up everything; will we surrender what holds us back from Him?
 
-1. The Rich Young Ruler
-2. Jesus' Challenge and Love
-3. The Call to Surrender
+1. Encounter with children highlights receptiveness
+2. Conversation with rich young ruler reveals heart issue
+3. Commandments challenge self-righteousness
+4. True discipleship demands full surrender
 
 **Handle with care:**
 
-- Discussing wealth may touch on personal financial struggles.
-- Encourage openness about personal idols.
+- Discussing personal idols may bring up vulnerability or past hurts.
+- Financial security concerns could be tender for those with history of loss.
 
 ## Open
 
-**Read:** Mark 10:13-31
+**Read:** Mark 10:17-22 · Mark 10:28-31
 
-Ask one person to read Mark 10:13-22 and another to read verses 23-31. Pause briefly after each to let it settle.
+Read Mark 10:17-22 aloud, pausing after 22. Then read Mark 10:28-31. Let the initial reactions land before diving into questions.
 
-**A (newer group):** Share the most extravagant or unusual gift you've ever received. *Light-hearted way to introduce giving and receiving.*
+**A (newer group):** What's something trivial you refused to give away as a kid? *Helps break the ice with humor and familiarity.*
 
-**B (storytellers):** When have you had to give up something big to gain something important? *Encourages storytelling and personal connection.*
+**B (storytellers):** Share a time you missed an opportunity by holding on too tight. *Encourages sharing life experiences and lessons learned.*
 
-**C (high-trust group):** What's one possession you can't imagine giving up? *Pushes men to honesty about attachment.*
+**C (high-trust group):** What's one thing you wouldn't want to give up today? *Targets deeper reflection and vulnerability.*
 
-## The Rich Young Ruler
+## Childlike Reception
 
-**Say:** Let's start by looking at the rich young ruler, a man who ran to Jesus but couldn't commit fully.
+**Say:** The disciples missed a key point: the kingdom of God belongs to those who receive it like children.
 
-The ruler ran to Jesus seeking assurance of eternal life. **What drove you to your last encounter with God asking for assurance?**
+Jesus said the kingdom belongs to the childlike. **When did you approach faith with the receptiveness of a child?** *(must ask)*
 
-*Follow up:* Is there a recurring insecurity driving your requests?
+*Follow up:* What let you drop your guard and openly receive?
 
-Despite his wealth, the ruler lacked something crucial. **What is your 'one thing' you fear would break you if lost?** *(must ask)*
+Receiving implies letting go of control. **Where in your life do you insist on achieving rather than receiving?**
 
-*Follow up:* When did you first realize this could be your 'one thing'?
+*Follow up:* What would it cost you to release control in that area?
 
-Jesus loved the ruler enough to tell him hard truths. **Who last told hard truth to you because they love you?**
+Childlike faith is marked by trust, not by commandment-keeping. **When have you defaulted to checklists of faith rather than trust?**
 
-*Follow up:* How did you initially react, and what have you done since?
+*Follow up:* What does it protect you from confronting in yourself?
 
-The ruler wanted an achievement-based answer from Jesus. **When have you mistaken action for assurance in your spiritual life?**
+The story of the children's blessing highlights contrasts with material worries. **Where does the adult world's pressure rob you of simple trust?**
 
-*Follow up:* How did you recognize the difference?
+*Follow up:* What fear keeps you clinging to complexity over simplicity?
 
-## Jesus' Challenge and Love
+## Encountering the Rich Young Ruler
 
-**Say:** Jesus presented both challenge and love to the ruler, showing genuine concern for his soul above all else.
+**Say:** Jesus' conversation with the rich young ruler uncovers what's below his good intentions.
 
-The kingdom of God is to be received, like a child. **What aspect of your faith do you still approach as if you need to achieve something?** *(must ask)*
+The ruler wanted eternal life without letting go. **What's the one possession or value you won't release for Jesus?** *(must ask)*
 
-*Follow up:* How does this affect your view of God's grace?
+*Follow up:* What deeper fear or identity depends on it?
 
-Jesus proposed a radical step to the ruler. **Has God ever asked you to take a step that seemed too big at the time?**
+Jesus loved the young man but asked hard things. **Who tells you the hard truths out of love today?**
 
-*Follow up:* How did you rationalize any resistance?
+*Follow up:* What are you avoiding by ignoring their counsel?
 
-The young ruler left saddened by Jesus' request. **When have you walked away from a challenge with God, and did you revisit the decision?**
+The man's sorrow marked deep attachment to wealth. **When did a pursuit of security leave you unsatisfied?**
 
-*Follow up:* What emotion surrounded your decision at that time?
+*Follow up:* What does that pattern continue to cost you in relationships or faith?
 
-Jesus extends love even while challenging the ruler. **Who in your life do you find difficult to lovingly challenge, and why?**
+The rich young ruler walked away sad, unable to part with his wealth. **How have you responded when a pursuit fell short of offering fulfillment?**
 
-*Follow up:* What would make it easier to have that conversation?
+*Follow up:* What did it expose about your priorities or fears?
 
-## The Call to Surrender
+## True Discipleship
 
-**Say:** Surrendering fully to God means letting go of our functional saviors, those false securities we cling to.
+**Say:** Jesus doesn't want your money; He wants your heart surrendered to Him.
 
-To follow Christ is to surrender completely. **What's one area you hesitate to let Christ rule?** *(must ask)*
+Jesus challenged rich man's perceived self-sufficiency. **How do you secure your sense of self-worth outside of God?** *(must ask)*
 
-*Follow up:* What's at stake for you in this area?
+*Follow up:* Where do you turn when those things fail you?
 
-Faithful, consistent generosity can break idolatry. **How do you practice generosity in a way that stretches you?**
+The disciples sought clarity on salvation beyond wealth. **What belief about church or faith subtly competes with reliance on Jesus?**
 
-*Follow up:* Does your current approach truly challenge your comfort?
+*Follow up:* When did it subtly limit your spiritual growth or outreach?
 
-Attachment to possessions can rightly orient our hearts. **What possession or status do you sense God challenging you to hold loosely now?**
+Jesus removed the ruler's escape route to reliance on wealth. **What's one comfort you hold back from surrendering to Jesus?**
 
-*Follow up:* What would holding it loosely change in your life?
+*Follow up:* How does keeping it preserve an illusion of control?
 
-Jesus challenges us to question our securities. **What securities in your life do you prioritize over your relationship with God?**
+Jesus made eternal wealth available through His poverty and sacrifice. **Where can embracing sacrificial generosity reshape your view of security?**
 
-*Follow up:* What patterns emerge when these are threatened?
+*Follow up:* Where will retraining trust in God's provision first test your comfort?
 
 ## Get Honest
 
-**What makes you guard your 'one thing' even from God's touch this week?**
+**What idol or fear holds you tight when you think of surrendering completely to Jesus this week?**
 
 ## Go Around and Pray
 
-Let's each share one thing we're choosing to hold more loosely this week.
+Name the hardest thing you could let go of but want to this week. How will you start?
 
-**Pray:** Ask God to reveal and help you release the 'one thing' that you tend to hold too tightly.
+**Pray:** Pray for courage to release idols, to embrace trust like a child this week, and for any hidden fear to be replaced with God's provision.
 
-**Next week we ask:** Next week, ask each other about the 'one thing' you committed to let go.
+**Next week we ask:** By next week, ask how the week's surrender attempt went, and what God revealed through it.
 
 ## If the Room...
 
-- **Someone is quiet about a personal 'one thing'.:** Ask if there's anything they feel called to share, no pressure, just openness.
-- **Discussion sways to financial status as defining success.:** Recenter around what Jesus defines as true riches: relationship with Him.
-- **Someone justifies holding onto a possession tightly.:** Gently ask what peace those possessions actually bring compared to God.
-- **A participant minimizes their role in God's kingdom.:** Affirm their unique place in the church community, noting their gifts.
-- **A man doubts any significant change from surrender.:** Share a story of transformation through surrender and God's faithfulness.
+- **A man deflects with humor.:** Gently redirect back to his initial response or story.
+- **Someone gets anxious about finances.:** Validate their feelings, and remind them Jesus didn’t ask for the man’s money per se, it's about heart gestured trust.
+- **A participant stays silent in group repeatedly.:** Pair up: invite him for a one-on-one check-in post-group to see if something's blocking sharing.
+- **Distraction with childlike reception theme.:** Reframe: ask how seeing something as a child would change a real-life approach today.
+- **Intellectualizes without applying personally.:** Ask him to think of a specific life example or decision impacted by topic.
+- **Challenges on personal financial views.:** Guide to wider focus on where trust lies: wealth isn’t the only idol.
 
 ## Steer By
 
-- Surrender over achievement.
-- Faith as a gift, not an accomplishment.
-- True wealth is counted in God's kingdom.
-- Attachment vs. discipleship.
-- Generosity breaks the hold of idolatry.
-- Jesus' love in truth-telling.
-- The challenge of comfort zones.
+- True security is in Jesus, not possessions.
+- Kingdom invitation comes with personal surrender.
+- Idols creep in unnoticed through good things.
+- Receiving over achievement defines real faith.
+- Jesus exposed identity sources deeper than religious checklist.

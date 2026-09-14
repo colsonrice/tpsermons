@@ -1,5 +1,5 @@
 ---
-title: Presence Over Position: Navigating Leadership and Humility
+title: Presence Over Position
 sermon: Presence Over Position
 date: 2026-08-30
 edition: new
@@ -9,7 +9,7 @@ passage: Mark 9:30-50
 source: whisper
 ---
 
-# Presence Over Position: Navigating Leadership and Humility
+# Presence Over Position
 
 Presence Over Position · Mark 9:30-50
 
@@ -18,125 +18,125 @@ Presence Over Position · Mark 9:30-50
 ## Tonight
 
 1. Read and icebreaker
-2. Serve Without Agenda
-3. Surrender the Impulse to be Territorial
-4. Avoid Sin, Stay Salty
+2. Serve Without an Agenda
+3. Surrender Territorial Impulses
+4. Stop Tolerating Sin
 5. Get honest
 6. Go around and pray
 
 ## Know Before You Walk In
 
-Challenge men to prioritize presence with God over ambition for Earthly positions, integrating lessons from journeying through life's 'Badlands'.
+Shift focus from seeking positions of power to embracing the power of presence with God and others.
 
-> God is more interested in the long-term formation of your soul than the short-term resolution of your circumstances.
+> Jesus showed that true greatness comes from serving without seeking power, and embracing challenges as part of personal formation.
 
-1. Serve Without Agenda
-2. Surrender Impulse for Territory
-3. Avoid Sin and be Salty
+1. Serve without an agenda
+2. Surrender the impulse to be territorial
+3. Stop tolerating your sin
+4. Stay salty
 
 **Handle with care:**
 
-- Discussing badlands experiences may recall difficult personal trials for some men.
-- Emphasizing sin could trigger guilt or avoidance.
+- Discussing personal sin may be sensitive; emphasize grace.
+- Position changes may be raw for those in career transitions.
+- Encourage reflection not competition on personal achievements.
 
 ## Open
 
-**Read:** Mark 9:30-50
+**Read:** Mark 9:33-37 · Mark 9:42-48
 
-Choose one or two men to read Mark 9:30-50 aloud. Let the group absorb the call to servant leadership and enduring faithfulness before discussion.
+Read Mark 9:33-37 in pairs for reflection. Then read Mark 9:42-48 as a group, focusing on its implications for personal growth.
 
-**A (newer group):** What was your first big leadership moment? *Get everyone comfortable sharing.*
+**A (newer group):** What's a surprising fact about your name or family history? *A conversation starter for group bonding.*
 
-**B (storytellers):** Tell us about a time when you thought you were in control but realized you weren't. *Aim to spark relatable stories.*
+**B (storytellers):** Think of a time you felt truly served by someone else. How did it impact you? *Connects personally with the act of serving.*
 
-**C (high-trust group):** What's a 'Badlands' season you've navigated, and what did it teach you? *Prompts deeper, honest sharing.*
+**C (high-trust group):** Share a moment when you wished for more power or recognition. *Encourages vulnerability in sharing personal ambition.*
 
-## Serve Without Agenda
+## Serve Without an Agenda
 
-**Say:** Jesus doesn't just compete for positions of power, he flips the script, calling us to serve without expectations.
+**Say:** Let's talk about what it means to serve without looking for return or recognition.
 
-Jesus used a child to illustrate ultimate humility and service. **Who in your life defines your concept of service without agenda?** *(must ask)*
+Jesus highlighted serving with no expectation of return. **When was the last time you gave or served without expecting anything in return?** *(must ask)*
 
-*Follow up:* How have they changed your approach to serving others?
+*Follow up:* What did you feel at that moment, and was it different from serving with an agenda?
 
-Our culture often equates greatness with visibility. **When have you chosen a less visible role and found it fulfilling?**
+Being positioned last embraces countercultural service. **Recall a time you chose to seek another's success over your own. How did it change you?**
 
-*Follow up:* What made the experience rewarding given low visibility?
+*Follow up:* What did this reveal about your motives?
 
-A child in Jesus’ time had no legal standing. **How do you treat people who hold no power over you?**
+The call to embrace serving others. **Identify an area in your life where you resist being last. How can you change this?**
 
-*Follow up:* What changes could you make to value them more intentionally?
+*Follow up:* How does fear of losing position feed into this?
 
-The preacher noted those sacrificial actions without expectation. **Where do you still find yourself expecting something in return?**
+Ambition redirected towards godly goals. **How can you transform personal ambition into godly ambition in everyday life?**
 
-*Follow up:* What changes in your heart when things are given freely?
+*Follow up:* What is one ambition you can redirect this week?
 
-## Surrender the Impulse to be Territorial
+## Surrender Territorial Impulses
 
-**Say:** The disciples tried to shut down others who weren't in their 'group'. Jesus corrected them, pointing toward a broader kingdom vision.
+**Say:** Now we'll consider the challenge of letting go of our need to control and dominate spaces.
 
-John wanted to stop others from using Jesus' name. **When have you put up walls around your faith?** *(must ask)*
+Jesus encouraged unity over division. **When have you felt threatened by someone crossing into your territory at work or home?**
 
-*Follow up:* What drove you to guard rather than share your faith?
+*Follow up:* What did you do with those feelings?
 
-Territorial attitudes limit our vision of God’s work. **Where are you holding control that needs release?**
+Territorial thinking can divide us. **Think of a time when cooperation yielded better results than competition. How did it alter your approach?** *(must ask)*
 
-*Follow up:* What patterns do you notice when you're protective?
+*Follow up:* What was your biggest learning from that experience?
 
-Jesus emphasized working together in unity. **Have you experienced unity bringing a breakthrough?**
+Unity beyond our comfort zones. **How do you typically respond to someone with a different approach or belief system?**
 
-*Follow up:* What changed when you chose unity over division?
+*Follow up:* Where does this response need to change?
 
-The disciples feared losing their position. **When have you experienced jealousy over someone else's role?**
+John's defensive reaction to outsiders. **Reflect on a past incident where you guarded your group's 'insider' status. What motivated this?**
 
-*Follow up:* What was the underlying fear or insecurity?
+*Follow up:* What would Jesus say to you about this boundary?
 
-## Avoid Sin, Stay Salty
+## Stop Tolerating Sin
 
-**Say:** Jesus calls us to purity and impact, avoiding sin but seasoning life with godly characteristics.
+**Say:** Let's dig into the weighty matter of sin and how Jesus calls us to cut it off at the root.
 
-Cutting off sin is about drastic measures for purity. **Where are you tolerating a sin that needs to be addressed?** *(must ask)*
+Radical action against sin is necessary. **What sin or bad habit have you been managing instead of removing?**
 
-*Follow up:* What is the first small step you can take towards change?
+*Follow up:* How does this management affect your spiritual life?
 
-Jesus warned of losing saltiness, meaning influence. **How have you maintained or lost your Christian influence?**
+Sin always introduces itself as harmless. **Can you remember a slip into sin that seemed minor but escalated?** *(must ask)*
 
-*Follow up:* What factors helped you stay or lose effectiveness as salt during life's challenges?
+*Follow up:* What changes might prevent a repeat?
 
-Salt preserves, not just flavors our actions in society. **What prevents you from being a preservative in difficult environments?**
+Sin's lurking danger beneath the surface. **Identify something in your life that might be a spiritual threat. How will you address it?**
 
-*Follow up:* How can you lean more into showing up as a godly influence?
+*Follow up:* What first step can you take this week to address it?
 
-Jesus talked about avoiding anything that leads us astray. **When have you ignored a warning and faced consequences?**
+The metaphor of cutting off sin highlights its seriousness. **Reflect on an area where you've compromised morality. How will you repent and redirect now?**
 
-*Follow up:* How could awareness lead to a better response in the future?
+*Follow up:* What's the smallest step towards repentance you can make in the next few days?
 
 ## Get Honest
 
-**Get honest about the control you might lose and fear when letting go of certain positions or habits.**
+**Get honest about the comfort in routine over the discomfort of change initiated by faith.**
 
 ## Go Around and Pray
 
-Go around and share one small action you’ll take this week to realign with God’s call to serve, unite, or be a positive influence.
+Think of one way you'll prioritize presence over position this week. Let's go around and share our intentions.
 
-**Pray:** Invite the group to pray for openness to find rest in God’s presence beyond the desire for strong positions or influences and trust in His timing.
+**Pray:** Pray for courage to serve selflessly and for the strength to overcome personal sin. Ask for open hearts towards community and unity.
 
-**Next week we ask:** Next week, ask each other how the steps toward being salt and light went and what adjustments are ongoing.
+**Next week we ask:** Next week, ask someone how they noticed God's presence through their service.
 
 ## If the Room...
 
-- **A man seems defensive.:** Gently remind that not all issues are about personal failure; sometimes it's about letting God work.
-- **A story dominates sharing time.:** Thank them for their story, then guide to a related discussion question.
-- **Someone is silent.:** Invite them directly with a light variation of one question. Engage personally without pressure.
-- **Conversation drifts to theory.:** Guide back with a specific action ask linked to the sermon applications.
-- **Someone is emotional.:** Let them share, affirm their openness, then pray for them if the moment is right.
+- **Resentment toward others' success:** Affirm their achievements and reflect on your unique contributions.
+- **Feeling territorial:** Pause and pray for humility and collaboration.
+- **Struggling with secret sin:** Confide in a trusted friend for support and accountability.
+- **Prioritizing position over presence:** Spend three minutes in silence, inviting God's presence.
+- **Self-doubt in one's spiritual journey:** Recall a recent moment of God's faithfulness in your life.
 
 ## Steer By
 
-- Emphasize presence over position in our spiritual journey.
-- Genuine greatness is found in serving others selflessly.
-- Territorial impulses limit God's work; embrace unity.
-- Avoid sin passionately, illustrated through decisive, corrective action.
-- Live with kingdom influence, be salty and distinctive as Christ commands.
-- Personal and spiritual formation is prioritized over situation resolution.
-- Heeding the transformative lessons in life’s challenging 'Badlands'.
+- Serving without seeking gain leads to true greatness.
+- God calls us to unity and collaboration, not division.
+- Unchecked sin poses a severe threat to spiritual health.
+- Jesus wants us to remove sin radically.
+- Presence with God holds more weight than worldly position.

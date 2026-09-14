@@ -1,5 +1,5 @@
 ---
-title: One Thing That Changes Everything
+title: The One Thing Left
 sermon: Overlooking the One Thing That Changes Everything
 date: 2026-09-13
 edition: new
@@ -10,7 +10,7 @@ preacher: Aaron Brockett, Lead Pastor
 source: whisper
 ---
 
-# One Thing That Changes Everything
+# The One Thing Left
 
 *Reflection sheet*
 
@@ -18,33 +18,33 @@ The Urgent Kingdom · Mark 10:13-31 · Aaron Brockett, Lead Pastor
 
 ---
 
-## The Rich Young Ruler
+## Childlike Reception
 
-1. **What drove me to my last encounter with God seeking assurance?**
-2. **What is my 'one thing' I fear losing?**
-3. **Who last told me hard truth out of love?**
-4. **When have I mistaken action for assurance in my faith journey?**
+1. **When have I approached faith with childlike receptiveness?**
+2. **Where do I insist on achieving rather than receiving?**
+3. **When have I defaulted to checklists of faith rather than trust?**
+4. **Where does the adult world's pressure rob me of simple trust?**
 
-## Jesus' Challenge and Love
+## Encountering the Rich Young Ruler
 
-5. **What aspect of my faith do I still try to achieve?**
-6. **Has God ever asked me for a seemingly impossible step?**
-7. **When have I walked away from a God challenge?**
-8. **Who do I find difficult to lovingly challenge, and why?**
+5. **What's the one possession or value I won't release for Jesus?**
+6. **Who tells me the hard truths out of love today?**
+7. **When did a pursuit of security leave me unsatisfied?**
+8. **How have I responded when a pursuit fell short of offering fulfillment?**
 
-## The Call to Surrender
+## True Discipleship
 
-9. **What area do I hesitate to let Christ rule?**
-10. **How do I practice generosity that stretches me?**
-11. **What possession or status do I feel challenged to hold loosely?**
-12. **What securities do I prioritize over my relationship with God?**
+9. **How do I secure my sense of self-worth outside of God?**
+10. **What belief about church or faith subtly competes with reliance on Jesus?**
+11. **What's one comfort I hold back from surrendering to Jesus?**
+12. **Where can embracing sacrificial generosity reshape my view of security?**
 
 ---
 
 ## This Week
 
-This week, identify your 'one thing' and choose to open your grips on it, sharing with a trusted friend.
+Identify and release one thing to Jesus' control this week and come prepared to discuss next time.
 
 Put it in a note on your phone, then text it to the man who will ask you about it next week.
 
-*Next week the group asks: Next week, ask each other about the 'one thing' you committed to let go.*
+*Next week the group asks: By next week, ask how the week's surrender attempt went, and what God revealed through it.*

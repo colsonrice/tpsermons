@@ -12,193 +12,197 @@
  },
  "source": "whisper",
  "mode": "new",
- "guide_title": "One Thing That Changes Everything",
- "goal": "By the end, men commit to identifying and surrendering their 'one thing' to Christ.",
- "scripture_instructions": "Ask one person to read Mark 10:13-22 and another to read verses 23-31. Pause briefly after each to let it settle.",
+ "guide_title": "The One Thing Left",
+ "goal": "Challenge each man to identify and surrender an idol that competes with Jesus in his life.",
+ "scripture_instructions": "Read Mark 10:17-22 aloud, pausing after 22. Then read Mark 10:28-31. Let the initial reactions land before diving into questions.",
  "icebreakers": [
   {
    "label": "A",
    "fits": "newer group",
-   "question": "Share the most extravagant or unusual gift you've ever received.",
-   "note": "Light-hearted way to introduce giving and receiving."
+   "question": "What's something trivial you refused to give away as a kid?",
+   "note": "Helps break the ice with humor and familiarity."
   },
   {
    "label": "B",
    "fits": "storytellers",
-   "question": "When have you had to give up something big to gain something important?",
-   "note": "Encourages storytelling and personal connection."
+   "question": "Share a time you missed an opportunity by holding on too tight.",
+   "note": "Encourages sharing life experiences and lessons learned."
   },
   {
    "label": "C",
    "fits": "high-trust group",
-   "question": "What's one possession you can't imagine giving up?",
-   "note": "Pushes men to honesty about attachment."
+   "question": "What's one thing you wouldn't want to give up today?",
+   "note": "Targets deeper reflection and vulnerability."
   }
  ],
  "sections": [
   {
-   "title": "The Rich Young Ruler",
-   "setup": "The rich young ruler approached Jesus, seeking eternal life, but had a glaring attachment. He was successful yet couldn't part with his wealth, revealing the one thing he held above all. Jesus loved him enough to tell him what he didn't want to hear.",
+   "title": "Childlike Reception",
+   "setup": "Jesus challenges the disciples to embrace childlike faith, emphasizing a posture of receiving rather than achieving. Children epitomize trust and dependence, traits often lost in adulthood as self-sufficiency builds.",
    "minutes": "",
-   "say": "Let's start by looking at the rich young ruler, a man who ran to Jesus but couldn't commit fully.",
+   "say": "The disciples missed a key point: the kingdom of God belongs to those who receive it like children.",
    "questions": [
     {
-     "ask": "What drove you to your last encounter with God asking for assurance?",
-     "lead": "The ruler ran to Jesus seeking assurance of eternal life.",
-     "probe": "Is there a recurring insecurity driving your requests?",
-     "star": false
-    },
-    {
-     "ask": "What is your 'one thing' you fear would break you if lost?",
-     "lead": "Despite his wealth, the ruler lacked something crucial.",
-     "probe": "When did you first realize this could be your 'one thing'?",
+     "ask": "When did you approach faith with the receptiveness of a child?",
+     "lead": "Jesus said the kingdom belongs to the childlike.",
+     "probe": "What let you drop your guard and openly receive?",
      "star": true
     },
     {
-     "ask": "Who last told hard truth to you because they love you?",
-     "lead": "Jesus loved the ruler enough to tell him hard truths.",
-     "probe": "How did you initially react, and what have you done since?",
+     "ask": "Where in your life do you insist on achieving rather than receiving?",
+     "lead": "Receiving implies letting go of control.",
+     "probe": "What would it cost you to release control in that area?",
      "star": false
     },
     {
-     "ask": "When have you mistaken action for assurance in your spiritual life?",
-     "lead": "The ruler wanted an achievement-based answer from Jesus.",
-     "probe": "How did you recognize the difference?",
+     "ask": "When have you defaulted to checklists of faith rather than trust?",
+     "lead": "Childlike faith is marked by trust, not by commandment-keeping.",
+     "probe": "What does it protect you from confronting in yourself?",
+     "star": false
+    },
+    {
+     "ask": "Where does the adult world's pressure rob you of simple trust?",
+     "lead": "The story of the children's blessing highlights contrasts with material worries.",
+     "probe": "What fear keeps you clinging to complexity over simplicity?",
      "star": false
     }
    ],
    "reflection_questions": [
-    "What drove me to my last encounter with God seeking assurance?",
-    "What is my 'one thing' I fear losing?",
-    "Who last told me hard truth out of love?",
-    "When have I mistaken action for assurance in my faith journey?"
+    "When have I approached faith with childlike receptiveness?",
+    "Where do I insist on achieving rather than receiving?",
+    "When have I defaulted to checklists of faith rather than trust?",
+    "Where does the adult world's pressure rob me of simple trust?"
    ]
   },
   {
-   "title": "Jesus' Challenge and Love",
-   "setup": "Jesus noted that the kingdom is a gift to be received, not achieved. Yet, he laid a direct challenge before the ruler that was too costly in the young man's eyes. His possessions held him more than he held them.",
+   "title": "Encountering the Rich Young Ruler",
+   "setup": "The rich young ruler sought eternal life, confident in his moral achievements. But Jesus knew his heart, pressing him on possessions being a stumbling block to real discipleship. We see our struggle: sincere intentions divided by deeper idols.",
    "minutes": "",
-   "say": "Jesus presented both challenge and love to the ruler, showing genuine concern for his soul above all else.",
+   "say": "Jesus' conversation with the rich young ruler uncovers what's below his good intentions.",
    "questions": [
     {
-     "ask": "What aspect of your faith do you still approach as if you need to achieve something?",
-     "lead": "The kingdom of God is to be received, like a child.",
-     "probe": "How does this affect your view of God's grace?",
+     "ask": "What's the one possession or value you won't release for Jesus?",
+     "lead": "The ruler wanted eternal life without letting go.",
+     "probe": "What deeper fear or identity depends on it?",
      "star": true
     },
     {
-     "ask": "Has God ever asked you to take a step that seemed too big at the time?",
-     "lead": "Jesus proposed a radical step to the ruler.",
-     "probe": "How did you rationalize any resistance?",
+     "ask": "Who tells you the hard truths out of love today?",
+     "lead": "Jesus loved the young man but asked hard things.",
+     "probe": "What are you avoiding by ignoring their counsel?",
      "star": false
     },
     {
-     "ask": "When have you walked away from a challenge with God, and did you revisit the decision?",
-     "lead": "The young ruler left saddened by Jesus' request.",
-     "probe": "What emotion surrounded your decision at that time?",
+     "ask": "When did a pursuit of security leave you unsatisfied?",
+     "lead": "The man's sorrow marked deep attachment to wealth.",
+     "probe": "What does that pattern continue to cost you in relationships or faith?",
      "star": false
     },
     {
-     "ask": "Who in your life do you find difficult to lovingly challenge, and why?",
-     "lead": "Jesus extends love even while challenging the ruler.",
-     "probe": "What would make it easier to have that conversation?",
+     "ask": "How have you responded when a pursuit fell short of offering fulfillment?",
+     "lead": "The rich young ruler walked away sad, unable to part with his wealth.",
+     "probe": "What did it expose about your priorities or fears?",
      "star": false
     }
    ],
    "reflection_questions": [
-    "What aspect of my faith do I still try to achieve?",
-    "Has God ever asked me for a seemingly impossible step?",
-    "When have I walked away from a God challenge?",
-    "Who do I find difficult to lovingly challenge, and why?"
+    "What's the one possession or value I won't release for Jesus?",
+    "Who tells me the hard truths out of love today?",
+    "When did a pursuit of security leave me unsatisfied?",
+    "How have I responded when a pursuit fell short of offering fulfillment?"
    ]
   },
   {
-   "title": "The Call to Surrender",
-   "setup": "Jesus invites us to let go of what we've made ultimate, surrender, and trust him as our true provider. Our attachments can blind us to God's greater purpose, but surrender leads to true freedom.",
+   "title": "True Discipleship",
+   "setup": "True discipleship challenges us to recognize and let go of idols, anything overvalued above God. Jesus, our ultimate example, gave all for us. Identifying idols demands honest reflection on what competes for our hearts.",
    "minutes": "",
-   "say": "Surrendering fully to God means letting go of our functional saviors, those false securities we cling to.",
+   "say": "Jesus doesn't want your money; He wants your heart surrendered to Him.",
    "questions": [
     {
-     "ask": "What's one area you hesitate to let Christ rule?",
-     "lead": "To follow Christ is to surrender completely.",
-     "probe": "What's at stake for you in this area?",
+     "ask": "How do you secure your sense of self-worth outside of God?",
+     "lead": "Jesus challenged rich man's perceived self-sufficiency.",
+     "probe": "Where do you turn when those things fail you?",
      "star": true
     },
     {
-     "ask": "How do you practice generosity in a way that stretches you?",
-     "lead": "Faithful, consistent generosity can break idolatry.",
-     "probe": "Does your current approach truly challenge your comfort?",
+     "ask": "What belief about church or faith subtly competes with reliance on Jesus?",
+     "lead": "The disciples sought clarity on salvation beyond wealth.",
+     "probe": "When did it subtly limit your spiritual growth or outreach?",
      "star": false
     },
     {
-     "ask": "What possession or status do you sense God challenging you to hold loosely now?",
-     "lead": "Attachment to possessions can rightly orient our hearts.",
-     "probe": "What would holding it loosely change in your life?",
+     "ask": "What's one comfort you hold back from surrendering to Jesus?",
+     "lead": "Jesus removed the ruler's escape route to reliance on wealth.",
+     "probe": "How does keeping it preserve an illusion of control?",
      "star": false
     },
     {
-     "ask": "What securities in your life do you prioritize over your relationship with God?",
-     "lead": "Jesus challenges us to question our securities.",
-     "probe": "What patterns emerge when these are threatened?",
+     "ask": "Where can embracing sacrificial generosity reshape your view of security?",
+     "lead": "Jesus made eternal wealth available through His poverty and sacrifice.",
+     "probe": "Where will retraining trust in God's provision first test your comfort?",
      "star": false
     }
    ],
    "reflection_questions": [
-    "What area do I hesitate to let Christ rule?",
-    "How do I practice generosity that stretches me?",
-    "What possession or status do I feel challenged to hold loosely?",
-    "What securities do I prioritize over my relationship with God?"
+    "How do I secure my sense of self-worth outside of God?",
+    "What belief about church or faith subtly competes with reliance on Jesus?",
+    "What's one comfort I hold back from surrendering to Jesus?",
+    "Where can embracing sacrificial generosity reshape my view of security?"
    ]
   }
  ],
- "closing_go_around": "Let's each share one thing we're choosing to hold more loosely this week.",
- "prayer": "Ask God to reveal and help you release the 'one thing' that you tend to hold too tightly.",
+ "closing_go_around": "Name the hardest thing you could let go of but want to this week. How will you start?",
+ "prayer": "Pray for courage to release idols, to embrace trust like a child this week, and for any hidden fear to be replaced with God's provision.",
  "cheat_sheet": [
   {
-   "dynamic": "Someone is quiet about a personal 'one thing'.",
-   "response": "Ask if there's anything they feel called to share, no pressure, just openness."
+   "dynamic": "A man deflects with humor.",
+   "response": "Gently redirect back to his initial response or story."
   },
   {
-   "dynamic": "Discussion sways to financial status as defining success.",
-   "response": "Recenter around what Jesus defines as true riches: relationship with Him."
+   "dynamic": "Someone gets anxious about finances.",
+   "response": "Validate their feelings, and remind them Jesus didn’t ask for the man’s money per se, it's about heart gestured trust."
   },
   {
-   "dynamic": "Someone justifies holding onto a possession tightly.",
-   "response": "Gently ask what peace those possessions actually bring compared to God."
+   "dynamic": "A participant stays silent in group repeatedly.",
+   "response": "Pair up: invite him for a one-on-one check-in post-group to see if something's blocking sharing."
   },
   {
-   "dynamic": "A participant minimizes their role in God's kingdom.",
-   "response": "Affirm their unique place in the church community, noting their gifts."
+   "dynamic": "Distraction with childlike reception theme.",
+   "response": "Reframe: ask how seeing something as a child would change a real-life approach today."
   },
   {
-   "dynamic": "A man doubts any significant change from surrender.",
-   "response": "Share a story of transformation through surrender and God's faithfulness."
+   "dynamic": "Intellectualizes without applying personally.",
+   "response": "Ask him to think of a specific life example or decision impacted by topic."
+  },
+  {
+   "dynamic": "Challenges on personal financial views.",
+   "response": "Guide to wider focus on where trust lies: wealth isn’t the only idol."
   }
  ],
  "key_themes": [
-  "Surrender over achievement.",
-  "Faith as a gift, not an accomplishment.",
-  "True wealth is counted in God's kingdom.",
-  "Attachment vs. discipleship.",
-  "Generosity breaks the hold of idolatry.",
-  "Jesus' love in truth-telling.",
-  "The challenge of comfort zones."
+  "True security is in Jesus, not possessions.",
+  "Kingdom invitation comes with personal surrender.",
+  "Idols creep in unnoticed through good things.",
+  "Receiving over achievement defines real faith.",
+  "Jesus exposed identity sources deeper than religious checklist."
  ],
- "commitment_prompt": "This week, identify your 'one thing' and choose to open your grips on it, sharing with a trusted friend.",
+ "commitment_prompt": "Identify and release one thing to Jesus' control this week and come prepared to discuss next time.",
  "leader_notes": [],
- "thesis": "Overlooking the one thing that could change everything is costly.",
+ "thesis": "Jesus is the rich ruler who gave up everything; will we surrender what holds us back from Him?",
  "outline": [
-  "The Rich Young Ruler",
-  "Jesus' Challenge and Love",
-  "The Call to Surrender"
+  "Encounter with children highlights receptiveness",
+  "Conversation with rich young ruler reveals heart issue",
+  "Commandments challenge self-righteousness",
+  "True discipleship demands full surrender"
  ],
  "sensitivities": [
-  "Discussing wealth may touch on personal financial struggles.",
-  "Encourage openness about personal idols."
+  "Discussing personal idols may bring up vulnerability or past hurts.",
+  "Financial security concerns could be tender for those with history of loss."
  ],
  "read_refs": [
-  "Mark 10:13-31"
+  "Mark 10:17-22",
+  "Mark 10:28-31"
  ],
- "obstacle": "What makes you guard your 'one thing' even from God's touch this week?",
- "carry": "Next week, ask each other about the 'one thing' you committed to let go."
+ "obstacle": "What idol or fear holds you tight when you think of surrendering completely to Jesus this week?",
+ "carry": "By next week, ask how the week's surrender attempt went, and what God revealed through it."
 }
