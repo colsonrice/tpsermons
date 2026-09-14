@@ -145,3 +145,47 @@ def test_classic_never_carries_stars():
                                                      x.reflection_questions, "12-15")
                                              for x in s]))
     assert not any(q.star for sec in g.sections for q in sec.questions)
+
+
+# --- quality gates found by reading real output --------------------------------
+
+from tpsermons.models import restates, verse_span
+
+
+def test_verse_span_parsing():
+    assert verse_span("Mark 10:13-16") == 4
+    assert verse_span("Mark 10:13–31") == 19
+    assert verse_span("Mark 10:21") == 1
+    assert verse_span("Mark 9:50-10:2") is None
+
+
+def test_reading_the_whole_passage_is_rejected():
+    # A real run assigned Mark 10:13-31, nineteen verses, against the group's
+    # explicit request for key verses only.
+    with pytest.raises(ValidationError) as exc:
+        make_new_guide(read_refs=["Mark 10:13-31"]).validate()
+    assert "19 verses" in str(exc.value)
+    make_new_guide(read_refs=["Mark 10:17-22", "Mark 10:28-31"]).validate()
+
+
+def test_thesis_that_restates_the_title_is_rejected():
+    assert restates("Overlooking the one thing that could change everything is costly.",
+                    "Overlooking the One Thing That Changes Everything")
+    assert not restates("God cares more about forming your soul than fixing your week.",
+                        "Presence Over Position")
+    with pytest.raises(ValidationError):
+        make_new_guide(title="Presence Over Position",
+                       thesis="Presence over position matters.").validate()
+
+
+def test_outline_that_just_repeats_section_titles_is_rejected():
+    with pytest.raises(ValidationError):
+        make_new_guide(outline=["Section 0", "Section 1", "Section 2"]).validate()
+
+
+def test_classic_leader_notes_floor_is_four_hundred_words():
+    from tpsermons.models import LEADER_NOTE_WORDS
+    assert LEADER_NOTE_WORDS == 400
+    thin = ["word " * 100] * 3          # 300 words: cleared the old floor, fails now
+    with pytest.raises(ValidationError):
+        make_guide(leader_notes=thin).validate()

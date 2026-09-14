@@ -65,7 +65,7 @@ def _common(**kw):
 def make_guide(**kw):
     """A valid classic-edition guide."""
     base = _common(mode="classic", sections=sections(),
-                   leader_notes=[_SENTENCE * 5, _SENTENCE * 4, _SENTENCE * 4, _SENTENCE * 3])
+                   leader_notes=[_SENTENCE * 6, _SENTENCE * 5, _SENTENCE * 5, _SENTENCE * 4])
     base.update(kw)
     return Guide(**base)
 

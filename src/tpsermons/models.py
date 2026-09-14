@@ -40,13 +40,19 @@ CHEAT_ROWS = (5, 7)
 
 # classic
 LEADER_NOTE_PARAS = (3, 5)
-LEADER_NOTE_WORDS = 250            # floor; the reference guide's notes run ~700
+LEADER_NOTE_WORDS = 400            # floor; the reference guide's notes run ~700
 SETUP_WORDS = 35                   # floor per section setup
 
 # new
 OUTLINE = (2, 5)
 SENSITIVITIES = (0, 3)
 READ_REFS = (1, 2)
+MAX_VERSES = 12                    # key verses, not the whole passage
+
+_STOP = set("""a an and are as at be but by for from has have he his how i if in into is
+it its me my not of on or our so that the their them then there they this to was we
+what when where which who why will with you your could would should can may might
+must very really just more most much""".split())
 
 
 class ValidationError(Exception):
@@ -246,6 +252,24 @@ class Guide:
         for r in self.read_refs:
             if not re.search(r"\d+:\d+", r or ""):
                 found.append("read_refs entry %r must name verses, not a whole chapter" % r)
+                continue
+            span = verse_span(r)
+            if span is None or span > MAX_VERSES:
+                found.append("read_refs entry %r is %s; read only the key verses the "
+                             "message turned on, at most %d verses per range (split it "
+                             "into two short ranges or narrow it)"
+                             % (r, "%d verses" % span if span else "a cross-chapter range",
+                                MAX_VERSES))
+
+        section_titles = {sec.title.strip().lower() for sec in self.sections}
+        repeats = sum(1 for o in self.outline if o.strip().lower() in section_titles)
+        if self.outline and repeats * 2 >= len(self.outline):
+            found.append("outline repeats the section titles; state the preacher's own "
+                         "moves as short action phrases instead")
+        if restates(self.thesis, self.title):
+            found.append("thesis %r only restates the sermon title; give the preacher's "
+                         "central claim as a full sentence that makes an argument"
+                         % self.thesis)
         check(_text, "obstacle", self.obstacle)
         check(_single_question, "obstacle", self.obstacle)
         check(_text, "carry", self.carry)
@@ -260,6 +284,37 @@ class Guide:
         if found:
             raise ValidationError("; ".join(found))
         return self
+
+
+def verse_span(ref: str) -> Optional[int]:
+    """Verses in a range like 'Mark 10:13-16'. None for a cross-chapter range."""
+    ref = _DIGIT_DASH.sub("-", ref or "")
+    if re.search(r"\d+:\d+\s*-\s*\d+:\d+", ref):
+        return None
+    m = re.search(r"(\d+):(\d+)(?:\s*-\s*(\d+))?\s*$", ref.strip())
+    if not m:
+        return None
+    start, end = int(m.group(2)), int(m.group(3) or m.group(2))
+    return max(end - start + 1, 1)
+
+
+def _content_words(text: str) -> set:
+    out = set()
+    for w in re.findall(r"[a-z']+", (text or "").lower()):
+        if len(w) <= 2 or w in _STOP:
+            continue
+        if len(w) > 3 and w.endswith("s") and not w.endswith("ss"):
+            w = w[:-1]                     # changes -> change, things -> thing
+        out.add(w)
+    return out
+
+
+def restates(sentence: str, title: str) -> bool:
+    """True when a sentence is mostly the sermon title's own words."""
+    words = _content_words(sentence)
+    if not words:
+        return False
+    return len(words & _content_words(title)) / len(words) >= 0.6
 
 
 def _count(name, items, lo, hi) -> None:

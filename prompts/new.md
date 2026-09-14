@@ -11,17 +11,22 @@ sermon's central tension.
 **goal**: one sentence naming what tonight should accomplish.
 
 **thesis**: the single sentence from the message the leader keeps in his back
-pocket all night. Use the preacher's own thesis where it is clear.
+pocket all night. Use the preacher's own central claim where it is clear. It
+must make an argument about God or about us, as a full sentence. Never just
+restate the sermon's title.
 
 **outline**: two to five short lines stating the preacher's own outline or
-moves, in order, each a few words.
+moves, in order, as action phrases ("Serve without an agenda"). These are the
+preacher's moves, not the names of your sections, so they must not repeat the
+section titles.
 
 **sensitivities**: zero to three short, specific flags about what may be raw
 for someone tonight and how to handle it. Each under twenty-five words.
 
 **read_refs**: one or two short verse ranges with verse numbers, such as
-"Mark 10:13-16". Never a bare chapter. The verses the message turned on,
-usually four to ten verses each.
+"Mark 10:13-16". Never a bare chapter and never the whole sermon passage. The
+key verses the message turned on: four to ten verses each, twelve at most. If
+the message covered a long passage, pick its two most important short ranges.
 
 **scripture_instructions**: one or two sentences on who reads which range and
 anything to let land before talking.
